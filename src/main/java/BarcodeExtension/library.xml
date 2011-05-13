@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<library>
+    <extension>
+        <entryClass>com.owfg.barcode.BarcodeExtension</entryClass>
+    </extension>
+    <features>
+        <feature id="barcode.scanner" version="1.0.0">
+            Barcode scanner (ZXing) JavaScript extension.
+        </feature>
+    </features>
+</library>

@@ -94,23 +94,35 @@
                             <configuration>
                                 <tasks>
                                     <mkdir dir="${basedir}/src/main/webapp/ext" />
-                                    <jar destfile="${basedir}/src/main/webapp/ext/sample.jar">
-                                        <zipfileset dir="${basedir}/src/main/java" >
+
+                                    <!-- Packaging Sample Extension -->
+                                    <jar destfile="${basedir}/src/main/webapp/ext/SampleExtension.jar">
+                                        <zipfileset dir="${basedir}/src/main/java/SampleExtension" >
                                             <include name="library.xml" />
                                             <include name="sample/*" />
                                         </zipfileset>
                                     </jar>
-                                    <zip destfile="${basedir}/target/maven-archiver/SampleExtension.zip">
-                                        <fileset dir="${basedir}/src/main/webapp" defaultexcludes="false">
-    	                                    <include name="index.htm" />
-                                            <include name="config.xml" />
-                                            <include name="ext/sample.jar" />
-                    	                </fileset>
-                                    </zip>
 
+                                    <!-- Packaging Barcode Extension -->
+                                    <jar destfile="${basedir}/src/main/webapp/ext/BarcodeExtension.jar">
+                                        <zipfileset dir="${basedir}/src/main/java/BarcodeExtension" >
+                                            <include name="library.xml" />
+                                            <include name="com/**" />
+                                        </zipfileset>
+                                    </jar>
+
+
+                                    <zip destfile="${basedir}/target/maven-archiver/OverwaitScanner.zip">
+                                        <fileset dir="${basedir}/src/main/webapp" defaultexcludes="false">
+                                            <include name="index.htm" />
+                                            <include name="config.xml" />
+                                            <include name="ext/*.jar" />
+                                        </fileset>
+                                    </zip>
                                     <exec executable="${env.RIM_BBW_HOME}\bbwp.exe">
-                                        <arg line="${basedir}/target/maven-archiver/SampleExtension.zip /o ${basedir}/target/app-binary"/>
+                                        <arg line="${basedir}/target/maven-archiver/OverwaitScanner.zip /o ${basedir}/target/app-binary"/>
                                     </exec>
+
                                 </tasks>
                             </configuration>
                             <goals>
