@@ -1,0 +1,10 @@
+OverwaitScanner
+
+PACKAGING INSTRUCTIONS
+
+To build the project and package to a cod file using maven:
+
+$ mvn clean package
+
+The cod file will be generated and moved to target/app-binary/StandardInstall
+
