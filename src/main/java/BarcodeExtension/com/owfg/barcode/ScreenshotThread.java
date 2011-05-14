@@ -19,7 +19,7 @@ import com.google.zxing.oned.MultiFormatOneDReader;
 public class ScreenshotThread implements Runnable {
 
     public void run() {
-        Result result;
+        Result result = null;
         Reader reader;
         Hashtable hints = new Hashtable(1);
         Vector readerHints = new Vector(4);

@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:rim="http://www.blackberry.com/ns/widgets" version="1.0.0.0">
-    <name>MyExtensionTest</name>
-    <feature id="sample.alert" required="false" version="1.0.0"/>
-    <content src="index.htm"/>
+<widget xmlns="http://www.w3.org/ns/widgets"   
+        xmlns:rim="http://www.blackberry.com/ns/widgets" 
+        version="1.0.0.0">
+  <name>WW Example</name>
+  <description>Tom's WebWorks Example</description>
+  <author rim:copyright="2011" 
+          email="tom@tnightingale.com">Tom Nightingale</author>
+  <icon src="resources/icon.png"/>
+  <content src="index.html"/>
+  <feature id="sample.alert" required="false" version="1.0.0"/>
+  <!--<feature id="deviceinfo.battery" required="true" version="1.0.0"/>-->
+  <access subdomains="true" uri="*"/>
 </widget>
-

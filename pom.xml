@@ -117,6 +117,8 @@
                                             <include name="index.htm" />
                                             <include name="config.xml" />
                                             <include name="ext/*.jar" />
+                                            <include name="javascript/*.js" />
+                                            <include name="resources/**" />
                                         </fileset>
                                     </zip>
                                     <exec executable="${env.RIM_BBW_HOME}\bbwp.exe">
