@@ -8,6 +8,7 @@
 
     <script type="text/javascript">
 
+        /*
         function vibrateAlert() {
             if (sample.alert.vibrateSupported) {
                 var ele = document.getElementById("txtLength");
@@ -23,6 +24,11 @@
             var level = deviceinfo.battery.getLevel();
             alert('Battery level is ' + level);
         }
+        */
+
+        function scanBarcode() {
+            barcode.scanner.scan();
+        }
 
     </script>
 
@@ -35,9 +41,10 @@
       <div data-role="header"><h3>Hello world!</h3></div>
       <div data-role="content" class="ui-body">
         <p>This is a body text in a paragraph.</p>
-        <ul>
+        <ul data-role="listview">
             <li><a href="#example">Example</a></li>
             <li><a href="#battery">Battery</a></li>
+            <li><a href="#barcode">Barcode</a></li>
         </ul>
 
       </div>
@@ -62,6 +69,16 @@
       <div data-role="content" class="ui-body">
         <div>
           <input type="submit" value="Get battery level" onClick="getBatteryLevel()" />
+        </div>
+      </div>
+      <div data-role="footer">This is a footer.</div>
+    </div>
+
+    <div data-role="page" id="barcode">
+      <div data-role="header"><h3>Barcode Scanner Test Extension</h3></div>
+      <div data-role="content" class="ui-body">
+        <div>
+          <input type="submit" value="Scan Barcode" onClick="scanBarode()" />
         </div>
       </div>
       <div data-role="footer">This is a footer.</div>
