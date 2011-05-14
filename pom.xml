@@ -75,14 +75,6 @@
                                 <tasks>
                                     <mkdir dir="${basedir}/src/main/webapp/ext" />
 
-                                    <!-- Packaging Sample Extension -->
-                                    <jar destfile="${basedir}/src/main/webapp/ext/SampleExtension.jar">
-                                        <zipfileset dir="${basedir}/src/main/java/SampleExtension" >
-                                            <include name="library.xml" />
-                                            <include name="sample/*" />
-                                        </zipfileset>
-                                    </jar>
-
                                     <!-- Packaging Barcode Extension -->
                                     <jar destfile="${basedir}/src/main/webapp/ext/BarcodeExtension.jar">
                                         <zipfileset dir="${basedir}/src/main/java/BarcodeExtension" >

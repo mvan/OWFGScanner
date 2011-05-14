@@ -8,8 +8,6 @@
           email="tom@tnightingale.com">Tom Nightingale</author>
   <icon src="resources/icon.png"/>
   <content src="index.html"/>
-  <!--<feature id="sample.alert" required="false" version="1.0.0"/>-->
-  <feature id="barcode.scanner" required="true" version="1.0.0"/>
-  <!--<feature id="deviceinfo.battery" required="true" version="1.0.0"/>-->
+  <feature id="barcode.scanner" required="false" version="1.0.0"/>
   <access subdomains="true" uri="*"/>
 </widget>
