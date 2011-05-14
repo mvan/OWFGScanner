@@ -20,5 +20,5 @@
 *.classpath
 *.iml
 bin
-target
+*/target
 .idea
