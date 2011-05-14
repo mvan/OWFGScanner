@@ -25,26 +25,6 @@
 
     <build>
             <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-eclipse-plugin</artifactId>
-                    <configuration>
-                        <outputDirectory>bin</outputDirectory>
-                    </configuration>
-                </plugin>
-
-                <!--
-                    makes sure the Application code is JDK 1.2 compliant
-                -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>1.2</source>
-                        <target>1.2</target>
-                    </configuration>
-                </plugin>
-
                 <!-- makes proper environmental setup check -->
                 <plugin>
                     <groupId>org.apache.maven.plugins
