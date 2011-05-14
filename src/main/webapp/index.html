@@ -9,7 +9,15 @@
     <script type="text/javascript">
 
         function scanBarcode() {
-            barcode.scanner.scan();
+            barcode.scanner.scan(
+                // Success.
+                function(message) {
+                    alert('Scanned: ' + message);
+                }, 
+                // Error.
+                function(error) {
+                    alert('Error: ' + error);
+                });
         }
 
     </script>
