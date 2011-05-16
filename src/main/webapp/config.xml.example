@@ -7,8 +7,8 @@
   <author rim:copyright="2011" 
           email="tom@tnightingale.com">Tom Nightingale</author>
   <icon src="resources/icon.png"/>
-  <content src="http://192.168.0.73/login.html"/>
-  <access subdomains="true" uri="http://192.168.0.73">
+  <content src="http://[YOUR.IP.HERE]/login.html"/>
+  <access subdomains="true" uri="http://[YOUR.IP.HERE]">
     <feature id="barcode.scanner" required="true" version="1.0.0"/>
     <feature id="blackberry.widgetcache" /> 
   </access>
