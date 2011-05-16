@@ -9,6 +9,10 @@
   <icon src="resources/icon.png"/>
   <content src="index.html"/>
   <feature id="barcode.scanner" required="true" version="1.0.0"/>
-  <access subdomains="true" uri="*"/>
   <!--<rim:navigation mode="focus" />-->
+    <access subdomains="true" uri="*"/>
+    <access uri="http://192.168.0.45" >
+        <feature id="barcode.scanner" required="true" version="1.0.0"/>
+        <feature id="blackberry.widgetcache" /> 
+    </access>
 </widget>
