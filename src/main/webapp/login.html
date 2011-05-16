@@ -5,14 +5,18 @@
     <link rel="stylesheet" href="resources/jquery.mobile.css" />
     <script src="javascript/jquery.min.js" type="text/javascript"></script>
     <script src="javascript/jquery.mobile.js" type="text/javascript"></script>
-
+    <script type="text/javascript">
+        clearCache() {
+            blackberry.widgetcache.clearAll();
+        }
+    </script>
     <title>Login</title>
   </head>
-  <body>
+  <body onload="clearCache();" >
     <div data-role="page" id="login">
       <div data-role="header"><h3>Login</h3></div>
       <div data-role="content" class="ui-body">
-        <form method="post" action="index.html">
+        <form method="post" action="results.html">
           <div><img src="resources/logo_ofg_72.png" alt="Overwaitea Logo" /></div>
           <div><label>User ID:</label><input type="text" size="20" name="username"></div>
           <div><label>Password:</label><input type="password" size="20" name="password"></div>
