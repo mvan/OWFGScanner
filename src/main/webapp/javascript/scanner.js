@@ -50,3 +50,9 @@ function scanBarcode() {
             alert('Error: ' + error);
         });
 }
+
+function moveTo() {
+    var id = 'login-field-password';
+    console.log("Move to: " + id);
+    blackberry.focus.setFocus(id);
+}
