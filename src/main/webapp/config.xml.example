@@ -8,7 +8,7 @@
           email="tom@tnightingale.com">Tom Nightingale</author>
   <icon src="resources/icon.png"/>
   <rim:loadingScreen foregroundImage="resources\logo_ofg_72.png" onFirstLaunch="true"/>
-  <content src="http://[YOUR.IP.HERE]/login.html"/>
+  <content src="http://[YOUR.IP.HERE]/index.html"/>
   <access subdomains="true" uri="http://[YOUR.IP.HERE]">
     <feature id="barcode.scanner" required="true" version="1.0.0"/>
     <feature id="blackberry.widgetcache" /> 
