@@ -19,6 +19,18 @@
                     alert('Error: ' + error);
                 });
         }
+        function (address, user, pass, arg) {
+        	
+            webservice.client.query(
+                // Success.
+                function(message) {alert('Scanned: ' + message);}, 
+                // Error.
+                function(error) {alert('Error: ' + error);},
+              	address, user, pass, arg
+             );
+        }
+        //TODO other get functions
+        
 
     </script>
 

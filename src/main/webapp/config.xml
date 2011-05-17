@@ -9,6 +9,7 @@
   <icon src="resources/icon.png"/>
   <content src="index.html"/>
   <feature id="barcode.scanner" required="true" version="1.0.0"/>
+  <feature id="webservice.client" required="true" version="1.0.0"/>
   <access subdomains="true" uri="*"/>
   <rim:navigation mode="focus" />
 </widget>
