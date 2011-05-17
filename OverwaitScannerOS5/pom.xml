@@ -90,7 +90,7 @@
 
                                     <zip destfile="${basedir}/target/maven-archiver/OverwaitScannerOS5.zip">
                                         <fileset dir="${basedir}/../src/main/webapp" defaultexcludes="false">
-                                            <include name="index.html" />
+                                            <include name="*.html" />
                                             <include name="config.xml" />
                                             <include name="ext/*.jar" />
                                             <include name="javascript/*.js" />
