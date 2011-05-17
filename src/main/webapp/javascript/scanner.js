@@ -28,7 +28,17 @@ function init() {
     
     $("#form-login").submit(function() {
         $.mobile.changePage($("#results"));
-        insertURL(db, "http://tomnightingale.com");
+        return false;
+    });
+    
+    $("#button-config").click(function() {
+        $.mobile.changePage($("#urlConfig"));
+        return false;
+    });
+    
+    $("#form-urlConfig").submit(function() {
+        $.mobile.changePage($("#login"));
+        insertURL(db, $("#urlConfig-field-newUrl").val());
         return false;
     });
 
@@ -82,16 +92,29 @@ function moveTo() {
 function createTable(db) {
   db.transaction(
     function(transaction) {
-      transaction.executeSql(
-        'CREATE TABLE serverLoc(url VARCHAR(5) PRIMARY KEY, urlValue VARCHAR(30))', [],
+      transaction.executeSql('DROP TABLE serverLoc', [],
+        function() {
+          console.log("Drop YAY");
+        },
+        function(transaction, error) {
+          console.log('Drop FAIL ' + error.message);
+        });
+          
+      transaction.executeSql('CREATE TABLE serverLoc(url VARCHAR(100))', [],
         function() {
           console.log("Create YAY");
         },
         function(transaction, error) {
           console.log('Create FAIL ' + error.message);
-        }
-      );
-      
+        });
+        
+      transaction.executeSql('INSERT INTO serverLoc (url) VALUES (?)', ["https://simdv1:8443/caos/StoreManagement?wsdl"],
+        function() {
+          console.log("Insert YAY");
+        },
+        function(transaction, error) {
+          console.log('Insert FAIL ' + error.message);
+        });
     }
   );
 }
@@ -99,7 +122,7 @@ function createTable(db) {
 function insertURL(db, newUrl) {
   db.transaction(
     function(transaction) {
-      transaction.executeSql('INSERT INTO serverLoc (urlValue) VALUES (?,?) WHERE ...', ["main",newUrl],
+      transaction.executeSql('UPDATE serverLoc SET url=?', [newUrl],
         function() {
           console.log("Insert YAY");
         },
