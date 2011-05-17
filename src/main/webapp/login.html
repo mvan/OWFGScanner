@@ -1,26 +1,111 @@
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" id="viewport" content="initial-scale=1.0,user-scalable=no">
-    <link rel="stylesheet" href="resources/jquery.mobile.css" />
-    <link rel="stylesheet" href="resources/scanner.css" />
-    <script src="javascript/jquery.min.js" type="text/javascript"></script>
-    <script src="javascript/jquery.mobile.js" type="text/javascript"></script>
-    <script src="javascript/scanner.js" type="text/javascript"></script>
-    <title>Login</title>
-  </head>
+<html> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" id="viewport" content="initial-scale=1.0,user-scalable=no" />
+        <link rel="stylesheet" href="resources/jquery.mobile.css" />
+        <link rel="stylesheet" href="resources/scanner.css" />
+        <script src="javascript/jquery.min.js" type="text/javascript"></script>
+        <script src="javascript/jquery.mobile.js" type="text/javascript"></script>
+        <script src="javascript/scanner.js" type="text/javascript"></script>
+        <title>Results Page</title>
+    </head>
 
-  <body>
-    <div data-role="page" id="login">
-      <div data-role="header"><h3>Overwaitea Food Group - Login</h3></div>
-      <div data-role="content" class="ui-body">
-        <form method="post" action="results.html">
-          <div id="logo"><img id="img-logo" src="resources/logo_ofg_72.png" alt="Overwaitea Logo" /></div>
-          <div id="login-username"><label>User ID:</label><input id="login-field-username" type="text" size="20" name="username"></div>
-          <div id="login-password"><label>Password:</label><input id="login-field-password" type="password" size="20" name="password"></div>
-          <div id="login-submit"><input id="login-field-submit" type="submit" name="login" value="Login"></div>
-        </form>
-      </div>
-    </div>
-  </body>
+    <body>
+        <div data-role="page" id="login">
+            <div data-role="header"><h3>Overwaitea Food Group - Login</h3></div>
+            <div data-role="content" class="ui-body">
+                <form method="post" action="login.html#results" data-ajax="false">
+                    <div id="logo"><img id="img-logo" src="resources/logo_ofg_72.png" alt="Overwaitea Logo" /></div>
+                    <div id="login-username"><label>User ID:</label><input id="login-field-username" type="text" size="20" name="username" /></div>
+                    <div id="login-password"><label>Password:</label><input id="login-field-password" type="password" size="20" name="password" /></div>
+                    <div id="login-submit"><input id="login-field-submit" type="submit" name="login" value="Login" /></div>
+                </form>
+            </div>
+        </div>
+
+        <div data-role="page" id="results">
+            <div data-role="header">
+                <a id="scan" href="#">Scan</a>
+                <h3>Scan Results</h3>
+            </div>
+            <div data-role="content" class="ui-body">
+                <form method="post" action="login.html#results" data-ajax="false">
+                    <div>
+                        <label>UPC:</label>
+                        <input id="upc" type="text" size="20" name="username" />
+                    </div>
+                    <div>
+                        <label>Store #:</label>
+                        <select id="store">
+                            <option>Store 1</option>
+                            <option>Store 2</option>
+                            <option>Store 3</option>
+                        </select>
+                    </div>
+                    <input id="submit" type="submit" name="submit" value="Submit" />
+                </form>
+                <form><table><tr>
+                            <td><label>BOH:</label></td><td><input type="text" size="10" name="boh" /></td>
+                            <td><label>On order:</label></td><td><input type="text" size="10" name="onorder" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Min:</label></td><td><input type="text" size="10" name="minimum" /></td>
+                            <td><label>In Transit:</label></td><td><input type="text" size="10" name="intransit" /></td>
+                        </tr>
+                        <tr>
+                            <td><label><a href="#forecast">Fcst:</a></label></td><td><input type="text" size="10" name="forecast" /></td>
+                            <td><label>Pack:</label></td><td><input type="text" size="10" name="pack" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Reg:</label></td><td><input type="text" size="10" name="regprice" /></td>
+                            <td><label>Source:</label></td><td><input type="text" size="10" name="source" /></td>
+                </tr></table></form>
+            </div>
+        </div>
+
+        <div data-role="page" id="forecast">
+            <div data-role="header"><a href="#results" data-direction="reverse">Back</a><h3>Forecast</h3></div>
+            <div data-role="content" class="ui-body">
+                <form><table><tr>
+                            <td>Day</td><td>Regular</td><td>Sale</td>
+                        </tr>
+                        <tr>
+                            <td>Sun</td>
+                            <td><input type="text" size="10" name="sunReg" id="sunReg" maxlength="10" /></td>
+                            <td><input type="text" size="10" name="sunSale" id="sunSale" maxlength="10" /></td>
+                        </tr>
+                        <tr>
+                            <td>Mon</td>
+                            <td><input type="text" size="10" name="monReg" id="monReg" maxlength="10" /></td>
+                            <td><input type="text" size="10" name="monSale" id="monSale" maxlength="10" /></td>
+                        </tr>
+                        <tr>
+                            <td>Tue</td>
+                            <td><input type="text" size="10" name="tueReg" id="tueReg" maxlength="10" /></td>
+                            <td><input type="text" size="10" name="tueSale" id="tueSale" maxlength="10" /></td>
+                        </tr>
+                        <tr>
+                            <td>Wed</td>
+                            <td><input type="text" size="10" name="wedReg" id="wedReg" maxlength="10" /></td>
+                            <td><input type="text" size="10" name="wedSale" id="wedSale" maxlength="10" /></td>
+                        </tr>
+                        <tr>
+                            <td>Thur</td>
+                            <td><input type="text" size="10" name="thursReg" id="thursReg" maxlength="10" /></td>
+                            <td><input type="text" size="10" name="thursSale" id="thursSale" maxlength="10" /></td>
+                        </tr>
+                        <tr>
+                            <td>Fri</td>
+                            <td><input type="text" size="10" name="friReg" id="friReg" maxlength="10" /></td>
+                            <td><input type="text" size="10" name="friSale" id="friSale" maxlength="10" /></td>
+                        </tr>
+                        <tr>
+                            <td>Sat</td>
+                            <td><input type="text" size="10" name="satReg" id="satReg" maxlength="10" /></td>
+                            <td><input type="text" size="10" name="satSale" id="satSale" maxlength="10" /></td>
+                </tr></table></form>
+            </div>
+        </div>
+    </body>
 </html>
+
