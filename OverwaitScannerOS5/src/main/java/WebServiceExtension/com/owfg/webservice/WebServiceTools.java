@@ -3,16 +3,16 @@ package com.owfg.webservice;
 import net.rim.device.api.script.Scriptable;
 
 public final class WebServiceTools extends Scriptable {
-    public static final String FIELD_CLIENT = "query";
-    private Client _callClient;
+    public static final String FIELD_QUERY = "query";
+    private Client _callQuery;
 
     public WebServiceTools() {
-        _callClient = new Client();
+        _callQuery = new Client();
     }
     
     public Object getField(String name) throws Exception {
-        if(name.equals(FIELD_CLIENT)) {
-            return this._callClient;
+        if(name.equals(FIELD_QUERY)) {
+            return this._callQuery;
         }
         return super.getField(name);
     }
