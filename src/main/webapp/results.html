@@ -6,34 +6,18 @@
     <link rel="stylesheet" href="resources/scanner.css" />
     <script src="javascript/jquery.min.js" type="text/javascript"></script>
     <script src="javascript/jquery.mobile.js" type="text/javascript"></script>
-    <script type="text/javascript">
-
-        function scanBarcode() {
-            barcode.scanner.scan(
-                // Success.
-                function(message) {
-                    $("#upc").val(message);
-                    alert('Scanned: ' + message);
-                }, 
-                // Error.
-                function(error) {
-                    alert('Error: ' + error);
-                });
-        }
-
-    </script>
-    
+    <script src="javascript/scanner.js" type="text/javascript"></script>
     <title>Results Page</title>
   </head>
 
-  <body onload="scanBarcode();">
+  <body>
     <div data-role="page" id="results">
         <div data-role="header">
-          <a href="#" onclick="scanBarcode(); return false;">Scan</a>
+          <a id="scan" href="#">Scan</a>
           <h3>Scan Results</h3>
         </div>
         <div data-role="content" class="ui-body">
-            <form method="post" action="#">
+            <form method="post" action="/results.html">
                 <div>
                   <label>UPC:</label>
                   <input id="upc" type="text" size="20" name="username">
