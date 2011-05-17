@@ -59,9 +59,11 @@ function getStores() {
 		alert('Error');
 	};
 	
-	address = "https://warrenv.dlinkddns.com/StoreManagement-ws";
-	user = "test"; //tget from div#login-username
-	password = "test"; //get from div#login-password
-	extraargs = "";
-	webservice.client.query(success, error, address, user, password, extraargs);
+	address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
+	user = 'test'; //tget from div#login-username
+	password = 'test'; //get from div#login-password
+	fnname = 'getStores';
+	extraargs = '';
+	
+	webservice.client.query(success, error, address, user, password, fnname, extraargs);
 }
