@@ -6,22 +6,19 @@
     <link rel="stylesheet" href="resources/scanner.css" />
     <script src="javascript/jquery.min.js" type="text/javascript"></script>
     <script src="javascript/jquery.mobile.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        function clearCache() {
-            blackberry.widgetcache.clearAll();
-        }
-    </script>
+    <script src="javascript/scanner.js" type="text/javascript"></script>
     <title>Login</title>
   </head>
-  <body onload="clearCache();" >
+
+  <body>
     <div data-role="page" id="login">
-      <div data-role="header"><h3>Login</h3></div>
+      <div data-role="header"><h3>Overwaitea Food Group - Login</h3></div>
       <div data-role="content" class="ui-body">
         <form method="post" action="results.html">
           <div id="logo"><img id="img-logo" src="resources/logo_ofg_72.png" alt="Overwaitea Logo" /></div>
-          <div id="username"><label>User ID:</label><input id="field-username" type="text" size="20" name="username"></div>
-          <div id="password"><label>Password:</label><input id="field-password" type="password" size="20" name="password"></div>
-          <div id="submit"><input id="field-submit" type="submit" name="login" value="Login"></div>
+          <div id="login-username"><label>User ID:</label><input id="login-field-username" type="text" size="20" name="username"></div>
+          <div id="login-password"><label>Password:</label><input id="login-field-password" type="password" size="20" name="password"></div>
+          <div id="login-submit"><input id="login-field-submit" type="submit" name="login" value="Login"></div>
         </form>
       </div>
     </div>
