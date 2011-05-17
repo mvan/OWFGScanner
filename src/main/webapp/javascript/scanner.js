@@ -24,7 +24,7 @@ function init() {
     $('#results').live('pagecreate', function(event){
         // Load scanner right away.
         scanBarcode();
-
+        getStores();
         // Initiate barcode scanner when "scan" button pressed.
         $("a#scan").click(function() {
             scanBarcode();
@@ -49,4 +49,19 @@ function scanBarcode() {
         function(error) {
             alert('Error: ' + error);
         });
+}
+
+function getStores() {
+	var success = function() {
+		alert('Success');
+	};
+	var error = function() {
+		alert('Error');
+	};
+	
+	address = "https://warrenv.dlinkddns.com/StoreManagement-ws";
+	user = "test"; //tget from div#login-username
+	password = "test"; //get from div#login-password
+	extraargs = "";
+	webservice.client.query(success, error, address, user, password, extraargs);
 }
