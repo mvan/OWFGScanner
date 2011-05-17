@@ -7,59 +7,6 @@
         <script src="javascript/jquery.min.js" type="text/javascript"></script>
         <script src="javascript/jquery.mobile.js" type="text/javascript"></script>
         <script src="javascript/scanner.js" type="text/javascript"></script>
-        <script type="text/javascript">
-          $(document).ready(function(){
-            console.log("Document ready");
-            var db = window.openDatabase("ofilestorage", "1.0", "Ovewaitea Scanner Settings", 1024, null);
-            $("#login-field-submit").click(function() {
-              console.log("Clicked");
-              createTable(db);
-              insertURL(db, "I am awesome");
-            });
-            
-            if(!db) {
-              alert("Failed to connect to database.");
-            }
-
-            function createTable(db) {
-              db.transaction(
-                function(transaction) {
-                  transaction.executeSql(
-                    'CREATE TABLE serverLoc(url VARCHAR(5) PRIMARY KEY, urlValue VARCHAR(30))', [],
-                    function() {
-                      console.log("Create YAY");
-                    },
-                    function(transaction, error) {
-                      console.log('Create FAIL ' + error.message);
-                    }
-                  );
-                }
-              );
-            }
-
-            function insertURL(db, newUrl) {
-              db.transaction(
-                function(transaction) {
-                  transaction.executeSql('INSERT INTO serverLoc (urlValue) VALUES (?)', [newUrl],
-                    function() {
-                      console.log("Insert YAY");
-                    },
-                    function(transaction, error) {
-                      console.log('Insert FAIL ' + error.message);
-                    });
-                }
-              );
-            }
-
-            function readURL(db) {
-              db.transaction(
-                function(transaction) {
-                  transaction.executeSql('SELECT * FROM serverLoc', null, null);
-                }
-              );
-            }
-          });
-        </script>
         <title>Results Page</title>
     </head>
 
@@ -67,7 +14,7 @@
         <div data-role="page" id="login">
             <div data-role="header"><h3>Overwaitea Food Group - Login</h3></div>
             <div data-role="content" class="ui-body">
-                <form method="post" action="index.html#results" data-ajax="false">
+                <form id="form-login" method="post" action="#">
                     <div id="logo"><img id="img-logo" src="resources/logo_ofg_72.png" alt="Overwaitea Logo" /></div>
                     <div id="login-username"><label>User ID:</label><input id="login-field-username" type="text" size="20" name="username" /></div>
                     <div id="login-password"><label>Password:</label><input id="login-field-password" type="password" size="20" name="password" /></div>
@@ -82,7 +29,7 @@
                 <h3>Scan Results</h3>
             </div>
             <div data-role="content" class="ui-body">
-                <form method="post" action="index.html#results" data-ajax="false">
+                <form method="post" action="#results">
                     <div>
                         <label>UPC:</label>
                         <input id="upc" type="text" size="20" name="username" />
