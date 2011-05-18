@@ -76,6 +76,7 @@ function changePage(id) {
     $(activePage).hide();
     $(id).show();
     activePage = id;
+    loadMenuItems(activePage);
 }
 
 function scanBarcode() {
@@ -94,6 +95,29 @@ function scanBarcode() {
             alert('Error: ' + error);
         });
 }
+
+function loadMenuItems(page) {
+    // Block for desktop browser testing.
+    if (typeof blackberry === 'undefined') {
+        return;
+    }
+    
+    /*
+    if (page === "#results") {
+        try {
+            var item = new blackberry.ui.menu.MenuItem(false, 1, "Scan", scanBarcode);
+            blackberry.ui.menu.addMenuItem(item);
+        } catch (e) {
+            alert("Exception (addMenus): " + e.name + '; ' + e.message);
+        }
+    }
+    */
+}
+
+function customMenuItemClick() {
+  alert("user just clicked me");
+}
+
 
 /*********************************************************************
  * Database stuff

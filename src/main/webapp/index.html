@@ -20,7 +20,7 @@
                     <div id="login-username"><label>User ID:</label><input id="login-field-username" type="text" size="20" name="username" /></div>
                     <div id="login-password"><label>Password:</label><input id="login-field-password" type="password" size="20" name="password" /></div>
                     <div class="button-wrapper" id="login-submit"><input class="nav button" data-dest="#results" id="button-login-submit" type="button" name="login" value="Login" /></div>
-                    <div class="button-wrapper" id="login-config"><input class="nav button" data-dest="#config"id="button-config" type="button" name="config" value="Config" /></div>
+                    <div class="button-wrapper" id="login-config"><input class="nav button" data-dest="#config" id="button-config" type="button" name="config" value="Config" /></div>
                     <div id="login-url"><label>URL:</label><input id="login-field-url" type="text" size="20" name="url" /></div>
                 </form>
             </div>
@@ -55,7 +55,7 @@
                             <td><label>In Transit:</label></td><td><input type="text" size="10" name="intransit" /></td>
                         </tr>
                         <tr>
-                            <td><label><a href="#forecast">Fcst:</a></label></td><td><input type="text" size="10" name="forecast" /></td>
+                            <td><label><a class="nav button" data-dest="#results" href="#forecast">Fcst:</a></label></td><td><input type="text" size="10" name="forecast" /></td>
                             <td><label>Pack:</label></td><td><input type="text" size="10" name="pack" /></td>
                         </tr>
                         <tr>
@@ -66,7 +66,7 @@
         </div>
 
         <div class="page" id="forecast">
-            <div class="header"><a href="#results">Back</a><h3>Forecast</h3></div>
+            <div class="header"><h3>Forecast</h3></div>
             <div class="content" class="ui-body">
                 <form><table><tr>
                             <td>Day</td><td>Regular</td><td>Sale</td>
