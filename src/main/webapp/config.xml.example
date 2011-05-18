@@ -12,7 +12,10 @@
   <access subdomains="true" uri="http://[YOUR.IP.HERE]">
     <feature id="webservice.client" required="true" version="1.0.0"/>
     <feature id="barcode.scanner" required="true" version="1.0.0" />
+    <feature id="blackberry.app" required="true" version="1.0.0.0" />
+    <feature id="blackberry.ui.menu" version="1.0.0" />
     <feature id="blackberry.widgetcache" /> 
+    <feature id="barcode.scanner" required="true" version="1.0.0" />
   </access>
   <!--<rim:navigation mode="focus" />-->
 </widget>

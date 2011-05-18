@@ -5,12 +5,17 @@ $(document).ready(function() {
     // TODO: For development purposes only, should be removed when complete.
     clearCache();
     
+    // Initialize navigation.
     initNav();
     
     // Initialize application.
     init();
 });
 
+/**
+ * Helper function to clear cache while in development.
+ * Protected for safe usage in desktop browser.
+ */
 function clearCache() {
     //alert("Clearing cache...");
 
@@ -22,6 +27,13 @@ function clearCache() {
     blackberry.widgetcache.clearAll();
 }
 
+/**
+ * Initialize navigation between pages.
+ * - Scans html document for page divs and indexes them.
+ * - Makes the 1st page div visible.
+ * - Finds all elements with class="nav" and a data-dest attributes and bind's
+ *   their click events.
+ */
 function initNav() {
     // Identify all pages.
     $("div.page").each(function(i, e) {
@@ -44,6 +56,10 @@ function initNav() {
     });
 }
 
+/**
+ * Initializes misc application stuff including:
+ * - Binding click events to perform extra actions.
+ */
 function init() {
     var database = window.openDatabase("ofilesystem", "1.0", "Ovewaitea Scanner Settings", 1024, null);
     if(!database) {
@@ -72,6 +88,11 @@ function init() {
     });
 }
 
+/**
+ * Navigation helper.
+ * - Hides active page. 
+ * - Shows and activates destination page
+ */
 function changePage(id) {
     $(activePage).hide();
     $(id).show();
@@ -79,6 +100,13 @@ function changePage(id) {
     loadMenuItems(activePage);
 }
 
+/**
+ * Starts barcode scanner.
+ * - On sucess, updates the #upc field.
+ * - On fail (timeout), displays error message.
+ *
+ * TODO: Should probably take callback functions as arguments.
+ */
 function scanBarcode() {
     // Block for desktop browser testing.
     if (typeof barcode === 'undefined') {
@@ -201,22 +229,47 @@ function setStore() {
     webservice.client.query(success, error, address, user, password, fnname, extraargs);
 }
 
+/**
+ * Manages menu items.
+ * - Clears the menu item list.
+ * - Builds new menu item list for current page.
+ */
 function loadMenuItems(page) {
     // Block for desktop browser testing.
     if (typeof blackberry === 'undefined') {
         return;
     }
-    
-    /*
-    if (page === "#results") {
-        try {
-            var item = new blackberry.ui.menu.MenuItem(false, 1, "Scan", scanBarcode);
-            blackberry.ui.menu.addMenuItem(item);
-        } catch (e) {
-            alert("Exception (addMenus): " + e.name + '; ' + e.message);
+
+    // Clear any existing menu items.
+    try {
+        if (blackberry.ui.menu.getMenuItems().length > 0) {
+            blackberry.ui.menu.clearMenuItems();
         }
     }
-    */
+    catch (e) {
+        alert("Exception: clearMenuItems(); " + e.name + '; ' + e.message);
+    }
+
+    // Menus for results page.
+    var items = [];
+    if (page === "#results") {
+        try {
+            items[0] = new blackberry.ui.menu.MenuItem(false, 1, "Scan", scanBarcode);
+        }
+        catch (e) {
+            alert("Exception: new MenuItem(); " + e.name + '; ' + e.message);
+        }
+    }
+    
+    // Add items to the menu.
+    try {
+        $(items).each(function(index, item) {
+            blackberry.ui.menu.addMenuItem(item);
+        });
+    }
+    catch (e) {
+        alert("Exception: addMenuItem(); " + e.name + '; ' + e.message);
+    }
 }
 
 function customMenuItemClick() {
