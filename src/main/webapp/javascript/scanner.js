@@ -3,7 +3,7 @@ var activePage = "undefined";
 
 $(document).ready(function() {
     // TODO: For development purposes only, should be removed when complete.
-    //clearCache();
+    clearCache();
     
     initNav();
     
