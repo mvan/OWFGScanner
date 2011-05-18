@@ -26,7 +26,6 @@ function init() {
     //    alert("Failed to connect to database.");
     //}
     //createTable(db);
-    getStores();
     
     $("#form-login").submit(function() {
     });
