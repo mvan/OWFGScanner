@@ -43,7 +43,7 @@ function init() {
     
     $("#form-results").submit(function() {
         alert("results");
-        getStores();
+        //getStores();
         //insertURL(db, "http://tomnightingale.com");
         return false;
     });
@@ -95,7 +95,7 @@ function  (address, user, pass, arg) {
     );
 }
 */
-
+/*
 function getStores() {
     var success = function() {
         alert('Success');
@@ -113,6 +113,40 @@ function getStores() {
     webservice.client.query(success, error, address, user, password, fnname, extraargs);
 }
 
+function getBanners() {
+    var success = function() {
+        alert('Success');
+    };
+    var error = function() {
+        alert('Error');
+    };
+
+    address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
+    user = 'test'; //tget from div#login-username
+    password = 'test'; //get from div#login-password
+    fnname = 'getBanners';
+    extraargs = '';
+
+    webservice.client.query(success, error, address, user, password, fnname, extraargs);
+}
+
+function getInfo() {
+    var success = function(result) {
+        $("input#boh").val(result.boh);
+    };
+    var error = function() {
+        alert('Error');
+    };
+
+    address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
+    user = 'test'; //tget from div#login-username
+    password = 'test'; //get from div#login-password
+    fnname = 'getInfo';
+    extraargs = '';
+
+    webservice.client.query(success, error, address, user, password, fnname, extraargs);
+}
+  */
 function moveTo() {
     var id = 'login-field-password';
     blackberry.focus.setFocus(id);
