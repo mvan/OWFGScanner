@@ -46,7 +46,13 @@ function initNav() {
 }
 
 function init() {
-    
+    var db = window.openDatabase("ofilesystem", "1.0", "Overwaitea File Storage", 1024);
+    if(!db) {
+      alert('DB not created.');
+    } else {
+      alert('db created');
+      createTable(db);
+    }
     $("#button-login-submit").click(function() {
         scanBarcode();
     });
@@ -57,12 +63,11 @@ function init() {
     });
     
     $("#button-config-submit").click(function() {
-        //insertURL(db, $("#urlConfig-field-newUrl").val());
+        updateRow(db, "url", $("#urlConfig-field-newUrl").val());
     });
     
     $("#form-results").submit(function() {
         alert("results");
-        //insertURL(db, "http://tomnightingale.com");
         return false;
     });
 }
@@ -93,15 +98,15 @@ function scanBarcode() {
 /*********************************************************************
  * Database stuff
  ********************************************************************/
-/*function createTable(db) {
+function createTable(db) {
   db.transaction(
     function(transaction) {
       transaction.executeSql('CREATE TABLE IF NOT EXISTS serverLoc(id VARCHAR(10) PRIMARY KEY, val VARCHAR(100))', [],
         function() {
-          console.log("Create YAY");
+          //console.log("Create YAY");
         },
         function(transaction, error) {
-          console.log('Create FAIL ' + error.message);
+          //console.log('Create FAIL ' + error.message);
         });
         
       transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["url", "https://simdv1:8443/caos/StoreManagement?wsdl"]);
@@ -114,10 +119,10 @@ function updateRow(db, key, newVal) {
     function(transaction) {
       transaction.executeSql('UPDATE serverLoc SET val=? WHERE id =?', [newVal, key],
         function() {
-          //console.log("Insert YAY");
+          //console.log("Update YAY");
         },
         function(transaction, error) {
-          //console.log('Insert FAIL ' + error.message);
+          //console.log('Update FAIL ' + error.message);
         });
     }
   );
@@ -144,4 +149,4 @@ function readURL(db) {
     }
   );
 }
-*/
+
