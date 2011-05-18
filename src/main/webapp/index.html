@@ -19,15 +19,14 @@
                     <div id="logo"><img id="img-logo" src="resources/logo_ofg_72.png" alt="Overwaitea Logo" /></div>
                     <div id="login-username"><label>User ID:</label><input id="login-field-username" type="text" size="20" name="username" /></div>
                     <div id="login-password"><label>Password:</label><input id="login-field-password" type="password" size="20" name="password" /></div>
-                    <div id="login-submit"><input class="nav" data-dest="#results" id="button-login-submit" type="button" name="login" value="Login" /></div>
-                    <div id="login-config"><input class="nav" data-dest="#config"id="button-config" type="button" name="config" value="Config" /></div>
+                    <div class="button-wrapper" id="login-submit"><input class="nav button" data-dest="#results" id="button-login-submit" type="button" name="login" value="Login" /></div>
+                    <div class="button-wrapper" id="login-config"><input class="nav button" data-dest="#config"id="button-config" type="button" name="config" value="Config" /></div>
                 </form>
             </div>
         </div>
 
         <div class="page" id="results">
             <div class="header">
-                <a id="scan" href="#">Scan</a>
                 <h3>Scan Results</h3>
             </div>
             <div class="content" class="ui-body">
@@ -44,7 +43,7 @@
                             <option>Store 3</option>
                         </select>
                     </div>
-                    <input id="results-submit" type="submit" name="results" value="Submit" />
+                    <div class="button-wrapper"><input class="button" id="results-submit" type="button" name="results" value="Submit" /></div>
                 </form>
                 <form><table><tr>
                             <td><label>BOH:</label></td><td><input type="text" size="10" name="boh" /></td>
@@ -114,7 +113,7 @@
             <div class="content" class="ui-body">
                 <form id="form-config" method="post" action="#">
                     <div id="config-url"><label>New URL::</label><input id="config-field-url" type="text" size="20" name="url" /></div>
-                    <div id="config-submit"><input class="nav" data-dest="#login" id="button-config-submit" type="button" name="config" value="Save" /></div>
+                    <div class="button-wrapper" id="config-submit"><input class="nav button" data-dest="#login" id="button-config-submit" type="button" name="config" value="Save" /></div>
                 </form>
             </div>
         </div>
