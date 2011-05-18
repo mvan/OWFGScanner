@@ -12,13 +12,12 @@ $(document).ready(function() {
     init();
 });
 
-
 /**
  * Helper function to clear cache while in development.
  * Protected for safe usage in desktop browser.
  */
 function clearCache() {
-    alert("Clearing cache...");
+    //alert("Clearing cache...");
 
     // Block for desktop browser testing.
     if (typeof blackberry === 'undefined') {
@@ -62,7 +61,13 @@ function initNav() {
  * - Binding click events to perform extra actions.
  */
 function init() {
-    
+    var database = window.openDatabase("ofilesystem", "1.0", "Ovewaitea Scanner Settings", 1024, null);
+    if(!database) {
+      alert('DB not created.');
+    } else {
+      createTable(database);
+      readDatabase(database, "url", parseReturnData);
+    }
     $("#button-login-submit").click(function() {
         scanBarcode();
     });
@@ -73,12 +78,12 @@ function init() {
     });
     
     $("#button-config-submit").click(function() {
-        //insertURL(db, $("#urlConfig-field-newUrl").val());
+        updateRow(database, "url", $("#config-field-url").val());
+        readDatabase(database, "url", parseReturnData);
     });
     
     $("#form-results").submit(function() {
         alert("results");
-        //insertURL(db, "http://tomnightingale.com");
         return false;
     });
 }
@@ -166,44 +171,21 @@ function customMenuItemClick() {
   alert("user just clicked me");
 }
 
-
 /*********************************************************************
  * Database stuff
  ********************************************************************/
-/*function createTable(db) {
+function createTable(db) {
   db.transaction(
     function(transaction) {
-      transaction.executeSql('DROP TABLE serverLoc', [],
-        function() {
-          console.log("Drop YAY");
-        },
-        function(transaction, error) {
-          console.log('Drop FAIL ' + error.message);
-        });
-          
-      transaction.executeSql('CREATE TABLE serverLoc(url VARCHAR(100))', [],
+      transaction.executeSql('CREATE TABLE IF NOT EXISTS serverLoc(id VARCHAR(10) PRIMARY KEY, val VARCHAR(100))', [],
         function() {
           //console.log("Create YAY");
         },
         function(transaction, error) {
-          console.log('Create FAIL ' + error.message);
+          //console.log('Create FAIL ' + error.message);
         });
         
-      transaction.executeSql('INSERT INTO serverLoc (url) VALUES (?)', ["https://simdv1:8443/caos/StoreManagement?wsdl"],
-        function() {
-          console.log("Insert YAY");
-        },
-        function(transaction, error) {
-          console.log('Insert FAIL ' + error.message);
-        });
-    }
-  );
-}*/
-
-/*function insertURL(db, newUrl) {
-  db.transaction(
-    function(transaction) {
-      transaction.executeSql('UPDATE serverLoc SET url=?', [newUrl],
+      transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["url", "https://simdv1:8443/caos/StoreManagement?wsdl"],
         function() {
           //console.log("Insert YAY");
         },
@@ -213,12 +195,48 @@ function customMenuItemClick() {
     }
   );
 }
-*/
-/*
-function readURL(db) {
+
+function updateRow(db, key, newVal) {
   db.transaction(
     function(transaction) {
-      transaction.executeSql('SELECT * FROM serverLoc', null, null);
+      transaction.executeSql('UPDATE serverLoc SET val=? WHERE id=?', [newVal, key],
+        function() {
+          //console.log("Update YAY");
+        },
+        function(transaction, error) {
+          //console.log('Update FAIL ' + error.message);
+        });
     }
   );
-}*/
+}
+
+function insertRow(db, key, newVal) {
+  db.transaction(
+    function(transaction) {
+      transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?,?)', [key, newVal],
+        function() {
+          //console.log("Insert YAY");
+        },
+        function(transaction, error) {
+          //console.log('Insert FAIL ' + error.message);
+        });
+    }
+  );
+}
+
+function readDatabase(db, key, successCallbackFunction) {
+  db.transaction(
+    function(transaction) {
+      transaction.executeSql('SELECT * FROM serverLoc WHERE id=?', [key], successCallbackFunction);
+    }
+  );
+}
+
+function parseReturnData(transaction, result) {
+  $("input#login-field-url").val(renderToDo(result.rows.item(0)));
+}
+
+function renderToDo(row) {
+  return row.val;
+}
+
