@@ -82,9 +82,9 @@ function init() {
         readDatabase(database, "url", parseReturnData);
     });
     
-    $("#form-results").submit(function() {
-        alert("results");
-        return false;
+    $("#results-submit").click(function() {
+        getInfo();
+        //insertURL(db, "http://tomnightingale.com");
     });
 }
 
@@ -117,11 +117,116 @@ function scanBarcode() {
         // Success.
         function(message) {
             $("input#upc").val(message);
+            getStores();
         }, 
         // Error.
         function(error) {
             alert('Error: ' + error);
         });
+}
+/*
+function  (address, user, pass, arg) {
+    webservice.client.query(
+        // Success.
+        function(message) {alert('Scanned: ' + message);}, 
+        // Error.
+        function(error) {alert('Error: ' + error);},
+        address, user, pass, arg
+    );
+}
+*/
+
+function getStores() {
+    var success = function(stores) {
+        var option;
+        var storeList = document.getElementById('store');
+        $(stores).each(function(index, element) {
+            option = new Option(element, element);
+            storeList.options[index] = option;
+        });
+    };
+    var error = function() {
+        var storeList = document.getElementById('store');
+        alert('Error');
+        storeList.options.length = 0;
+    };
+
+    address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
+    user = 'test'; //tget from div#login-username
+    password = 'test'; //get from div#login-password
+    fnname = 'getStores';
+    extraargs = '';
+
+    webservice.client.query(success, error, address, user, password, fnname, extraargs);
+}
+
+function getBanners() {
+    var success = function() {
+        alert('Success');
+    };
+    var error = function() {
+        alert('Error');
+    };
+
+    address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
+    user = 'test'; //tget from div#login-username
+    password = 'test'; //get from div#login-password
+    fnname = 'getBanners';
+    extraargs = '';
+
+    webservice.client.query(success, error, address, user, password, fnname, extraargs);
+}
+
+function getInfo() {
+    var success = function(boh,
+	forcast,
+	inTransit,
+	itemDesc,
+	min,
+	onOrder,
+	pack,
+	promotion,
+	regularPrice,
+	source,
+	storeId,
+	upc) {
+        $("h3#product-name").html(itemDesc);
+        $("input#boh").val(boh);
+        $("input#intransit").val(inTransit);
+        $("input#minimum").val(min);
+        $("input#onorder").val(onOrder);
+        $("input#pack").val(pack);
+        $("input#regprice").val(regularPrice);
+        $("input#source").val(source);
+        $("input#forecast").val(forcast);
+    };
+    var error = function() {
+        alert('Error');
+    };
+
+    address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
+    user = 'test'; //tget from div#login-username
+    password = 'test'; //get from div#login-password
+    fnname = 'getInfo';
+    extraargs = '';
+
+    webservice.client.query(success, error, address, user, password, fnname, extraargs);
+}
+function setStore() {
+    var success = function() {
+        alert('Success');
+    };
+    var error = function() {
+        alert('Error');
+    };
+
+    address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
+    user = 'test'; //tget from div#login-username
+    password = 'test'; //get from div#login-password
+    fnname = 'setStore';
+    extraargs = 1; //needs to be a long or something that'll cast to a long
+
+    webservice.client.query(success, error, address, user, password, fnname, extraargs);
 }
 
 /**

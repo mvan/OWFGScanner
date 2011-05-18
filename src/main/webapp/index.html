@@ -49,21 +49,23 @@
                     </div>
                     <div class="button-wrapper"><input class="button" id="results-submit" type="button" name="results" value="Submit" /></div>
                 </form>
+                <h3 id="product-name"></h3>
                 <form><table><tr>
-                            <td><label>BOH:</label></td><td><input type="text" size="10" name="boh" /></td>
-                            <td><label>On order:</label></td><td><input type="text" size="10" name="onorder" /></td>
+                            <td><label>BOH:</label></td><td><input type="text" size="10" name="boh" id="boh" /></td>
+                            <td><label>On order:</label></td><td><input type="text" size="10" name="onorder" id="onorder" /></td>
                         </tr>
                         <tr>
-                            <td><label>Min:</label></td><td><input type="text" size="10" name="minimum" /></td>
-                            <td><label>In Transit:</label></td><td><input type="text" size="10" name="intransit" /></td>
+                            <td><label>Min:</label></td><td><input type="text" size="10" name="minimum" id="minimum" /></td>
+                            <td><label>In Transit:</label></td><td><input type="text" size="10" name="intransit" id="intransit" /></td>
                         </tr>
                         <tr>
-                            <td><label><a class="nav button" data-dest="#results" href="#forecast">Fcst:</a></label></td><td><input type="text" size="10" name="forecast" /></td>
-                            <td><label>Pack:</label></td><td><input type="text" size="10" name="pack" /></td>
+                            <td><div class="button-wrapper" id="results-fcst"><input class="nav button" data-dest="#forecast" id="button-fcst" type="button" name="fcst" value="Fcst:" /></div></td>
+                            <td><input type="text" size="10" name="forecast" id="forecast" /></td>
+                            <td><label>Pack:</label></td><td><input type="text" size="10" name="pack" id="pack" /></td>
                         </tr>
                         <tr>
-                            <td><label>Reg:</label></td><td><input type="text" size="10" name="regprice" /></td>
-                            <td><label>Source:</label></td><td><input type="text" size="10" name="source" /></td>
+                            <td><label>Reg:</label></td><td><input type="text" size="10" name="regprice" id="regprice" /></td>
+                            <td><label>Source:</label></td><td><input type="text" size="10" name="source" id="source" /></td>
                 </tr></table></form>
             </div>
         </div>
