@@ -8,6 +8,9 @@ $(document).ready(function() {
     // Initialize navigation.
     initNav();
     
+    // Initialize database.
+    initDB();
+    
     // Initialize application.
     init();
 });
@@ -57,17 +60,30 @@ function initNav() {
 }
 
 /**
+ * Initialize the database for persistent storage.
+ * - Loads database if one exists, otherwise:
+ * - Creates a database if none exists.
+ */
+function initDB() {
+    var database = window.openDatabase("ofilesystem", "1.0", "Ovewaitea Scanner Settings", 1024, null);
+
+    // If unable to load the database, quite likely no SDCard is present.
+    // TODO: Application should probably terminate if this fails.
+    if (!database) {
+        alert('Unable to create database: Application requires SDCard for external storage.');
+    } 
+    else {
+      createTable(database);
+      readDatabase(database, "url", parseReturnData);
+    }
+}
+
+/**
  * Initializes misc application stuff including:
  * - Binding click events to perform extra actions.
  */
 function init() {
-    var database = window.openDatabase("ofilesystem", "1.0", "Ovewaitea Scanner Settings", 1024, null);
-    if(!database) {
-      alert('DB not created.');
-    } else {
-      createTable(database);
-      readDatabase(database, "url", parseReturnData);
-    }
+
     $("#button-login-submit").click(function() {
         scanBarcode();
     });
@@ -124,19 +140,9 @@ function scanBarcode() {
             alert('Error: ' + error);
         });
 }
-/*
-function  (address, user, pass, arg) {
-    webservice.client.query(
-        // Success.
-        function(message) {alert('Scanned: ' + message);}, 
-        // Error.
-        function(error) {alert('Error: ' + error);},
-        address, user, pass, arg
-    );
-}
-*/
 
 function getStores() {
+    // Success callback.
     var success = function(stores) {
         var option;
         var storeList = document.getElementById('store');
@@ -145,6 +151,8 @@ function getStores() {
             storeList.options[index] = option;
         });
     };
+
+    // Error callback.
     var error = function() {
         var storeList = document.getElementById('store');
         alert('Error');
@@ -161,9 +169,12 @@ function getStores() {
 }
 
 function getBanners() {
+    // Success callback.
     var success = function() {
         alert('Success');
     };
+
+    // Error callback.
     var error = function() {
         alert('Error');
     };
@@ -178,18 +189,19 @@ function getBanners() {
 }
 
 function getInfo() {
+    // Success callback.
     var success = function(boh,
-	forcast,
-	inTransit,
-	itemDesc,
-	min,
-	onOrder,
-	pack,
-	promotion,
-	regularPrice,
-	source,
-	storeId,
-	upc) {
+                           forcast,
+                           inTransit,
+                           itemDesc,
+                           min,
+                           onOrder,
+                           pack,
+                           promotion,
+                           regularPrice,
+                           source,
+                           storeId,
+                           upc) {
         $("h3#product-name").html(itemDesc);
         $("input#boh").val(boh);
         $("input#intransit").val(inTransit);
@@ -200,6 +212,8 @@ function getInfo() {
         $("input#source").val(source);
         $("input#forecast").val(forcast);
     };
+
+    // Error callback.
     var error = function() {
         alert('Error');
     };
@@ -213,9 +227,12 @@ function getInfo() {
     webservice.client.query(success, error, address, user, password, fnname, extraargs);
 }
 function setStore() {
+    // Success callback.
     var success = function() {
         alert('Success');
     };
+
+    // Error callback.
     var error = function() {
         alert('Error');
     };
