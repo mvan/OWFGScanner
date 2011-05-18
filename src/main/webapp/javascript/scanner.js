@@ -43,6 +43,7 @@ function init() {
     
     $("#form-results").submit(function() {
         alert("results");
+        getStores();
         //insertURL(db, "http://tomnightingale.com");
         return false;
     });
@@ -58,7 +59,6 @@ function init() {
         
         // Load scanner right away.
         scanBarcode();
-        getStores();
         // Initiate barcode scanner when "scan" button pressed.
         $("a#scan").click(function() {
             scanBarcode();

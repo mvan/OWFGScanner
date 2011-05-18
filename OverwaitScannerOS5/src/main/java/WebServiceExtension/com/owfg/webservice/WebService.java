@@ -48,28 +48,46 @@ public class WebService  {
 	* @author Warren Voelkl
 	**/
 	public void getStores(ScriptableFunction success, ScriptableFunction error) throws Exception {
+		Logger.logDebugEvent("WebService(): getStores");
 		Store[] storesResponse = null;
 		String[] str = null;
 		if (stub == null) {
+			Logger.logSevereErrorEvent("WebService.getStores(): stub is null");
+			str = new String[1];
+			str[0] = new String("Stub is null");
+            try {
+			    error.invoke(error, str);
+            } catch (Exception e) {
+                //TODO: Handle this somehow
+            }
 			throw new Exception("Null Pointer Exception");
 		}		
 		try {
-			storesResponse = stub.getActiveStores();
+		//	storesResponse = stub.getActiveStores();
 		} catch (Exception e) {
 			//TODO
-			//Logger.logSevereErrorEvent("WebService.getStores(): " + e);
+			Logger.logSevereErrorEvent("WebService.getStores(): " + e);
 			str = new String[1];
 			str[0] = new String("Unable to retrive Stores");
-			error.invoke(error, str);
-			throw e;
+            try {
+			    error.invoke(error, str);
+            } catch (Exception er) {
+                //TODO: Handle this somehow
+            }
 		}
+        /*
 		str = new String[storesResponse.length];
 		for (int i = 0; i != storesResponse.length; i++) {
 			str[i] = new String(storesResponse[i].getStoreId() + " " 
 					+ ((storesResponse[i].getStoreName() == null) 
 							? "" : storesResponse[i].getStoreName()));
-		}	
-		success.invoke(success, str);
+		}
+        */ 
+        try {
+		    success.invoke(success, str);
+        } catch (Exception e) {
+            //TODO: Handle this somehow...
+        }
 	}
 	
 	/**
