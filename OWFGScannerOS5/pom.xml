@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>OverwaitScanner</groupId>
-        <artifactId>OverwaitScanner</artifactId>
+        <groupId>OWFGScanner</groupId>
+        <artifactId>OWFGScanner</artifactId>
         <version>1.0</version>
     </parent>
 
-    <groupId>OverwaitScanner</groupId>
-    <artifactId>OverwaitScannerOS5</artifactId>
+    <groupId>OWFGScanner</groupId>
+    <artifactId>OWFGScannerOS5</artifactId>
     <version>1.0</version>
 
     <properties>
@@ -88,7 +88,7 @@
                                     </jar>
 
 
-                                    <zip destfile="${basedir}/target/maven-archiver/OverwaitScannerOS5.zip">
+                                    <zip destfile="${basedir}/target/maven-archiver/OWFGScannerOS5.zip">
                                         <fileset dir="${basedir}/../src/main/webapp" defaultexcludes="false">
                                             <include name="*.html" />
                                             <include name="config.xml" />
@@ -98,7 +98,7 @@
                                         </fileset>
                                     </zip>
                                     <exec executable="${env.RIM_BBW_HOME}\bbwp.exe">
-                                        <arg line="${basedir}/target/maven-archiver/OverwaitScannerOS5.zip /o ${basedir}/../target/app-binary"/>
+                                        <arg line="${basedir}/target/maven-archiver/OWFGScannerOS5.zip /o ${basedir}/../target/app-binary"/>
                                     </exec>
 
                                 </tasks>
