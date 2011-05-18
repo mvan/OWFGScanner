@@ -45,13 +45,12 @@ function initNav() {
 }
 
 function init() {
-    var db = window.openDatabase("ofilesystem", "1.0", "Overwaitea File Storage", 1024);
-    if(!db) {
+    var database = window.openDatabase("ofilesystem", "1.0", "Ovewaitea Scanner Settings", 1024, null);
+    if(!database) {
       alert('DB not created.');
     } else {
-      alert('db created');
-      createTable(db);
-      readDatabase(db, "url", parseReturnData);
+      createTable(database);
+      readDatabase(database, "url", parseReturnData);
     }
     $("#button-login-submit").click(function() {
         scanBarcode();
@@ -63,7 +62,8 @@ function init() {
     });
     
     $("#button-config-submit").click(function() {
-        updateRow(db, "url", $("#urlConfig-field-newUrl").val());
+        updateRow(database, "url", $("#config-field-url").val());
+        readDatabase(database, "url", parseReturnData);
     });
     
     $("#form-results").submit(function() {
@@ -118,7 +118,6 @@ function customMenuItemClick() {
   alert("user just clicked me");
 }
 
-
 /*********************************************************************
  * Database stuff
  ********************************************************************/
@@ -133,21 +132,21 @@ function createTable(db) {
           //console.log('Create FAIL ' + error.message);
         });
         
-      transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["url", "https://simdv1:8443/caos/StoreManagement?wsdl"]);
+      transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["url", "https://simdv1:8443/caos/StoreManagement?wsdl"],
+        function() {
+          //console.log("Insert YAY");
+        },
+        function(transaction, error) {
+          //console.log('Insert FAIL ' + error.message);
+        });
     }
   );
-}
-
-try{
-  
-} catch (e) {
-alert("exception: " + e.name + ": " + e.message)
 }
 
 function updateRow(db, key, newVal) {
   db.transaction(
     function(transaction) {
-      transaction.executeSql('UPDATE serverLoc SET val=? WHERE id =?', [newVal, key],
+      transaction.executeSql('UPDATE serverLoc SET val=? WHERE id=?', [newVal, key],
         function() {
           //console.log("Update YAY");
         },
@@ -181,7 +180,10 @@ function readDatabase(db, key, successCallbackFunction) {
 }
 
 function parseReturnData(transaction, result) {
-  alert("Results: " + (result.rows.item[0]).ID);
-  $("input#url").val((result.rows.item[0]).ID);
+  $("input#login-field-url").val(renderToDo(result.rows.item(0)));
+}
+
+function renderToDo(row) {
+  return row.val;
 }
 
