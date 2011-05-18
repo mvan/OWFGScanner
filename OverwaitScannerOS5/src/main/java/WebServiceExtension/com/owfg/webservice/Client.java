@@ -9,6 +9,7 @@ public final class Client extends ScriptableFunction {
     public static final String GET_INFO = "getInfo";
     public static final String GET_BANNERS = "getBanners";
     public static final String GET_STORES = "getStores";
+    public static final String SET_STORE = "setStore";
     public static final long GUID = 0x2051fd67b72d11L;
     public static final String APP_NAME = "WebService Plugin";
     public static WebService ws = null;
@@ -37,6 +38,10 @@ public final class Client extends ScriptableFunction {
             if (fnName.equals(GET_STORES)) {
                 Logger.logDebugEvent("Client.invoke: get stores");
                 ws.getStores(success, error);
+            }
+            if (fnName.equals(SET_STORE)) {
+                Logger.logDebugEvent("Client.invoke: get stores");
+                ws.setStore(success, error, (Long) args[6]);
             }
         } catch (Exception e) {
             // TODO: Handle this somehow...

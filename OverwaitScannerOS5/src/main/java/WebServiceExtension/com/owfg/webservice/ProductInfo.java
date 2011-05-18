@@ -32,4 +32,21 @@ public class ProductInfo {
 		storeId = Long.toString(info.getStoreId());
 		upc = (info.getUpc() == null) ? "" : info.getUpc().toString();
 	}
+
+    public String[] toArray() {
+        String[] str = new String[12];
+        str[0] = boh;
+        str[1] = forcast;
+        str[2] = inTransit;
+        str[3] = itemDesc;
+        str[4] = min;
+        str[5] = onOrder;
+        str[6] = pack;
+        str[7] = promotion;
+        str[8] = regularPrice;
+        str[9] = source;
+        str[10] = storeId;
+        str[11] = upc;
+        return str;
+    }
 }

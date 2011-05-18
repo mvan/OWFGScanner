@@ -62,7 +62,7 @@ function init() {
     
     $("#form-results").submit(function() {
         alert("results");
-        //getStores();
+        getStores();
         //insertURL(db, "http://tomnightingale.com");
         return false;
     });
@@ -84,13 +84,13 @@ function scanBarcode() {
         // Success.
         function(message) {
             $("input#upc").val(message);
+            getInfo();
         }, 
         // Error.
         function(error) {
             alert('Error: ' + error);
         });
 }
-
 /*
 function  (address, user, pass, arg) {
     webservice.client.query(
@@ -101,10 +101,11 @@ function  (address, user, pass, arg) {
         address, user, pass, arg
     );
 }
+*/
 
 function getStores() {
-    var success = function() {
-        alert('Success');
+    var success = function(stores) {
+        alert(stores[0]);
     };
     var error = function() {
         alert('Error');
@@ -137,8 +138,20 @@ function getBanners() {
 }
 
 function getInfo() {
-    var success = function(result) {
-        $("input#boh").val(result.boh);
+    var success = function(boh,
+	forcast,
+	inTransit,
+	itemDesc,
+	min,
+	onOrder,
+	pack,
+	promotion,
+	regularPrice,
+	source,
+	storeId,
+	upc) {
+        alert(boh);
+        $("input#boh").val(boh);
     };
     var error = function() {
         alert('Error');
@@ -149,6 +162,22 @@ function getInfo() {
     password = 'test'; //get from div#login-password
     fnname = 'getInfo';
     extraargs = '';
+
+    webservice.client.query(success, error, address, user, password, fnname, extraargs);
+}
+function setStore() {
+    var success = function() {
+        alert('Success');
+    };
+    var error = function() {
+        alert('Error');
+    };
+
+    address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
+    user = 'test'; //tget from div#login-username
+    password = 'test'; //get from div#login-password
+    fnname = 'setStore';
+    extraargs = 1; //needs to be a long or something that'll cast to a long
 
     webservice.client.query(success, error, address, user, password, fnname, extraargs);
 }

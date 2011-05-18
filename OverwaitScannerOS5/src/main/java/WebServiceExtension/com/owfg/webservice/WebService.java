@@ -8,6 +8,7 @@ import com.owfg.stub.StoreManagementInfo;
 import net.rim.device.api.script.ScriptableFunction;
 
 
+
 /**
 * Class which manages the web service.
 * <p>
@@ -19,7 +20,7 @@ import net.rim.device.api.script.ScriptableFunction;
 **/
 public class WebService  {
 	private static StoreManagementImpl_Stub stub = null;
-	
+	private static long storeId = 0;
 	public WebService(String address, String user, String password) {
 		Logger.logDebugEvent("WebService(): constructor");
 		try {
@@ -82,9 +83,10 @@ public class WebService  {
 					+ ((storesResponse[i].getStoreName() == null) 
 							? "" : storesResponse[i].getStoreName()));
 		}
-         
+        String[][] arrayOfStrings = new String[1][storesResponse.length];
+        arrayOfStrings[0] = str;
         try {
-		    success.invoke(success, str);
+		    success.invoke(success, arrayOfStrings);
         } catch (Exception e) {
             //TODO: Handle this somehow...
         }
@@ -132,9 +134,11 @@ public class WebService  {
 			str[i] = new String(banners[i].getBannerId() + " " 
 					+ ((banners[i].getBannerName() == null) 
 							? "" : banners[i].getBannerName()));
-		}	
+		}
+        String[][] arrayOfStrings = new String[1][banners.length];
+        arrayOfStrings[0] = str;
         try {
-		    success.invoke(success, str);
+		    success.invoke(success, arrayOfStrings);
         } catch (Exception e) {
             //TODO: Handle this somehow...
         }
@@ -151,10 +155,10 @@ public class WebService  {
 	* @author Warren Voelkl
 	**/	
 	public void getInfo(ScriptableFunction success, ScriptableFunction error, String string) throws Exception {
-		Logger.logDebugEvent("blah");
-		StoreManagementInfo info = null;
+		Logger.logDebugEvent("Info");
+		StoreManagementInfo pi = null;
 		String[] str = null;
-		ProductInfo[] pi = new ProductInfo[1];
+		ProductInfo info = null;
 		if (stub == null) {
 			str = new String[1];
 			str[0] = new String("Stub is null");
@@ -166,7 +170,8 @@ public class WebService  {
 			throw new Exception("Null Pointer Exception");
 		}
 		try {
-			info = stub.getStoreManagementInfo(1,string);
+            Logger.logDebugEvent("getInfo() getStoreManagementInfo()");
+			pi = stub.getStoreManagementInfo(storeId, string);
 		} catch (Exception e) {
 			//TODO
 			//Logger.logSevereErrorEvent("WebService.getStores(): " + e);
@@ -179,12 +184,20 @@ public class WebService  {
             }
 			throw e;
 		}
-		pi[0] = new ProductInfo(info);
+        Logger.logDebugEvent("getInfo() about to return()");
+          info = new ProductInfo(pi);
         try {
-		    success.invoke(success, pi);
+            Logger.logDebugEvent("getInfo() calling invoke");
+
+		    success.invoke(success, info.toArray());
         } catch (Exception e) {
             //TODO: Handle this somehow...
         }
-	}	
+	}
+
+    public void setStore (ScriptableFunction success, ScriptableFunction error, Long id) throws Exception {
+        storeId = id.longValue();
+        success.invoke(success, null);
+    }
 }
 
