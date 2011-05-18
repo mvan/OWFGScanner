@@ -60,11 +60,9 @@ function init() {
         //insertURL(db, $("#urlConfig-field-newUrl").val());
     });
     
-    $("#form-results").submit(function() {
-        alert("results");
-        getStores();
+    $("#results-submit").click(function() {
+        getInfo();
         //insertURL(db, "http://tomnightingale.com");
-        return false;
     });
 }
 
@@ -85,7 +83,7 @@ function scanBarcode() {
         // Success.
         function(message) {
             $("input#upc").val(message);
-            getInfo();
+            getStores();
         }, 
         // Error.
         function(error) {
@@ -106,10 +104,17 @@ function  (address, user, pass, arg) {
 
 function getStores() {
     var success = function(stores) {
-        alert(stores[0]);
+        var option;
+        var storeList = document.getElementById('store');
+        $(stores).each(function(index, element) {
+            option = new Option(element, element);
+            storeList.options[index] = option;
+        });
     };
     var error = function() {
+        var storeList = document.getElementById('store');
         alert('Error');
+        storeList.options.length = 0;
     };
 
     address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
@@ -151,8 +156,15 @@ function getInfo() {
 	source,
 	storeId,
 	upc) {
-        alert(boh);
+        $("h3#product-name").html(itemDesc);
         $("input#boh").val(boh);
+        $("input#intransit").val(inTransit);
+        $("input#minimum").val(min);
+        $("input#onorder").val(onOrder);
+        $("input#pack").val(pack);
+        $("input#regprice").val(regularPrice);
+        $("input#source").val(source);
+        $("input#forecast").val(forcast);
     };
     var error = function() {
         alert('Error');
