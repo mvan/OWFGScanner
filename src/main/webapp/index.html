@@ -15,9 +15,9 @@
         <div data-role="page" id="login">
             <div data-role="header"><h3>Overwaitea Food Group - Login</h3></div>
             <div data-role="content" class="ui-body">
-                <form id="form-login" method="post" action="#">
+                <form id="form-login" method="post" action="#results" target="_self">
                     <div id="logo"><img id="img-logo" src="resources/logo_ofg_72.png" alt="Overwaitea Logo" /></div>
-                    <div id="login-username"><label>User ID:</label><input id="login-field-username" type="text" size="20" name="username" x-blackberry-initialFocus="true" x-blackberry-onDown="moveTo()" /></div>
+                    <div id="login-username"><label>User ID:</label><input id="login-field-username" type="text" size="20" name="username" /></div>
                     <div id="login-password"><label>Password:</label><input id="login-field-password" type="password" size="20" name="password" /></div>
                     <div id="login-submit"><input id="login-field-submit" type="submit" name="login" value="Login" /></div>
                 </form>
@@ -31,7 +31,7 @@
                 <h3>Scan Results</h3>
             </div>
             <div data-role="content" class="ui-body">
-                <form method="post" action="#results">
+                <form id="form-results" method="post" action="#results">
                     <div>
                         <label>UPC:</label>
                         <input id="upc" type="text" size="20" name="username" />
@@ -44,7 +44,7 @@
                             <option>Store 3</option>
                         </select>
                     </div>
-                    <input id="submit" type="submit" name="submit" value="Submit" />
+                    <input id="results-submit" type="submit" name="results" value="Submit" />
                 </form>
                 <form><table><tr>
                             <td><label>BOH:</label></td><td><input type="text" size="10" name="boh" /></td>
