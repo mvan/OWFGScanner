@@ -63,7 +63,7 @@ public class WebService  {
 			throw new Exception("Null Pointer Exception");
 		}		
 		try {
-		//	storesResponse = stub.getActiveStores();
+			storesResponse = stub.getActiveStores();
 		} catch (Exception e) {
 			//TODO
 			Logger.logSevereErrorEvent("WebService.getStores(): " + e);
@@ -75,14 +75,14 @@ public class WebService  {
                 //TODO: Handle this somehow
             }
 		}
-        /*
+        
 		str = new String[storesResponse.length];
 		for (int i = 0; i != storesResponse.length; i++) {
 			str[i] = new String(storesResponse[i].getStoreId() + " " 
 					+ ((storesResponse[i].getStoreName() == null) 
 							? "" : storesResponse[i].getStoreName()));
 		}
-        */ 
+         
         try {
 		    success.invoke(success, str);
         } catch (Exception e) {
@@ -104,6 +104,13 @@ public class WebService  {
 		Banner[] banners = null;
 		String[] str = null;
 		if (stub == null) {
+			str = new String[1];
+			str[0] = new String("Stub is null");
+            try {
+			    error.invoke(error, str);
+            } catch (Exception e) {
+                //TODO: Handle this somehow
+            }
 			throw new Exception("Null Pointer Exception");
 		}
 		try {
@@ -113,7 +120,11 @@ public class WebService  {
 			//Logger.logSevereErrorEvent("WebService.getStores(): " + e);
 			str = new String[1];
 			str[0] = new String("Unable to retrive Banners");
-			error.invoke(error, str);
+            try {
+			    error.invoke(error, str);
+            } catch (Exception er) {
+                //TODO: Handle this somehow...
+            }
 			throw e;
 		}
 		str = new String[banners.length];
@@ -122,7 +133,11 @@ public class WebService  {
 					+ ((banners[i].getBannerName() == null) 
 							? "" : banners[i].getBannerName()));
 		}	
-		success.invoke(success, str);
+        try {
+		    success.invoke(success, str);
+        } catch (Exception e) {
+            //TODO: Handle this somehow...
+        }
 	}
 	
 	/**
@@ -138,8 +153,16 @@ public class WebService  {
 	public void getInfo(ScriptableFunction success, ScriptableFunction error, String string) throws Exception {
 		Logger.logDebugEvent("blah");
 		StoreManagementInfo info = null;
+		String[] str = null;
 		ProductInfo[] pi = new ProductInfo[1];
 		if (stub == null) {
+			str = new String[1];
+			str[0] = new String("Stub is null");
+            try {
+			    error.invoke(error, str);
+            } catch (Exception e) {
+                //TODO: Handle this somehow
+            }
 			throw new Exception("Null Pointer Exception");
 		}
 		try {
@@ -147,12 +170,21 @@ public class WebService  {
 		} catch (Exception e) {
 			//TODO
 			//Logger.logSevereErrorEvent("WebService.getStores(): " + e);
-			String[] str = new String[1];
+			str = new String[1];
 			str[0] = new String("Unable to retrive product info");
-			error.invoke(error, str);
+			try {
+                error.invoke(error, str);
+            } catch (Exception er) {
+                //TODO: Handle this somehow...
+            }
 			throw e;
 		}
 		pi[0] = new ProductInfo(info);
-		success.invoke(success, pi);
+        try {
+		    success.invoke(success, pi);
+        } catch (Exception e) {
+            //TODO: Handle this somehow...
+        }
 	}	
 }
+
