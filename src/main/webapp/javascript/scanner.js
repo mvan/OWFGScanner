@@ -210,7 +210,7 @@ function getInfo() {
         $("input#pack").val(pack);
         $("input#regprice").val(regularPrice);
         $("input#source").val(source);
-        $("input#forecast").val(forcast);
+        $("input#field-forecast").val(forcast);
     };
 
     // Error callback.
