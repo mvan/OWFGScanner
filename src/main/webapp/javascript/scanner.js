@@ -20,8 +20,8 @@ function clearCache() {
 
 function init() {
     
-    var sPath = window.location.href;
-    var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+    //var sPath = window.location.href;
+    //var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
 
     //var db = window.openDatabase("ofilestorage", "1.0", "Ovewaitea Scanner Settings", 1024, null);
     //if (!db) {
@@ -39,7 +39,7 @@ function init() {
     
     $("#form-urlConfig").submit(function() {
         $.mobile.changePage($("#login"));
-        //insertURL(db, $("#urlConfig-field-newUrl").val());
+        insertRow(db, $("#urlConfig-field-newUrl").val());
         return false;
     });
     
@@ -97,37 +97,23 @@ function moveTo() {
 /*function createTable(db) {
   db.transaction(
     function(transaction) {
-      transaction.executeSql('DROP TABLE serverLoc', [],
+      transaction.executeSql('CREATE TABLE IF NOT EXISTS serverLoc(id VARCHAR(10) PRIMARY KEY, val VARCHAR(100))', [],
         function() {
-          console.log("Drop YAY");
-        },
-        function(transaction, error) {
-          console.log('Drop FAIL ' + error.message);
-        });
-          
-      transaction.executeSql('CREATE TABLE serverLoc(url VARCHAR(100))', [],
-        function() {
-          //console.log("Create YAY");
+          console.log("Create YAY");
         },
         function(transaction, error) {
           console.log('Create FAIL ' + error.message);
         });
         
-      transaction.executeSql('INSERT INTO serverLoc (url) VALUES (?)', ["https://simdv1:8443/caos/StoreManagement?wsdl"],
-        function() {
-          console.log("Insert YAY");
-        },
-        function(transaction, error) {
-          console.log('Insert FAIL ' + error.message);
-        });
+      transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["url", "https://simdv1:8443/caos/StoreManagement?wsdl"]);
     }
   );
-}*/
+}
 
-/*function insertURL(db, newUrl) {
+function updateRow(db, key, newVal) {
   db.transaction(
     function(transaction) {
-      transaction.executeSql('UPDATE serverLoc SET url=?', [newUrl],
+      transaction.executeSql('UPDATE serverLoc SET val=? WHERE id =?', [newVal, key],
         function() {
           //console.log("Insert YAY");
         },
@@ -137,12 +123,26 @@ function moveTo() {
     }
   );
 }
-*/
-/*
+
+function insertRow(db, key, newVal) {
+  db.transaction(
+    function(transaction) {
+      transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?,?)', [key, newVal],
+        function() {
+          //console.log("Insert YAY");
+        },
+        function(transaction, error) {
+          //console.log('Insert FAIL ' + error.message);
+        });
+    }
+  );
+}
+
 function readURL(db) {
   db.transaction(
     function(transaction) {
-      transaction.executeSql('SELECT * FROM serverLoc', null, null);
+      transaction.executeSql('SELECT * FROM serverLoc', [], null, null);
     }
   );
-}*/
+}
+*/
