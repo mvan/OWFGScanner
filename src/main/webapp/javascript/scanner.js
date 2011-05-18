@@ -119,22 +119,47 @@ function scanBarcode() {
         });
 }
 
+/**
+ * Manages menu items.
+ * - Clears the menu item list.
+ * - Builds new menu item list for current page.
+ */
 function loadMenuItems(page) {
     // Block for desktop browser testing.
     if (typeof blackberry === 'undefined') {
         return;
     }
-    
-    /*
-    if (page === "#results") {
-        try {
-            var item = new blackberry.ui.menu.MenuItem(false, 1, "Scan", scanBarcode);
-            blackberry.ui.menu.addMenuItem(item);
-        } catch (e) {
-            alert("Exception (addMenus): " + e.name + '; ' + e.message);
+
+    // Clear any existing menu items.
+    try {
+        if (blackberry.ui.menu.getMenuItems().length > 0) {
+            blackberry.ui.menu.clearMenuItems();
         }
     }
-    */
+    catch (e) {
+        alert("Exception: clearMenuItems(); " + e.name + '; ' + e.message);
+    }
+
+    // Menus for results page.
+    var items = [];
+    if (page === "#results") {
+        try {
+            items[0] = new blackberry.ui.menu.MenuItem(false, 1, "Scan", scanBarcode);
+        }
+        catch (e) {
+            alert("Exception: new MenuItem(); " + e.name + '; ' + e.message);
+        }
+    }
+    
+    // Add items to the menu.
+    try {
+        $(items).each(function(index, item) {
+            blackberry.ui.menu.addMenuItem(item);
+        });
+    }
+    catch (e) {
+        alert("Exception: addMenuItem(); " + e.name + '; ' + e.message);
+    }
 }
 
 function customMenuItemClick() {
