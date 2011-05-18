@@ -1,5 +1,6 @@
 var pages = [];
 var activePage = "undefined";
+var database;
 
 $(document).ready(function() {
     // TODO: For development purposes only, should be removed when complete.
@@ -65,7 +66,7 @@ function initNav() {
  * - Creates a database if none exists.
  */
 function initDB() {
-    var database = window.openDatabase("ofilesystem", "1.0", "Ovewaitea Scanner Settings", 1024, null);
+    database = window.openDatabase("ofilesystem", "1.0", "Ovewaitea Scanner Settings", 1024, null);
 
     // If unable to load the database, quite likely no SDCard is present.
     // TODO: Application should probably terminate if this fails.
