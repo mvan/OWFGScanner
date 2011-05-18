@@ -38,6 +38,7 @@ body {
   margin: 0 90px;
 }
 
+select,
 input {
   width: 100%;
 }
