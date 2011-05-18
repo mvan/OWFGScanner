@@ -87,6 +87,14 @@
                                         </zipfileset>
                                     </jar>
 
+                                    <!-- Packaging Webservice Extension -->
+                                    <jar destfile="${basedir}/../src/main/webapp/ext/WebServiceExtension.jar">
+                                        <zipfileset dir="${basedir}/src/main/java/WebServiceExtension" >
+                                            <include name="library.xml" />
+                                            <include name="com/**" />
+                                        </zipfileset>
+                                    </jar>
+
 
                                     <zip destfile="${basedir}/target/maven-archiver/OWFGScannerOS5.zip">
                                         <fileset dir="${basedir}/../src/main/webapp" defaultexcludes="false">
