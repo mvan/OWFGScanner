@@ -41,7 +41,7 @@ public final class WebServiceExtension implements WidgetExtension {
     public void register(WidgetConfig widgetConfig, BrowserField browserField) {
         _widgetName = widgetConfig.getName();
         _browserField = browserField;
-        EventLogger.register(GUID, APP_NAME, EventLogger.VIEWER_STRING);
+//        EventLogger.register(GUID, APP_NAME, EventLogger.VIEWER_STRING);
     }
 
     /**
