@@ -23,15 +23,14 @@ function init() {
     var sPath = window.location.href;
     var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
 
-    //var db = window.openDatabase("ofilestorage", "1.0", "Ovewaitea Scanner Settings", 1024, null);
-    //if (!db) {
-    //    alert("Failed to connect to database.");
-    //}
-    //createTable(db);
+    var db = window.openDatabase("ofilestorage", "1.0", "Ovewaitea Scanner Settings", 1024, null);
+    if (!db) {
+        alert("Failed to connect to database.");
+    } else {
+      createTable(db);
+    }
     
     $("#form-login").submit(function() {
-        $.mobile.changePage($("#results"));
-        return false;
     });
     
     $("#button-config").click(function() {
@@ -41,7 +40,7 @@ function init() {
     
     $("#form-urlConfig").submit(function() {
         $.mobile.changePage($("#login"));
-        //insertURL(db, $("#urlConfig-field-newUrl").val());
+        insertURL(db, $("#urlConfig-field-newUrl").val());
         return false;
     });
     
@@ -96,40 +95,26 @@ function moveTo() {
 /*********************************************************************
  * Database stuff
  ********************************************************************/
-/*function createTable(db) {
+function createTable(db) {
   db.transaction(
     function(transaction) {
       transaction.executeSql('DROP TABLE serverLoc', [],
         function() {
-          console.log("Drop YAY");
+          //console.log("Drop YAY");
         },
         function(transaction, error) {
-          console.log('Drop FAIL ' + error.message);
+          //console.log('Drop FAIL ' + error.message);
         });
           
-      transaction.executeSql('CREATE TABLE serverLoc(url VARCHAR(100))', [],
+      transaction.executeSql('CREATE TABLE serverLoc(id VARCHAR(10) PRIMARY KEY, val VARCHAR(100))', [],
         function() {
           //console.log("Create YAY");
         },
         function(transaction, error) {
-          console.log('Create FAIL ' + error.message);
+          //console.log('Create FAIL ' + error.message);
         });
         
-      transaction.executeSql('INSERT INTO serverLoc (url) VALUES (?)', ["https://simdv1:8443/caos/StoreManagement?wsdl"],
-        function() {
-          console.log("Insert YAY");
-        },
-        function(transaction, error) {
-          console.log('Insert FAIL ' + error.message);
-        });
-    }
-  );
-}*/
-
-/*function insertURL(db, newUrl) {
-  db.transaction(
-    function(transaction) {
-      transaction.executeSql('UPDATE serverLoc SET url=?', [newUrl],
+      transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["url", "https://simdv1:8443/caos/StoreManagement?wsdl"],
         function() {
           //console.log("Insert YAY");
         },
@@ -139,12 +124,25 @@ function moveTo() {
     }
   );
 }
-*/
-/*
+
+function updateRow(db, key, newVal) {
+  db.transaction(
+    function(transaction) {
+      transaction.executeSql('UPDATE serverLoc SET val=? WHERE id =?', [newVal, key],
+        function() {
+          //console.log("Insert YAY");
+        },
+        function(transaction, error) {
+          //console.log('Insert FAIL ' + error.message);
+        });
+    }
+  );
+}
+
 function readURL(db) {
   db.transaction(
     function(transaction) {
       transaction.executeSql('SELECT * FROM serverLoc', null, null);
     }
   );
-}*/
+}
