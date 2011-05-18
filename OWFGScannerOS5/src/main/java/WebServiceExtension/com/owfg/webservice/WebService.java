@@ -21,12 +21,16 @@ import net.rim.device.api.script.ScriptableFunction;
 public class WebService  {
 	private static StoreManagementImpl_Stub stub = null;
 	private static long storeId = 0;
+    private static String address;
+    private static String user;
+    private static String pass;
 	public WebService(String address, String user, String password) {
 		Logger.logDebugEvent("WebService(): constructor");
 		try {
 			if (stub == null) {
 				stub = new StoreManagementImpl_Stub();
 				stub._setProperty(StoreManagementImpl_Stub.ENDPOINT_ADDRESS_PROPERTY, address);
+                this.address = address;
 				//TODO uncomment when server side is setup
 				//stub._setProperty(StoreManagementImpl_Stub.USERNAME_PROPERTY, user);
 				//stub._setProperty(StoreManagementImpl_Stub.PASSWORD_PROPERTY, password);
@@ -198,6 +202,13 @@ public class WebService  {
     public void setStore (ScriptableFunction success, ScriptableFunction error, Long id) throws Exception {
         storeId = id.longValue();
         success.invoke(success, null);
+    }
+
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
 
