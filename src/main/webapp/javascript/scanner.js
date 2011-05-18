@@ -1,6 +1,11 @@
+var pages = [];
+var activePage = "undefined";
+
 $(document).ready(function() {
     // TODO: For development purposes only, should be removed when complete.
-    clearCache();
+    //clearCache();
+    
+    initNav();
     
     // Initialize application.
     init();
@@ -18,29 +23,41 @@ function clearCache() {
     blackberry.widgetcache.clearAll();
 }
 
+function initNav() {
+    // Identify all pages.
+    $("div.page").each(function(i, e) {
+        var element = $(e);
+        pages[i] = "#" + element.attr("id");
+
+        if (i == 0) {
+            activePage = pages[i];
+            element.show();
+        }
+    });
+
+    // Bind page change events
+    $(".nav").each(function(i, e) {
+        var element = $(e);
+        element.click(function() {
+            changePage(element.attr("data-dest"));
+            return false;
+        });
+    });
+}
+
 function init() {
     
-    //var sPath = window.location.href;
-    //var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+    $("#button-login-submit").click(function() {
+        scanBarcode();
+    });
 
-    //var db = window.openDatabase("ofilestorage", "1.0", "Ovewaitea Scanner Settings", 1024, null);
-    //if (!db) {
-    //    alert("Failed to connect to database.");
-    //}
-    //createTable(db);
-    
-    $("#form-login").submit(function() {
+    // Initiate barcode scanner when "scan" button pressed.
+    $("a#scan").click(function() {
+        scanBarcode();
     });
     
-    $("#button-config").click(function() {
-        $.mobile.changePage($("#urlConfig"));
-        return false;
-    });
-    
-    $("#form-urlConfig").submit(function() {
-        $.mobile.changePage($("#login"));
-        insertRow(db, $("#urlConfig-field-newUrl").val());
-        return false;
+    $("#button-config-submit").click(function() {
+        //insertURL(db, $("#urlConfig-field-newUrl").val());
     });
     
     $("#form-results").submit(function() {
@@ -48,25 +65,12 @@ function init() {
         //insertURL(db, "http://tomnightingale.com");
         return false;
     });
+}
 
-    // Perform actions when the Login page is first created.
-    $('#login').live('pagecreate', function(event) {
-    });
-    
-    // Perform actions when the results page is first created.
-    //$('#results').live('pagecreate', function(event){
-    if (sPage == "#results") {
-    alert(sPage);
-        
-        // Load scanner right away.
-        scanBarcode();
-
-        // Initiate barcode scanner when "scan" button pressed.
-        $("a#scan").click(function() {
-            scanBarcode();
-        });
-    }
-    //});
+function changePage(id) {
+    $(activePage).hide();
+    $(id).show();
+    activePage = id;
 }
 
 function scanBarcode() {
@@ -84,11 +88,6 @@ function scanBarcode() {
         function(error) {
             alert('Error: ' + error);
         });
-}
-
-function moveTo() {
-    var id = 'login-field-password';
-    blackberry.focus.setFocus(id);
 }
 
 /*********************************************************************
