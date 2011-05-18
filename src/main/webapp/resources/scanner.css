@@ -1,7 +1,44 @@
+html,
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 #logo {
   text-align: center;
 }
 
 .page {
   display: none;
+}
+
+.content {
+  border-width: 0;
+  padding: 15px;
+}
+
+.button-wrapper {
+  margin: .5em 5px;
+}
+.button {
+  height: 3em;
+}
+
+.header {
+  background: #333;
+  padding: 1em 0;
+  text-align: center;
+}
+
+.header h3 {
+  color: #FFF;
+  display: block;
+  font-size: 16px;
+  margin: 0 90px;
+}
+
+select,
+input {
+  width: 100%;
 }
