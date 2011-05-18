@@ -41,7 +41,7 @@ function init() {
     
     $("#form-urlConfig").submit(function() {
         $.mobile.changePage($("#login"));
-        insertURL(db, $("#urlConfig-field-newUrl").val());
+        //insertURL(db, $("#urlConfig-field-newUrl").val());
         return false;
     });
     
@@ -96,7 +96,7 @@ function moveTo() {
 /*********************************************************************
  * Database stuff
  ********************************************************************/
-function createTable(db) {
+/*function createTable(db) {
   db.transaction(
     function(transaction) {
       transaction.executeSql('DROP TABLE serverLoc', [],
@@ -122,13 +122,11 @@ function createTable(db) {
         function(transaction, error) {
           console.log('Insert FAIL ' + error.message);
         });
-        }
-      );
     }
   );
-}
+}*/
 
-function insertURL(db, newUrl) {
+/*function insertURL(db, newUrl) {
   db.transaction(
     function(transaction) {
       transaction.executeSql('UPDATE serverLoc SET url=?', [newUrl],
@@ -141,11 +139,12 @@ function insertURL(db, newUrl) {
     }
   );
 }
-
+*/
+/*
 function readURL(db) {
   db.transaction(
     function(transaction) {
       transaction.executeSql('SELECT * FROM serverLoc', null, null);
     }
   );
-}
+}*/
