@@ -11,9 +11,8 @@ $(document).ready(function() {
     init();
 });
 
-
 function clearCache() {
-    alert("Clearing cache...");
+    //alert("Clearing cache...");
 
     // Block for desktop browser testing.
     if (typeof blackberry === 'undefined') {
@@ -52,6 +51,7 @@ function init() {
     } else {
       alert('db created');
       createTable(db);
+      readDatabase(db, "url", parseReturnData);
     }
     $("#button-login-submit").click(function() {
         scanBarcode();
@@ -114,6 +114,12 @@ function createTable(db) {
   );
 }
 
+try{
+  
+} catch (e) {
+alert("exception: " + e.name + ": " + e.message)
+}
+
 function updateRow(db, key, newVal) {
   db.transaction(
     function(transaction) {
@@ -142,11 +148,16 @@ function insertRow(db, key, newVal) {
   );
 }
 
-function readURL(db) {
+function readDatabase(db, key, successCallbackFunction) {
   db.transaction(
     function(transaction) {
-      transaction.executeSql('SELECT * FROM serverLoc', [], null, null);
+      transaction.executeSql('SELECT * FROM serverLoc WHERE id=?', [key], successCallbackFunction);
     }
   );
+}
+
+function parseReturnData(transaction, result) {
+  alert("Results: " + (result.rows.item[0]).ID);
+  $("input#url").val((result.rows.item[0]).ID);
 }
 
