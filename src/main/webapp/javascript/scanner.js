@@ -5,6 +5,7 @@ $(document).ready(function() {
     // TODO: For development purposes only, should be removed when complete.
     clearCache();
     
+    // Initialize navigation.
     initNav();
     
     // Initialize application.
@@ -12,6 +13,10 @@ $(document).ready(function() {
 });
 
 
+/**
+ * Helper function to clear cache while in development.
+ * Protected for safe usage in desktop browser.
+ */
 function clearCache() {
     alert("Clearing cache...");
 
@@ -23,6 +28,13 @@ function clearCache() {
     blackberry.widgetcache.clearAll();
 }
 
+/**
+ * Initialize navigation between pages.
+ * - Scans html document for page divs and indexes them.
+ * - Makes the 1st page div visible.
+ * - Finds all elements with class="nav" and a data-dest attributes and bind's
+ *   their click events.
+ */
 function initNav() {
     // Identify all pages.
     $("div.page").each(function(i, e) {
@@ -45,6 +57,10 @@ function initNav() {
     });
 }
 
+/**
+ * Initializes misc application stuff including:
+ * - Binding click events to perform extra actions.
+ */
 function init() {
     
     $("#button-login-submit").click(function() {
@@ -67,6 +83,11 @@ function init() {
     });
 }
 
+/**
+ * Navigation helper.
+ * - Hides active page. 
+ * - Shows and activates destination page
+ */
 function changePage(id) {
     $(activePage).hide();
     $(id).show();
@@ -74,6 +95,13 @@ function changePage(id) {
     loadMenuItems(activePage);
 }
 
+/**
+ * Starts barcode scanner.
+ * - On sucess, updates the #upc field.
+ * - On fail (timeout), displays error message.
+ *
+ * TODO: Should probably take callback functions as arguments.
+ */
 function scanBarcode() {
     // Block for desktop browser testing.
     if (typeof barcode === 'undefined') {
