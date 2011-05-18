@@ -12,7 +12,6 @@ function clearCache() {
 
     // Block for desktop browser testing.
     if (typeof blackberry === 'undefined') {
-        console.log("clearCache(): No blackberry object detected.");
         return;
     }
 
@@ -20,6 +19,8 @@ function clearCache() {
 }
 
 function init() {
+    var sPath = window.location.href;
+    var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
     //var db = window.openDatabase("ofilestorage", "1.0", "Ovewaitea Scanner Settings", 1024, null);
     //if (!db) {
     //    alert("Failed to connect to database.");
@@ -28,19 +29,33 @@ function init() {
     getStores();
     
     $("#form-login").submit(function() {
-        $.mobile.changePage($("#results"));
-        insertURL(db, "http://tomnightingale.com");
+    });
+    
+    $("#button-config").click(function() {
+        $.mobile.changePage($("#urlConfig"));
+        return false;
+    });
+    
+    $("#form-urlConfig").submit(function() {
+        $.mobile.changePage($("#login"));
+        //insertURL(db, $("#urlConfig-field-newUrl").val());
+        return false;
+    });
+    
+    $("#form-results").submit(function() {
+        alert("results");
+        //insertURL(db, "http://tomnightingale.com");
         return false;
     });
 
     // Perform actions when the Login page is first created.
     $('#login').live('pagecreate', function(event) {
-        console.log("Login page created.");
     });
     
     // Perform actions when the results page is first created.
-    $('#results').live('pagecreate', function(event){
-        console.log("Results page created.");
+    //$('#results').live('pagecreate', function(event){
+    if (sPage == "#results") {
+    alert(sPage);
         
         // Load scanner right away.
         scanBarcode();
@@ -49,20 +64,19 @@ function init() {
         $("a#scan").click(function() {
             scanBarcode();
         });
-    });
+    }
+    //});
 }
 
 function scanBarcode() {
     // Block for desktop browser testing.
     if (typeof barcode === 'undefined') {
-        console.log("scanBarcode(): No barcode object detected.");
         return;
     }
 
     barcode.scanner.scan(
         // Success.
         function(message) {
-            console.log('Scanned: ' + message);
             $("input#upc").val(message);
         }, 
         // Error.
@@ -102,34 +116,32 @@ function getStores() {
 
 function moveTo() {
     var id = 'login-field-password';
-    console.log("Move to: " + id);
     blackberry.focus.setFocus(id);
 }
 
 /*********************************************************************
  * Database stuff
  ********************************************************************/
-function createTable(db) {
+/*function createTable(db) {
   db.transaction(
     function(transaction) {
-      transaction.executeSql(
-        'CREATE TABLE serverLoc(url VARCHAR(5) PRIMARY KEY, urlValue VARCHAR(30))', [],
+      transaction.executeSql('DROP TABLE serverLoc', [],
         function() {
-          console.log("Create YAY");
+          console.log("Drop YAY");
+        },
+        function(transaction, error) {
+          console.log('Drop FAIL ' + error.message);
+        });
+          
+      transaction.executeSql('CREATE TABLE serverLoc(url VARCHAR(100))', [],
+        function() {
+          //console.log("Create YAY");
         },
         function(transaction, error) {
           console.log('Create FAIL ' + error.message);
-        }
-      );
-      
-    }
-  );
-}
-
-function insertURL(db, newUrl) {
-  db.transaction(
-    function(transaction) {
-      transaction.executeSql('INSERT INTO serverLoc (urlValue) VALUES (?,?) WHERE ...', ["main",newUrl],
+        });
+        
+      transaction.executeSql('INSERT INTO serverLoc (url) VALUES (?)', ["https://simdv1:8443/caos/StoreManagement?wsdl"],
         function() {
           console.log("Insert YAY");
         },
@@ -138,12 +150,28 @@ function insertURL(db, newUrl) {
         });
     }
   );
-}
+}*/
 
+/*function insertURL(db, newUrl) {
+  db.transaction(
+    function(transaction) {
+      transaction.executeSql('UPDATE serverLoc SET url=?', [newUrl],
+        function() {
+          //console.log("Insert YAY");
+        },
+        function(transaction, error) {
+          //console.log('Insert FAIL ' + error.message);
+        });
+    }
+  );
+}
+*/
+/*
 function readURL(db) {
   db.transaction(
     function(transaction) {
       transaction.executeSql('SELECT * FROM serverLoc', null, null);
     }
   );
-}
+}*/
+
