@@ -30,8 +30,6 @@ function init() {
     //createTable(db);
     
     $("#form-login").submit(function() {
-        $.mobile.changePage($("#results"));
-        return false;
     });
     
     $("#button-config").click(function() {
@@ -48,6 +46,7 @@ function init() {
     $("#form-results").submit(function() {
         alert("results");
         //insertURL(db, "http://tomnightingale.com");
+        return false;
     });
 
     // Perform actions when the Login page is first created.
@@ -71,7 +70,6 @@ function init() {
 }
 
 function scanBarcode() {
-    alert("scanBarcode");
     // Block for desktop browser testing.
     if (typeof barcode === 'undefined') {
         return;
