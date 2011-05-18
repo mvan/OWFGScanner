@@ -25,6 +25,9 @@ public final class Client extends ScriptableFunction {
             Logger.logDebugEvent("Client.invoke: create WS");
             ws = new WebService((String) args[2], (String) args[3], (String) args[4]);
         }
+        if (ws.getAddress().equals((String) args[2]) == false) {
+            ws.setAddress((String) args[2]);
+        }
 
         try {
             if (fnName.equals(GET_INFO)) {
