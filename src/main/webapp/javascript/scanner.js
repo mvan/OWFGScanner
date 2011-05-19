@@ -54,25 +54,25 @@ function clearCache() {
  *   their click events.
  */
 function initNav() {
-    // Identify all pages.
-    $("div.page").each(function(i, e) {
-        var element = $(e);
-        pages[i] = "#" + element.attr("id");
+  // Identify all pages.
+  $("div.page").each(function(i, e) {
+    var element = $(e);
+    pages[i] = "#" + element.attr("id");
 
-        if (i == 0) {
-            activePage = pages[i];
-            element.show();
-        }
-    });
+    if (i == 0) {
+      activePage = pages[i];
+      element.show();
+    }
+  });
 
-    // Bind page change events
-    $(".nav").each(function(i, e) {
-        var element = $(e);
-        element.click(function() {
-            changePage(element.attr("data-dest"));
-            return false;
-        });
-    });
+  // Bind page change events
+  $(".nav").each(function(i, e) {
+      var element = $(e);
+      element.click(function() {
+          changePage(element.attr("data-dest"));
+          return false;
+      });
+  });
 }
 
 /**
@@ -81,26 +81,32 @@ function initNav() {
  * - Creates a database if none exists.
  */
 function initDB() {
-    try {
+  try {
     var database = window.openDatabase("ofilesystem", "1.0", "Ovewaitea Scanner Settings", 1024);
-    } catch (e) {
-        alert("openDatabase: " + e.name + "; " + e.message);
-    }
+  } catch (e) {
+      alert("openDatabase: " + e.name + "; " + e.message);
+  }
 
-    // If unable to load the database, quite likely no SDCard is present.
-    // TODO: Application should probably terminate if this fails.
-    if (!database) {
-        alert('Unable to create database: Application requires SDCard for external storage.');
-    } 
-    else {
-      createTable(database);
+  // If unable to load the database, quite likely no SDCard is present.
+  // TODO: Application should probably terminate if this fails.
+  if (!database) {
+      alert('Unable to create database: Application requires SDCard for external storage.');
+  } 
+  else {
+    createTable(database);
+    readDatabase(database, "url", updateUrlField);
+    readDatabase(database, "username", validateUsernameExists);
+  }
+
+  $("#button-config-submit").click(function() {
+      updateRow(database, "url", $("#config-field-url").val());
       readDatabase(database, "url", updateUrlField);
-    }
-
-    $("#button-config-submit").click(function() {
-        updateRow(database, "url", $("#config-field-url").val());
-        readDatabase(database, "url", updateUrlField);
-    });
+  });
+  
+  $("#button-login-submit").click(function() {
+      updateRow(database, "username", $("#login-field-username").val());
+      updateRow(database, "password", $("#login-field-password").val());
+  });
 }
 
 /**
@@ -109,19 +115,18 @@ function initDB() {
  */
 function init() {
 
-    $("#button-login-submit").click(function() {
-        scanBarcode();
-    });
-    
-    $("#results-submit").click(function() {
-        getStores();
-        //getInfo();
-        //insertURL(db, "http://tomnightingale.com");
-    });
+  $("#button-login-submit").click(function() {
+      scanBarcode();
+  });
+  
+  $("#results-submit").click(function() {
+      getStores();
+      //getInfo();
+  });
 
-    $("#results").live("page-opened", function() {
-        
-    });
+  $("#results").live("page-opened", function() {
+      
+  });
 }
 
 /**
@@ -130,11 +135,11 @@ function init() {
  * - Shows and activates destination page
  */
 function changePage(id) {
-    $(activePage).hide();
-    $(id).show();
-    activePage = id;
-    $(activePage).trigger("page-opened");
-    loadMenuItems(activePage);
+  $(activePage).hide();
+  $(id).show();
+  activePage = id;
+  $(activePage).trigger("page-opened");
+  loadMenuItems(activePage);
 }
 
 /**
@@ -145,48 +150,48 @@ function changePage(id) {
  * TODO: Should probably take callback functions as arguments.
  */
 function scanBarcode() {
-    // Block for desktop browser testing.
-    if (typeof barcode === 'undefined') {
-        return;
-    }
+  // Block for desktop browser testing.
+  if (typeof barcode === 'undefined') {
+      return;
+  }
 
-    barcode.scanner.scan(
-        // Success.
-        function(message) {
-            $("input#upc").val(message);
-        }, 
-        // Error.
-        function(error) {
-            alert('Error: ' + error);
-        });
+  barcode.scanner.scan(
+      // Success.
+      function(message) {
+          $("input#upc").val(message);
+      }, 
+      // Error.
+      function(error) {
+          alert('Error: ' + error);
+      });
 }
 
 function getStores() {
-    // Success callback.
-    var success = function(stores) {
-        var option;
-        var storeList = document.getElementById('store');
-        $(stores).each(function(index, element) {
-            option = new Option(element, element);
-            storeList.options[index] = option;
-        });
-    };
+  // Success callback.
+  var success = function(stores) {
+      var option;
+      var storeList = document.getElementById('store');
+      $(stores).each(function(index, element) {
+          option = new Option(element, element);
+          storeList.options[index] = option;
+      });
+  };
 
-    // Error callback.
-    var error = function(message) {
-        var storeList = document.getElementById('store');
-        alert('Error: ' + message);
-        storeList.options.length = 0;
-    };
+  // Error callback.
+  var error = function(message) {
+      var storeList = document.getElementById('store');
+      alert('Error: ' + message);
+      storeList.options.length = 0;
+  };
 
-    //address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
-    address = "http://warrenv.dlinkddns.com:8080/StoreManagement-ws";
-    user = 'test'; //tget from div#login-username
-    password = 'test'; //get from div#login-password
-    fnname = 'getStores';
-    extraargs = '';
+  //address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
+  address = "http://warrenv.dlinkddns.com:8080/StoreManagement-ws";
+  user = 'test'; //tget from div#login-username
+  password = 'test'; //get from div#login-password
+  fnname = 'getStores';
+  extraargs = '';
 
-    webservice.client.query(success, error, address, user, password, fnname, extraargs);
+  webservice.client.query(success, error, address, user, password, fnname, extraargs);
 }
 
 function getBanners() {
@@ -319,19 +324,18 @@ function customMenuItemClick() {
  * Database stuff
  ********************************************************************/
 function createTable(db) {
-    try {
-        db.transaction(
-          function(transaction) {
-              transaction.executeSql('CREATE TABLE IF NOT EXISTS serverLoc(id VARCHAR(10) PRIMARY KEY, val VARCHAR(100))', []);
-                
-              transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["url", "https://simdv1:8443/caos/StoreManagement?wsdl"]);
-              transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["username", ""]);
-              transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["password", ""]);
-          }
-        );
-    } catch (e) {
-        alert("creatTable: " + e.name + "; " + e.message);
-    }
+  try {
+    db.transaction(
+      function(transaction) {
+        transaction.executeSql('CREATE TABLE IF NOT EXISTS serverLoc(id VARCHAR(10) PRIMARY KEY, val VARCHAR(100))', []);       
+        transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["url", "https://simdv1:8443/caos/StoreManagement?wsdl"]);
+        transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["username", "null"]);
+        transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["password", "null"]);
+      }
+    );
+  } catch (e) {
+    alert("creatTable: " + e.name + "; " + e.message);
+  }
 }
 
 function updateRow(db, key, newVal) {
@@ -358,27 +362,40 @@ function insertRow(db, key, newVal) {
     }
 }
 
+/* Takes a database variable (db), an id value to search for in the database (key) 
+ * and a callback function to call on success.
+ */
 function readDatabase(db, key, successCallbackFunction) {
-    try {
-        var result = [];
-        db.transaction(
-          function(transaction) {
-            transaction.executeSql('SELECT * FROM serverLoc WHERE id=?', [key], function(tx, rs) {
-              var row = rs.rows.item(0);
-              successCallbackFunction(row);
-            });
-          }
-        );
-    } catch (e) {
-        alert("readDatabase: " + e.name + "; " + e.message);
-    }
+  try {
+    db.transaction(
+      function(transaction) {
+        transaction.executeSql('SELECT * FROM serverLoc WHERE id=?', [key], function(tx, rs) {
+          var row = rs.rows.item(0);
+          successCallbackFunction(row);
+        });
+      }
+    );
+  } catch (e) {
+      alert("readDatabase: " + e.name + "; " + e.message);
+  }
 }
 
 function updateUrlField(row) {
-    try {
-        $("input#login-field-url").val(row.val);
-        $("input#config-field-url").val(row.val);
-    } catch (e) {
-        alert("updateUrlField: " + e.name + "; " + e.message);
+  try {
+      $("input#login-field-url").val(row.val);
+      $("input#config-field-url").val(row.val);
+  } catch (e) {
+      alert("updateUrlField: " + e.name + "; " + e.message);
+  }
+}
+
+function validateUsernameAndPasswordExists(row) {
+  if(row.id == "password") {
+    if(row.val != "null") {
+    changePage('#results');
     }
+  }
+  if(row.val != "null") {
+    readDatabase(database, "password", validateUsernameAndPasswordExists);
+  }
 }
