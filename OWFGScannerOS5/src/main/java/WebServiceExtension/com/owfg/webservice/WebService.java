@@ -77,7 +77,7 @@ public class WebService  {
 			//TODO
 			Logger.logSevereErrorEvent("WebService.getStores(): " + e);
 			str = new String[1];
-			str[0] = new String("Unable to retrieve Stores");
+			str[0] = new String("Unable to retrive Stores from: " + address);
             try {
 			    error.invoke(error, str);
             } catch (Exception er) {
