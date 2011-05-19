@@ -90,6 +90,8 @@ function initDB() {
 function init() {
 
     $("#button-login-submit").click(function() {
+        updateRow(database, "username", $("#login-field-username").val());
+        updateRow(database, "password", $("#login-field-password").val());
         scanBarcode();
     });
 
@@ -100,7 +102,6 @@ function init() {
     
     $("#results-submit").click(function() {
         getInfo();
-        //insertURL(db, "http://tomnightingale.com");
     });
 }
 
@@ -299,8 +300,7 @@ function customMenuItemClick() {
 function createTable(db) {
   db.transaction(
     function(transaction) {
-      transaction.executeSql('CREATE TABLE IF NOT EXISTS serverLoc(id VARCHAR(10) PRIMARY KEY, val VARCHAR(100))', []);
-        
+      transaction.executeSql('CREATE TABLE IF NOT EXISTS serverLoc(id VARCHAR(10) PRIMARY KEY, val VARCHAR(100))', []);       
       transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["url", "https://simdv1:8443/caos/StoreManagement?wsdl"]);
       transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["username", ""]);
       transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["password", ""]);
