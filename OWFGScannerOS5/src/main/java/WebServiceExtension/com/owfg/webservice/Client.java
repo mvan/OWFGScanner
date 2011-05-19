@@ -53,8 +53,7 @@ public final class Client extends ScriptableFunction {
                 ws.setStore(success, error, (Long) args[6]);
             }
         } catch (Exception e) {
-            // TODO: Handle this somehow...
-            //Logger.logErrorEvent("MyApp() IO Exception: " + ioe);
+            Logger.logErrorEvent("Client() Invoke " + e);
         }
         return UNDEFINED;
     }

@@ -28,10 +28,13 @@ public class WebService  {
 		try {
 			if (stub == null) {
 				stub = new StoreManagementImpl_Stub();
-				stub._setProperty(StoreManagementImpl_Stub.ENDPOINT_ADDRESS_PROPERTY, address);
-                this.address = address;
-                this.user = user;
-                this.pass = password;
+                setAddress(address);
+                setUser(user);
+                setPass(password);
+				//stub._setProperty(StoreManagementImpl_Stub.ENDPOINT_ADDRESS_PROPERTY, address);
+                //this.address = address;
+                //this.user = user;
+                //this.pass = password;
 				//TODO uncomment when server side is setup
 				//stub._setProperty(StoreManagementImpl_Stub.USERNAME_PROPERTY, user);
 				//stub._setProperty(StoreManagementImpl_Stub.PASSWORD_PROPERTY, password);
@@ -212,6 +215,7 @@ public class WebService  {
     public void setAddress(String address) {
         stub._setProperty(StoreManagementImpl_Stub.ENDPOINT_ADDRESS_PROPERTY, address);
         this.address = address;
+        Logger.logDebugEvent("WebService.setAddress: " + address);
     }
     public String getUser() {
         return user;
@@ -219,6 +223,7 @@ public class WebService  {
     public void setUser(String user) {
         stub._setProperty(StoreManagementImpl_Stub.USERNAME_PROPERTY, user);
         this.user = user;
+        Logger.logDebugEvent("WebService.setAddress: " + user);
     }
     public String getPass() {
         return pass;
@@ -226,6 +231,7 @@ public class WebService  {
     public void setPass(String pass) {
         stub._setProperty(StoreManagementImpl_Stub.PASSWORD_PROPERTY, pass);
         this.pass = pass;
+        Logger.logDebugEvent("WebService.setAddress: " + pass);
     }
 }
 
