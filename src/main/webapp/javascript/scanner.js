@@ -180,7 +180,7 @@ function getStores() {
     };
 
     //address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
-    address = "http://warrenv.dlinkddns.com/StoreManagement-ws';
+    address = "http://warrenv.dlinkddns.com:8080/StoreManagement-ws";
     user = 'test'; //tget from div#login-username
     password = 'test'; //get from div#login-password
     fnname = 'getStores';
