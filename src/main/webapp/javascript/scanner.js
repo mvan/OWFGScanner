@@ -173,9 +173,9 @@ function getStores() {
     };
 
     // Error callback.
-    var error = function() {
+    var error = function(message) {
         var storeList = document.getElementById('store');
-        alert('Error');
+        alert('Error: ' + message);
         storeList.options.length = 0;
     };
 
