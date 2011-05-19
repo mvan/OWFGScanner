@@ -322,9 +322,11 @@ function createTable(db) {
     try {
         db.transaction(
           function(transaction) {
-            transaction.executeSql('CREATE TABLE IF NOT EXISTS serverLoc(id VARCHAR(10) PRIMARY KEY, val VARCHAR(100))', []);
-              
-            transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["url", "https://simdv1:8443/caos/StoreManagement?wsdl"]);
+              transaction.executeSql('CREATE TABLE IF NOT EXISTS serverLoc(id VARCHAR(10) PRIMARY KEY, val VARCHAR(100))', []);
+                
+              transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["url", "https://simdv1:8443/caos/StoreManagement?wsdl"]);
+              transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["username", ""]);
+              transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["password", ""]);
           }
         );
     } catch (e) {
