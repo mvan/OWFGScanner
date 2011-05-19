@@ -3,31 +3,29 @@ var activePage = "undefined";
 
 $(document).ready(function() {
     try {
-    // TODO: For development purposes only, should be removed when complete.
-    clearCache();
+        // TODO: For development purposes only, should be removed when complete.
+        clearCache();
     } catch (e) {
         alert("clearCache(): Exception occured: " + e.name + "; " + e.message);
     }
     
     try {
-    // Initialize navigation.
-    initNav();
+        // Initialize navigation.
+        initNav();
     } catch (e) {
         alert("initNav(): Exception occured: " + e.name + "; " + e.message);
     }
     
-/*
     try {
-    // Initialize database.
-    initDB();
+        // Initialize database.
+        initDB();
     } catch (e) {
         alert("initDB(): Exception occured: " + e.name + "; " + e.message);
     }
-*/
     
     try {
-    // Initialize application.
-    init();
+        // Initialize application.
+        init();
     } catch (e) {
         alert("init(): Exception occured: " + e.name + "; " + e.message);
     }
@@ -82,7 +80,6 @@ function initNav() {
  * - Loads database if one exists, otherwise:
  * - Creates a database if none exists.
  */
-/*
 function initDB() {
     try {
     var database = window.openDatabase("ofilesystem", "1.0", "Ovewaitea Scanner Settings", 1024);
@@ -105,7 +102,6 @@ function initDB() {
         readDatabase(database, "url", updateUrlField);
     });
 }
-*/
 
 /**
  * Initializes misc application stuff including:
@@ -251,6 +247,7 @@ function getInfo() {
 
     webservice.client.query(success, error, address, user, password, fnname, extraargs);
 }
+
 function setStore() {
     // Success callback.
     var success = function() {
@@ -321,16 +318,15 @@ function customMenuItemClick() {
 /*********************************************************************
  * Database stuff
  ********************************************************************/
-/*
 function createTable(db) {
     try {
-  db.transaction(
-    function(transaction) {
-      transaction.executeSql('CREATE TABLE IF NOT EXISTS serverLoc(id VARCHAR(10) PRIMARY KEY, val VARCHAR(100))', []);
-        
-      transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["url", "https://simdv1:8443/caos/StoreManagement?wsdl"]);
-    }
-  );
+        db.transaction(
+          function(transaction) {
+            transaction.executeSql('CREATE TABLE IF NOT EXISTS serverLoc(id VARCHAR(10) PRIMARY KEY, val VARCHAR(100))', []);
+              
+            transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["url", "https://simdv1:8443/caos/StoreManagement?wsdl"]);
+          }
+        );
     } catch (e) {
         alert("creatTable: " + e.name + "; " + e.message);
     }
@@ -338,11 +334,11 @@ function createTable(db) {
 
 function updateRow(db, key, newVal) {
     try {
-  db.transaction(
-    function(transaction) {
-      transaction.executeSql('UPDATE serverLoc SET val=? WHERE id=?', [newVal, key]);
-    }
-  );
+        db.transaction(
+          function(transaction) {
+            transaction.executeSql('UPDATE serverLoc SET val=? WHERE id=?', [newVal, key]);
+          }
+        );
     } catch (e) {
         alert("updateRow: " + e.name + "; " + e.message);
     }
@@ -350,11 +346,11 @@ function updateRow(db, key, newVal) {
 
 function insertRow(db, key, newVal) {
     try {
-  db.transaction(
-    function(transaction) {
-      transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?,?)', [key, newVal]);
-    }
-  );
+        db.transaction(
+          function(transaction) {
+            transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?,?)', [key, newVal]);
+          }
+        );
     } catch (e) {
         alert("insertRow: " + e.name + "; " + e.message);
     }
@@ -362,15 +358,15 @@ function insertRow(db, key, newVal) {
 
 function readDatabase(db, key, successCallbackFunction) {
     try {
-  var result = [];
-  db.transaction(
-    function(transaction) {
-      transaction.executeSql('SELECT * FROM serverLoc WHERE id=?', [key], function(tx, rs) {
-        var row = rs.rows.item(0);
-        successCallbackFunction(row);
-      });
-    }
-  );
+        var result = [];
+        db.transaction(
+          function(transaction) {
+            transaction.executeSql('SELECT * FROM serverLoc WHERE id=?', [key], function(tx, rs) {
+              var row = rs.rows.item(0);
+              successCallbackFunction(row);
+            });
+          }
+        );
     } catch (e) {
         alert("readDatabase: " + e.name + "; " + e.message);
     }
@@ -378,10 +374,9 @@ function readDatabase(db, key, successCallbackFunction) {
 
 function updateUrlField(row) {
     try {
-  $("input#login-field-url").val(row.val);
-  $("input#config-field-url").val(row.val);
+        $("input#login-field-url").val(row.val);
+        $("input#config-field-url").val(row.val);
     } catch (e) {
         alert("updateUrlField: " + e.name + "; " + e.message);
     }
 }
-*/
