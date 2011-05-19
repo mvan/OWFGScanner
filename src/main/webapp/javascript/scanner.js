@@ -16,12 +16,14 @@ $(document).ready(function() {
         alert("initNav(): Exception occured: " + e.name + "; " + e.message);
     }
     
+/*
     try {
     // Initialize database.
     initDB();
     } catch (e) {
         alert("initDB(): Exception occured: " + e.name + "; " + e.message);
     }
+*/
     
     try {
     // Initialize application.
@@ -80,9 +82,10 @@ function initNav() {
  * - Loads database if one exists, otherwise:
  * - Creates a database if none exists.
  */
+/*
 function initDB() {
     try {
-    var database = window.openDatabase("ofilesystem", "1.0", "Ovewaitea Scanner Settings", 1024, null);
+    var database = window.openDatabase("ofilesystem", "1.0", "Ovewaitea Scanner Settings", 1024);
     } catch (e) {
         alert("openDatabase: " + e.name + "; " + e.message);
     }
@@ -102,6 +105,7 @@ function initDB() {
         readDatabase(database, "url", updateUrlField);
     });
 }
+*/
 
 /**
  * Initializes misc application stuff including:
@@ -112,15 +116,15 @@ function init() {
     $("#button-login-submit").click(function() {
         scanBarcode();
     });
-
-    // Initiate barcode scanner when "scan" button pressed.
-    $("a#scan").click(function() {
-        scanBarcode();
-    });
     
     $("#results-submit").click(function() {
-        getInfo();
+        getStores();
+        //getInfo();
         //insertURL(db, "http://tomnightingale.com");
+    });
+
+    $("#results").live("page-opened", function() {
+        
     });
 }
 
@@ -133,6 +137,7 @@ function changePage(id) {
     $(activePage).hide();
     $(id).show();
     activePage = id;
+    $(activePage).trigger("page-opened");
     loadMenuItems(activePage);
 }
 
@@ -153,7 +158,6 @@ function scanBarcode() {
         // Success.
         function(message) {
             $("input#upc").val(message);
-            getStores();
         }, 
         // Error.
         function(error) {
@@ -179,7 +183,8 @@ function getStores() {
         storeList.options.length = 0;
     };
 
-    address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
+    //address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
+    address = "http://warrenv.dlinkddns.com/StoreManagement-ws';
     user = 'test'; //tget from div#login-username
     password = 'test'; //get from div#login-password
     fnname = 'getStores';
@@ -316,6 +321,7 @@ function customMenuItemClick() {
 /*********************************************************************
  * Database stuff
  ********************************************************************/
+/*
 function createTable(db) {
     try {
   db.transaction(
@@ -378,4 +384,4 @@ function updateUrlField(row) {
         alert("updateUrlField: " + e.name + "; " + e.message);
     }
 }
-
+*/
