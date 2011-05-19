@@ -65,8 +65,11 @@ function initNav() {
  * - Creates a database if none exists.
  */
 function initDB() {
-    var database = window.openDatabase("ofilesystem", "1.0", "Ovewaitea Scanner Settings", 1024, null);
-
+    try {
+      var database = window.openDatabase("ofilesystem", "1.0", "Ovewaitea Scanner Settings", 1024);
+    } catch (e) {
+      alert('Exception: ' + e.message); 
+    }
     // If unable to load the database, quite likely no SDCard is present.
     // TODO: Application should probably terminate if this fails.
     if (!database) {
@@ -75,11 +78,17 @@ function initDB() {
     else {
       createTable(database);
       readDatabase(database, "url", updateUrlField);
+      readDatabase(database, "username", validateUsernameExists);
     }
 
     $("#button-config-submit").click(function() {
         updateRow(database, "url", $("#config-field-url").val());
         readDatabase(database, "url", updateUrlField);
+    });
+    
+    $("#button-login-submit").click(function() {
+        updateRow(database, "username", $("#login-field-username").val());
+        updateRow(database, "password", $("#login-field-password").val());
     });
 }
 
@@ -90,8 +99,6 @@ function initDB() {
 function init() {
 
     $("#button-login-submit").click(function() {
-        updateRow(database, "username", $("#login-field-username").val());
-        updateRow(database, "password", $("#login-field-password").val());
         scanBarcode();
     });
 
@@ -302,8 +309,8 @@ function createTable(db) {
     function(transaction) {
       transaction.executeSql('CREATE TABLE IF NOT EXISTS serverLoc(id VARCHAR(10) PRIMARY KEY, val VARCHAR(100))', []);       
       transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["url", "https://simdv1:8443/caos/StoreManagement?wsdl"]);
-      transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["username", ""]);
-      transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["password", ""]);
+      transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["username", "null"]);
+      transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["password", "null"]);
     }
   );
 }
@@ -324,8 +331,10 @@ function insertRow(db, key, newVal) {
   );
 }
 
+/* Takes a database variable (db), an id value to search for in the database (key) 
+ * and a callback function to call on success.
+ */
 function readDatabase(db, key, successCallbackFunction) {
-  var result = [];
   db.transaction(
     function(transaction) {
       transaction.executeSql('SELECT * FROM serverLoc WHERE id=?', [key], function(tx, rs) {
@@ -339,5 +348,16 @@ function readDatabase(db, key, successCallbackFunction) {
 function updateUrlField(row) {
   $("input#login-field-url").val(row.val);
   $("input#config-field-url").val(row.val);
+}
+
+function validateUsernameAndPasswordExists(row) {
+  if(row.id == "password") {
+    if(row.val != "null") {
+    changePage('#results');
+    }
+  }
+  if(row.val != "null") {
+    readDatabase(database, "password", validateUsernameAndPasswordExists);
+  }
 }
 
