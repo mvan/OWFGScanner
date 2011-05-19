@@ -2,17 +2,33 @@ var pages = [];
 var activePage = "undefined";
 
 $(document).ready(function() {
+    try {
     // TODO: For development purposes only, should be removed when complete.
     clearCache();
+    } catch (e) {
+        alert("clearCache(): Exception occured: " + e.name + "; " + e.message);
+    }
     
+    try {
     // Initialize navigation.
     initNav();
+    } catch (e) {
+        alert("initNav(): Exception occured: " + e.name + "; " + e.message);
+    }
     
+    try {
     // Initialize database.
     initDB();
+    } catch (e) {
+        alert("initDB(): Exception occured: " + e.name + "; " + e.message);
+    }
     
+    try {
     // Initialize application.
     init();
+    } catch (e) {
+        alert("init(): Exception occured: " + e.name + "; " + e.message);
+    }
 });
 
 /**
@@ -65,7 +81,11 @@ function initNav() {
  * - Creates a database if none exists.
  */
 function initDB() {
+    try {
     var database = window.openDatabase("ofilesystem", "1.0", "Ovewaitea Scanner Settings", 1024, null);
+    } catch (e) {
+        alert("openDatabase: " + e.name + "; " + e.message);
+    }
 
     // If unable to load the database, quite likely no SDCard is present.
     // TODO: Application should probably terminate if this fails.
@@ -297,6 +317,7 @@ function customMenuItemClick() {
  * Database stuff
  ********************************************************************/
 function createTable(db) {
+    try {
   db.transaction(
     function(transaction) {
       transaction.executeSql('CREATE TABLE IF NOT EXISTS serverLoc(id VARCHAR(10) PRIMARY KEY, val VARCHAR(100))', []);
@@ -304,25 +325,37 @@ function createTable(db) {
       transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["url", "https://simdv1:8443/caos/StoreManagement?wsdl"]);
     }
   );
+    } catch (e) {
+        alert("creatTable: " + e.name + "; " + e.message);
+    }
 }
 
 function updateRow(db, key, newVal) {
+    try {
   db.transaction(
     function(transaction) {
       transaction.executeSql('UPDATE serverLoc SET val=? WHERE id=?', [newVal, key]);
     }
   );
+    } catch (e) {
+        alert("updateRow: " + e.name + "; " + e.message);
+    }
 }
 
 function insertRow(db, key, newVal) {
+    try {
   db.transaction(
     function(transaction) {
       transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?,?)', [key, newVal]);
     }
   );
+    } catch (e) {
+        alert("insertRow: " + e.name + "; " + e.message);
+    }
 }
 
 function readDatabase(db, key, successCallbackFunction) {
+    try {
   var result = [];
   db.transaction(
     function(transaction) {
@@ -332,10 +365,17 @@ function readDatabase(db, key, successCallbackFunction) {
       });
     }
   );
+    } catch (e) {
+        alert("readDatabase: " + e.name + "; " + e.message);
+    }
 }
 
 function updateUrlField(row) {
+    try {
   $("input#login-field-url").val(row.val);
   $("input#config-field-url").val(row.val);
+    } catch (e) {
+        alert("updateUrlField: " + e.name + "; " + e.message);
+    }
 }
 
