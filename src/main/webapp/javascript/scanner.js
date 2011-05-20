@@ -131,17 +131,10 @@ function getStores(username, password, success) {
       changePage("#login");
   };
 
-  // Block for desktop browser testing.
-  if (typeof webservice === "undefined") {
-    success([]);
-    //error("");
-    return;
-  }
-
-  //address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
+  fnname = 'getStores';
+  extraargs = '';
   var address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
   //alert("Calling getStores()\nUsername: " + username + "\nPassword: " + password + "\nAddress: " + address);
-
   webservice.client.query(success, error, address, username, password, "getStores", "");
 }
 
@@ -194,12 +187,12 @@ function getInfo() {
     var error = function() {
         alert('Error');
     };
-
-    address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
-    user = 'test'; //tget from div#login-username
-    password = 'test'; //get from div#login-password
-    fnname = 'getInfo';
-    extraargs = '';
+    var address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
+    //address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
+    var user = 'test'; //tget from div#login-username
+    var password = 'test'; //get from div#login-password
+    var fnname = 'getInfo';
+    var extraargs = '';
 
     webservice.client.query(success, error, address, user, password, fnname, extraargs);
 }
