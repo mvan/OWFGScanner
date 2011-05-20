@@ -36,8 +36,8 @@ public class WebService  {
                 //this.user = user;
                 //this.pass = password;
 				//TODO uncomment when server side is setup
-				//stub._setProperty(StoreManagementImpl_Stub.USERNAME_PROPERTY, user);
-				//stub._setProperty(StoreManagementImpl_Stub.PASSWORD_PROPERTY, password);
+				stub._setProperty(StoreManagementImpl_Stub.USERNAME_PROPERTY, user);
+				stub._setProperty(StoreManagementImpl_Stub.PASSWORD_PROPERTY, password);
 			}
 		} catch (Exception ex) {
 			Logger.logSevereErrorEvent("WebService(): " + ex);
