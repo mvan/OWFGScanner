@@ -16,13 +16,13 @@ public final class Client extends ScriptableFunction {
 
     public Object invoke(Object obj, Object[] args) throws Exception {
         EventLogger.register(GUID, APP_NAME, EventLogger.VIEWER_STRING);
-        Logger.logDebugEvent("Client(): invoke");
+        Logger.logInformationEvent("Client(): invoke");
 
         String fnName = (String) args[5];
         ScriptableFunction success = (ScriptableFunction) args[0];
         ScriptableFunction error = (ScriptableFunction) args[1];
         if (ws == null) {
-            Logger.logDebugEvent("Client.invoke: create WS");
+            Logger.logInformationEvent("Client.invoke: create WS");
             ws = new WebService((String) args[2], (String) args[3], (String) args[4]);
         }
         if (ws.getAddress().equals((String) args[2]) == false) {
@@ -37,23 +37,23 @@ public final class Client extends ScriptableFunction {
 
         try {
             if (fnName.equals(GET_INFO)) {
-                Logger.logDebugEvent("Client.invoke: get Info");
+                Logger.logInformationEvent("Client.invoke: get Info");
                 ws.getInfo(success, error, (String) args[6]);
             }
             if (fnName.equals(GET_BANNERS)) {
-                Logger.logDebugEvent("Client.invoke: get banners");
+                Logger.logInformationEvent("Client.invoke: get banners");
                 ws.getBanners(success, error);
             }
             if (fnName.equals(GET_STORES)) {
-                Logger.logDebugEvent("Client.invoke: get stores");
+                Logger.logInformationEvent("Client.invoke: get stores");
                 ws.getStores(success, error);
             }
             if (fnName.equals(SET_STORE)) {
-                Logger.logDebugEvent("Client.invoke: get stores");
+                Logger.logInformationEvent("Client.invoke: get stores");
                 ws.setStore(success, error, (Long) args[6]);
             }
         } catch (Exception e) {
-            Logger.logErrorEvent("Client() Invoke " + e);
+            Logger.logErrorEvent("Exception: Client.Invoke(); " + e.getMessage());
         }
         return UNDEFINED;
     }
