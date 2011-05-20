@@ -95,7 +95,7 @@ function initDB() {
   else {
     createTable(database);
     readDatabase(database, "url", updateUrlField);
-    readDatabase(database, "username", validateUsernameExists);
+    readDatabase(database, "password", validateUsernameAndPasswordExists);
   }
 
   $("#button-config-submit").click(function() {
@@ -383,8 +383,8 @@ function readDatabase(db, key, successCallbackFunction) {
 
 function updateUrlField(row) {
   try {
-      $("input#login-field-url").val(row.val);
-      $("input#config-field-url").val(row.val);
+    $("input#login-field-url").val(row.val);
+    $("input#config-field-url").val(row.val);
   } catch (e) {
       alert("updateUrlField: " + e.name + "; " + e.message);
   }
@@ -395,8 +395,5 @@ function validateUsernameAndPasswordExists(row) {
     if(row.val != "null") {
     changePage('#results');
     }
-  }
-  if(row.val != "null") {
-    readDatabase(database, "password", validateUsernameAndPasswordExists);
   }
 }
