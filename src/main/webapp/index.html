@@ -7,16 +7,24 @@
         <script src="javascript/config.js" type="text/javascript"></script>
         <script src="javascript/navigation.js" type="text/javascript"></script>
         <script src="javascript/scanner.js" type="text/javascript"></script>
-        <!--<script type="text/javascript" src="javascript/html5_init.js" id="html5_init"></script>-->
+        <script type="text/javascript" src="javascript/html5_init.js" id="html5_init"></script>
         <title>Results Page</title>
     </head>
 
     <body>
 
+        <!-- Loading page --------------------------------------------------->
+        <div class="page" id="loading">
+            <div class="header"><h3>Loading</h3></div>
+            <div class="content" >
+              <h1>LOADING...</h1>
+            </div>
+        </div>
+
         <!-- Login page ------------------------------------------------------>
         <div class="page" id="login">
             <div class="header"><h3>Overwaitea Food Group - Login</h3></div>
-            <div class="content" class="ui-body">
+            <div class="content" >
                 <form id="form-login" method="post" action="#results">
                     <div id="logo"><img id="img-logo" src="resources/logo_ofg_72.png" alt="Overwaitea Logo" /></div>
                     <div id="login-username"><label>User ID:</label><input id="login-field-username" type="text" size="20" name="username" /></div>
@@ -33,7 +41,7 @@
             <div class="header">
                 <h3>Scan Results</h3>
             </div>
-            <div class="content" class="ui-body">
+            <div class="content" >
                 <form id="form-results" method="post" action="#results">
                     <div>
                         <label>UPC:</label>
@@ -73,7 +81,7 @@
         <!-- Forecast page --------------------------------------------------->
         <div class="page" id="forecast">
             <div class="header"><h3>Forecast</h3></div>
-            <div class="content" class="ui-body">
+            <div class="content" >
                 <form><table><tr>
                             <td>Day</td><td>Regular</td><td>Sale</td>
                         </tr>
@@ -118,7 +126,7 @@
         <!-- Configuration page ---------------------------------------------->
         <div class="page" id="config">
             <div class="header"><h3>Overwaitea Food Group - Configuration</h3></div>
-            <div class="content" class="ui-body">
+            <div class="content" >
                 <form id="form-config" method="post" action="#">
                     <div id="config-url"><label>New URL:</label><input id="config-field-url" type="text" size="20" name="url" /></div>
                     <div class="button-wrapper" id="config-submit"><input class="nav button" data-dest="#login" id="button-config-submit" type="button" name="config" value="Save" /></div>

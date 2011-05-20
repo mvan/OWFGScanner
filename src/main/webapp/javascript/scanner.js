@@ -6,17 +6,7 @@ $(function() {
         alert("clearCache(): Exception occured: " + e.name + "; " + e.message);
     }
     
-    try {
-        // Initialize persistent configuration.
-        var config = $.fn.Config(function() {
-          $("#login-field-username").val(config.getVar("username", "bcit"));
-          $("#login-field-password").val(config.getVar("password", "beeC1t"));
-          $("#login-field-url").val(config.getVar("url", "https://simdv1.owfg.com:8443/caos/StoreManagement"));
-        });
-      
-    } catch (e) {
-        alert("Config(): Exception occured: " + e.name + "; " + e.message);
-    }
+    $(".page").initPageManager();
     
     try {
         // Initialize application.
