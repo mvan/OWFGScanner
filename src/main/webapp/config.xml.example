@@ -8,14 +8,28 @@
           email="tom@tnightingale.com">BCIT CST DataComm 2011</author>
   <icon src="resources/logo_ofg_72.png" />
   <rim:loadingScreen foregroundImage="resources\logo_ofg_72.png" onFirstLaunch="true" />
+
+  <!-- Non-compile development settings -->
   <content src="http://[YOUR.IP.HERE]/index.html" />
+  <access subdomains="true" uri="https://[WEB SERVICE ADDRESS HERE]" />
   <access subdomains="true" uri="http://[YOUR.IP.HERE]">
     <feature id="webservice.client" required="true" version="1.0.0" />
     <feature id="barcode.scanner" required="true" version="1.0.0" />
     <feature id="blackberry.app" required="true" version="1.0.0.0" />
     <feature id="blackberry.ui.menu" version="1.0.0" />
     <feature id="blackberry.widgetcache" /> 
-    <feature id="barcode.scanner" required="true" version="1.0.0" />
   </access>
+
+  <!-- For final release (These settings are confirmed to work): -->
+<!--
+  <access subdomains="true" uri="https://simdv1:8443/caos/StoreManagement" />
+  <content src="index.html"/>
+  <feature id="webservice.client" required="true" version="1.0.0" />
+  <feature id="barcode.scanner" required="true" version="1.0.0" />
+  <feature id="blackberry.app" required="true" version="1.0.0.0" />
+  <feature id="blackberry.ui.menu" version="1.0.0" />
+  <feature id="blackberry.widgetcache" /> 
+-->
+
   <!--<rim:navigation mode="focus" />-->
 </widget>
