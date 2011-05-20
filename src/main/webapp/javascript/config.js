@@ -1,4 +1,9 @@
 (function($) {
+
+  function exception(e, info) {
+    alert("Exception: " + e + "; " + e.name);
+  }
+
   /**
    * TODO: Document the hell out of this.
    */
@@ -29,10 +34,7 @@
           database.transaction(function(transaction) {
             var query = 'CREATE TABLE IF NOT EXISTS config_map (key VARCHAR(10) PRIMARY KEY, val VARCHAR(100))';
             var args = [];
-            transaction.executeSql(query, args,
-              function(t, e) { console.log("Create table success") },
-              function(t, e) { console.log("Create table failed: " + e.name + '; ' + e.message) }
-            );
+            transaction.executeSql(query, args);
           });
         }
         catch (e) {
@@ -68,10 +70,7 @@
           db.transaction(function(transaction) {
             var query = 'INSERT INTO config_map (key, val) VALUES (?,?)';
             var args = [key, newVal];
-            transaction.executeSql(query, args,
-              function() { console.log("Insert success"); },
-              function(t, e) { console.log("Insert failed: " + e.name + '; ' + e.message) }
-            );
+            transaction.executeSql(query, args);
           });
         }
         catch (e) {

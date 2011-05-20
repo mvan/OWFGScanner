@@ -1,9 +1,6 @@
-$(function() {
-  var activePage = "";
+var activePage = "";
 
-  initNav();
-
-
+(function($) {
   /**
    * Initialize navigation between pages.
    * - Scans html document for page divs and indexes them.
@@ -11,11 +8,11 @@ $(function() {
    * - Finds all elements with class="nav" and a data-dest attributes and bind's
    *   their click events.
    */
-  function initNav() {
+  $.fn.initPageManager = function() {
     var pages = [];
 
     // Identify all pages.
-    $("div.page").each(function(i, e) {
+    return this.each(function(i, e) {
       var element = $(e);
       pages[i] = "#" + element.attr("id");
 
@@ -24,22 +21,23 @@ $(function() {
         $(activePage).trigger("page-opened");
         element.show();
       }
-    });
 
-    // Bind page change events
-    $(".nav").each(function(i, e) {
-        var element = $(e);
-        element.click(function() {
-            changePage(element.attr("data-dest"));
-            return false;
-        });
+      // Bind page change events
+      $(".nav", this).each(function(i, e) {
+          var element = $(e);
+          element.click(function() {
+              changePage(element.attr("data-dest"));
+              return false;
+          });
+      });
     });
   }
 
-  function changePage(id) {
-    $(activePage).hide();
-    activePage = id;
-    $(activePage).trigger("page-opened");
-    $(activePage).show();
-  }
-});
+})(jQuery);
+
+function changePage(id) {
+  $(activePage).hide();
+  activePage = id;
+  $(activePage).trigger("page-opened");
+  $(activePage).show();
+}
