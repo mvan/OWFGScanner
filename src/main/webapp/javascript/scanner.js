@@ -95,7 +95,7 @@ function initDB() {
   else {
     createTable(database);
     readDatabase(database, "url", updateUrlField);
-    readDatabase(database, "username", validateUsernameExists);
+    readDatabase(database, "password", validateUsernameAndPasswordExists);
   }
 
   $("#button-config-submit").click(function() {
@@ -185,9 +185,10 @@ function getStores() {
   };
 
   //address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
-  address = "http://warrenv.dlinkddns.com:8080/StoreManagement-ws";
-  user = 'test'; //tget from div#login-username
-  password = 'test'; //get from div#login-password
+  //address = "http://warrenv.dlinkddns.com:8080/StoreManagement-ws";
+  address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
+  user = 'bcit'; //tget from div#login-username
+  password = 'beeC1t'; //get from div#login-password
   fnname = 'getStores';
   extraargs = '';
 
@@ -382,8 +383,8 @@ function readDatabase(db, key, successCallbackFunction) {
 
 function updateUrlField(row) {
   try {
-      $("input#login-field-url").val(row.val);
-      $("input#config-field-url").val(row.val);
+    $("input#login-field-url").val(row.val);
+    $("input#config-field-url").val(row.val);
   } catch (e) {
       alert("updateUrlField: " + e.name + "; " + e.message);
   }
@@ -394,8 +395,5 @@ function validateUsernameAndPasswordExists(row) {
     if(row.val != "null") {
     changePage('#results');
     }
-  }
-  if(row.val != "null") {
-    readDatabase(database, "password", validateUsernameAndPasswordExists);
   }
 }
