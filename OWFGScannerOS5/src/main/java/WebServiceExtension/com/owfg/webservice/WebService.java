@@ -2,7 +2,7 @@ package com.owfg.webservice;
 
 import com.owfg.stub.Banner;
 import com.owfg.stub.Store;
-import com.owfg.stub.StoreManagementImpl_Stub;
+import com.owfg.stub.StoreManagement_Stub;
 import com.owfg.stub.StoreManagementInfo;
 
 import net.rim.device.api.script.ScriptableFunction;
@@ -19,7 +19,7 @@ import net.rim.device.api.script.ScriptableFunction;
 * @author Warren Voelkl
 **/
 public class WebService  {
-	private static StoreManagementImpl_Stub stub = null;
+	private static StoreManagement_Stub stub = null;
 	private static long storeId = 0;
     private static String address;
     private static String user;
@@ -27,7 +27,7 @@ public class WebService  {
 	public WebService(String address, String user, String password) {
 		try {
 			if (stub == null) {
-				stub = new StoreManagementImpl_Stub();
+				stub = new StoreManagement_Stub();
                 setAddress(address);
                 setUser(user);
                 setPass(password);
@@ -36,8 +36,8 @@ public class WebService  {
                 //this.user = user;
                 //this.pass = password;
 				//TODO uncomment when server side is setup
-				stub._setProperty(StoreManagementImpl_Stub.USERNAME_PROPERTY, user);
-				stub._setProperty(StoreManagementImpl_Stub.PASSWORD_PROPERTY, password);
+				stub._setProperty(StoreManagement_Stub.USERNAME_PROPERTY, user);
+				stub._setProperty(StoreManagement_Stub.PASSWORD_PROPERTY, password);
 			}
 		} catch (Exception ex) {
 			Logger.logSevereErrorEvent("WebService(): " + ex);
@@ -213,7 +213,7 @@ public class WebService  {
         return address;
     }
     public void setAddress(String address) {
-        stub._setProperty(StoreManagementImpl_Stub.ENDPOINT_ADDRESS_PROPERTY, address);
+        stub._setProperty(StoreManagement_Stub.ENDPOINT_ADDRESS_PROPERTY, address);
         this.address = address;
         Logger.logDebugEvent("WebService.setAddress: " + address);
     }
@@ -221,7 +221,7 @@ public class WebService  {
         return user;
     }
     public void setUser(String user) {
-        stub._setProperty(StoreManagementImpl_Stub.USERNAME_PROPERTY, user);
+        stub._setProperty(StoreManagement_Stub.USERNAME_PROPERTY, user);
         this.user = user;
         Logger.logDebugEvent("WebService.setAddress: " + user);
     }
@@ -229,7 +229,7 @@ public class WebService  {
         return pass;
     }
     public void setPass(String pass) {
-        stub._setProperty(StoreManagementImpl_Stub.PASSWORD_PROPERTY, pass);
+        stub._setProperty(StoreManagement_Stub.PASSWORD_PROPERTY, pass);
         this.pass = pass;
         Logger.logDebugEvent("WebService.setAddress: " + pass);
     }
