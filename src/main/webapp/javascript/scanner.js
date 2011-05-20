@@ -37,7 +37,7 @@ function clearCache() {
  */
 function init() {
   var authSuccess = function(stores) {
-    var storeList = $('#store');
+    var storeList = document.getElementById('store');
 
     $(stores).each(function(index, element) {
       var option = new Option(element, element);
@@ -123,23 +123,26 @@ function scanBarcode() {
 }
 
 function getStores(username, password, success) {
-
-  if (typeof webservice === "undefined") {
-    success([]);
-    return;
-  }
-  
   // Error callback.
   var error = function(message) {
       var storeList = document.getElementById('store');
       alert('Error: ' + message);
       storeList.options.length = 0;
+      changePage("#login");
   };
 
-  //address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
-  address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
+  // Block for desktop browser testing.
+  if (typeof webservice === "undefined") {
+    success([]);
+    //error("");
+    return;
+  }
 
-  webservice.client.query(success, error, address, user, password, "getStores", "");
+  //address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
+  var address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
+  //alert("Calling getStores()\nUsername: " + username + "\nPassword: " + password + "\nAddress: " + address);
+
+  webservice.client.query(success, error, address, username, password, "getStores", "");
 }
 
 function getBanners() {
