@@ -25,19 +25,22 @@ public class WebService  {
     private static String user;
     private static String pass;
 	public WebService(String address, String user, String password) {
-		Logger.logDebugEvent("WebService(): constructor");
 		try {
 			if (stub == null) {
 				stub = new StoreManagementImpl_Stub();
-				stub._setProperty(StoreManagementImpl_Stub.ENDPOINT_ADDRESS_PROPERTY, address);
-                this.address = address;
+                setAddress(address);
+                setUser(user);
+                setPass(password);
+				//stub._setProperty(StoreManagementImpl_Stub.ENDPOINT_ADDRESS_PROPERTY, address);
+                //this.address = address;
+                //this.user = user;
+                //this.pass = password;
 				//TODO uncomment when server side is setup
 				//stub._setProperty(StoreManagementImpl_Stub.USERNAME_PROPERTY, user);
 				//stub._setProperty(StoreManagementImpl_Stub.PASSWORD_PROPERTY, password);
 			}
 		} catch (Exception ex) {
-			//TODO
-			//Logger.logSevereErrorEvent("WebService(): " + ex);
+			Logger.logSevereErrorEvent("WebService(): " + ex);
 			return;
 		}
 	}
@@ -53,11 +56,10 @@ public class WebService  {
 	* @author Warren Voelkl
 	**/
 	public void getStores(ScriptableFunction success, ScriptableFunction error) throws Exception {
-		Logger.logDebugEvent("WebService(): getStores");
+
 		Store[] storesResponse = null;
 		String[] str = null;
 		if (stub == null) {
-			Logger.logSevereErrorEvent("WebService.getStores(): stub is null");
 			str = new String[1];
 			str[0] = new String("Stub is null");
             try {
@@ -68,7 +70,9 @@ public class WebService  {
 			throw new Exception("Null Pointer Exception");
 		}		
 		try {
+            Logger.logDebugEvent("WebService() stub.GetActiveStores()");
 			storesResponse = stub.getActiveStores();
+
 		} catch (Exception e) {
 			//TODO
 			Logger.logSevereErrorEvent("WebService.getStores(): " + e);
@@ -77,7 +81,7 @@ public class WebService  {
             try {
 			    error.invoke(error, str);
             } catch (Exception er) {
-                //TODO: Handle this somehow
+                Logger.logSevereErrorEvent("WebService.getStores.Invoke error: " + e);
             }
 		}
         
@@ -92,7 +96,7 @@ public class WebService  {
         try {
 		    success.invoke(success, arrayOfStrings);
         } catch (Exception e) {
-            //TODO: Handle this somehow...
+            Logger.logSevereErrorEvent("WebService.getStores.Invoke success: " + e);
         }
 	}
 	
@@ -115,21 +119,21 @@ public class WebService  {
             try {
 			    error.invoke(error, str);
             } catch (Exception e) {
-                //TODO: Handle this somehow
+                Logger.logSevereErrorEvent("WebService.getBanners.Invoke error: " + e);
             }
 			throw new Exception("Null Pointer Exception");
 		}
 		try {
+            Logger.logDebugEvent("WebService.getBanners stub.getBanners(): ");
 			banners = stub.getBanners();
 		} catch (Exception e) {
-			//TODO
-			//Logger.logSevereErrorEvent("WebService.getStores(): " + e);
+			Logger.logSevereErrorEvent("WebService.getBanners(): " + e);
 			str = new String[1];
-			str[0] = new String("Unable to retrive Banners");
+			str[0] = new String("Unable to retrieve Banners");
             try {
 			    error.invoke(error, str);
             } catch (Exception er) {
-                //TODO: Handle this somehow...
+                Logger.logSevereErrorEvent("WebService.getBanners.Invoke error: " + e);
             }
 			throw e;
 		}
@@ -144,7 +148,7 @@ public class WebService  {
         try {
 		    success.invoke(success, arrayOfStrings);
         } catch (Exception e) {
-            //TODO: Handle this somehow...
+            Logger.logSevereErrorEvent("WebService.getBanners.Invoke error: " + e);
         }
 	}
 	
@@ -174,7 +178,7 @@ public class WebService  {
 			throw new Exception("Null Pointer Exception");
 		}
 		try {
-            Logger.logDebugEvent("getInfo() getStoreManagementInfo()");
+            Logger.logDebugEvent("getInfo() stub.getStoreManagementInfo()");
 			pi = stub.getStoreManagementInfo(storeId, string);
 		} catch (Exception e) {
 			//TODO
@@ -184,31 +188,50 @@ public class WebService  {
 			try {
                 error.invoke(error, str);
             } catch (Exception er) {
-                //TODO: Handle this somehow...
+                Logger.logSevereErrorEvent("WebService.getInfo.Invoke error: " + e);
             }
 			throw e;
 		}
-        Logger.logDebugEvent("getInfo() about to return()");
           info = new ProductInfo(pi);
         try {
-            Logger.logDebugEvent("getInfo() calling invoke");
-
 		    success.invoke(success, info.toArray());
         } catch (Exception e) {
-            //TODO: Handle this somehow...
+            Logger.logSevereErrorEvent("WebService.getInfo.Invoke success: " + e);
         }
 	}
 
     public void setStore (ScriptableFunction success, ScriptableFunction error, Long id) throws Exception {
         storeId = id.longValue();
+        try {
         success.invoke(success, null);
+        } catch (Exception e) {
+            Logger.logSevereErrorEvent("WebService.getInfo.Invoke success: " + e);
+        }
     }
 
     public String getAddress() {
         return address;
     }
     public void setAddress(String address) {
+        stub._setProperty(StoreManagementImpl_Stub.ENDPOINT_ADDRESS_PROPERTY, address);
         this.address = address;
+        Logger.logDebugEvent("WebService.setAddress: " + address);
+    }
+    public String getUser() {
+        return user;
+    }
+    public void setUser(String user) {
+        stub._setProperty(StoreManagementImpl_Stub.USERNAME_PROPERTY, user);
+        this.user = user;
+        Logger.logDebugEvent("WebService.setAddress: " + user);
+    }
+    public String getPass() {
+        return pass;
+    }
+    public void setPass(String pass) {
+        stub._setProperty(StoreManagementImpl_Stub.PASSWORD_PROPERTY, pass);
+        this.pass = pass;
+        Logger.logDebugEvent("WebService.setAddress: " + pass);
     }
 }
 

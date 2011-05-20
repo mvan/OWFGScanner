@@ -28,6 +28,12 @@ public final class Client extends ScriptableFunction {
         if (ws.getAddress().equals((String) args[2]) == false) {
             ws.setAddress((String) args[2]);
         }
+        if (ws.getUser().equals((String) args[3]) == false) {
+            ws.setUser((String) args[3]);
+        }
+        if (ws.getPass().equals((String) args[4]) == false) {
+            ws.setPass((String) args[4]);
+        }
 
         try {
             if (fnName.equals(GET_INFO)) {
@@ -47,8 +53,7 @@ public final class Client extends ScriptableFunction {
                 ws.setStore(success, error, (Long) args[6]);
             }
         } catch (Exception e) {
-            // TODO: Handle this somehow...
-            //Logger.logErrorEvent("MyApp() IO Exception: " + ioe);
+            Logger.logErrorEvent("Client() Invoke " + e);
         }
         return UNDEFINED;
     }
