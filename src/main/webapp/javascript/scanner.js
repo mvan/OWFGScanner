@@ -36,24 +36,58 @@ function clearCache() {
  * - Binding click events to perform extra actions.
  */
 function init() {
+  var authSuccess = function(stores) {
+    var storeList = $('#store');
+
+    $(stores).each(function(index, element) {
+      var option = new Option(element, element);
+      storeList.options[index] = option;
+    });
+
+    changePage("#results");
+  };
+
+  // Initialize persistent configuration.
+  var config = $.fn.Config(function() {
+    var username = config.getVar("username", null);
+    var password = config.getVar("password", null);
+
+    $("#login-field-username").val(username);
+    $("#login-field-password").val(password);
+
+    // Authentication information exists.
+    if (username && password) {
+      changePage("#loading");
+
+      getStores(username, password, authSuccess);
+    }
+    // No authentication information.
+    else {
+      changePage("#login");
+    }
+  });
+
+  $("#button-login-submit").click(function() {
+      var username = $("#login-field-username").val();
+      var password = $("#login-field-password").val();
+      getStores(username, password, authSuccess);
+  });
+
   $("#button-config-submit").click(function() {
       var config = $.fn.Config();
       config.setVar("url", $("#config-field-url").val());
-      $("#login-field-url").val(config.getVar("url", ""));
-  });
-  
-  $("#button-login-submit").click(function() {
-      var config = $.fn.Config();
-      config.setVar("username", $("#login-field-username").val());
-      config.setVar("password", $("#login-field-password").val());
-      getStores();
   });
   
   $("#results-submit").click(function() {
-      getInfo();
+      alert("Getting results...");
+      //getInfo();
   });
 
   $("#results").live("page-opened", function() {
+      var config = $.fn.Config();
+      config.setVar("username", $("#login-field-username").val());
+      config.setVar("password", $("#login-field-password").val());
+
       loadMenuItems("#results");
       scanBarcode();
   });
@@ -88,17 +122,13 @@ function scanBarcode() {
       });
 }
 
-function getStores() {
-  // Success callback.
-  var success = function(stores) {
-      var option;
-      var storeList = document.getElementById('store');
-      $(stores).each(function(index, element) {
-          option = new Option(element, element);
-          storeList.options[index] = option;
-      });
-  };
+function getStores(username, password, success) {
 
+  if (typeof webservice === "undefined") {
+    success([]);
+    return;
+  }
+  
   // Error callback.
   var error = function(message) {
       var storeList = document.getElementById('store');
@@ -108,12 +138,8 @@ function getStores() {
 
   //address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
   address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
-  user = 'bcit'; //tget from div#login-username
-  password = 'beeC1t'; //get from div#login-password
-  fnname = 'getStores';
-  extraargs = '';
 
-  webservice.client.query(success, error, address, user, password, fnname, extraargs);
+  webservice.client.query(success, error, address, user, password, "getStores", "");
 }
 
 function getBanners() {
