@@ -28,7 +28,7 @@ class WorkerThread implements Runnable {
     public static final String GET_BANNERS = "getBanners";
     public static final String GET_STORES = "getStores";
     public static final String SET_STORE = "setStore";
-    private WebService ws = null;
+
     private Object obj;
     private Object[] args;
     public WorkerThread(Object obj, Object[] args) {
@@ -36,13 +36,14 @@ class WorkerThread implements Runnable {
         this.args = args;
     }
     public void run(){
+        WebService ws;
         String fnName = (String) args[5];
         ScriptableFunction success = (ScriptableFunction) args[0];
         ScriptableFunction error = (ScriptableFunction) args[1];
-        if (ws == null) {
-            Logger.logErrorEvent("Client.invoke(): create WS");
-            ws = new WebService((String) args[2], (String) args[3], (String) args[4]);
-        }
+        //if (ws == null) {
+        Logger.logErrorEvent("Client.invoke(): create WS");
+        ws = new WebService((String) args[2], (String) args[3], (String) args[4]);
+
         /*
         if (ws.getAddress().equals((String) args[2]) == false) {
             ws.setAddress((String) args[2]);
@@ -54,7 +55,7 @@ class WorkerThread implements Runnable {
             ws.setPass((String) args[4]);
         }
         */
-
+        Logger.logErrorEvent("args: " + args[2] + " " + args[3] + " " + args[4] + " " + args[5] + " " + args[6]);
         try {
             if (fnName.equals(GET_INFO)) {
                 Logger.logErrorEvent("Client.invoke(): get Info");
@@ -73,7 +74,7 @@ class WorkerThread implements Runnable {
                 ws.setStore(success, error, (Long) args[6]);
             }
         } catch (Exception e) {
-            Logger.logErrorEvent("Exception: Client.Invoke(); (" + e + ") " + e.getMessage());
+            Logger.logErrorEvent("Exception: Client.Invoke() FAILURE; (" + e + ") " + e.getMessage());
         }
     }
 }

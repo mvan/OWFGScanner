@@ -116,8 +116,8 @@ function getStores() {
       storeList.options.length = 0;
   };
 
-  address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
-  //address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
+  //address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
+  address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
   user = 'bcit'; //tget from div#login-username
   password = 'beeC1t'; //get from div#login-password
   fnname = 'getStores';
@@ -136,8 +136,8 @@ function getBanners() {
     var error = function() {
         alert('Error');
     };
-    address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
-    //address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
+    //address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
+    address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
    user = 'bcit'; //tget from div#login-username
     password = 'beeC1t'; //get from div#login-password
     fnname = 'getBanners';
@@ -175,8 +175,8 @@ function getInfo() {
     var error = function() {
         alert('Error');
     };
-    address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
-    //address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
+    //address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
+    address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
     user = 'bcit'; //tget from div#login-username
     password = 'beeC1t'; //get from div#login-password
     fnname = 'getInfo';

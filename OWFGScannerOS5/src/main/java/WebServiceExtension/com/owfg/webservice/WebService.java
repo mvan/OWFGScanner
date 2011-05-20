@@ -205,7 +205,7 @@ public class WebService  {
         try {
         success.invoke(success, null);
         } catch (Exception e) {
-            Logger.logSevereErrorEvent("WebService.getInfo.Invoke success: " + e);
+            Logger.logSevereErrorEvent("WebService.setStore.Invoke error: " + e);
         }
     }
 
@@ -223,7 +223,7 @@ public class WebService  {
     public void setUser(String user) {
         stub._setProperty(StoreManagement_Stub.USERNAME_PROPERTY, user);
         this.user = user;
-        Logger.logDebugEvent("WebService.setAddress: " + user);
+        Logger.logDebugEvent("WebService.setUser: " + user);
     }
     public String getPass() {
         return pass;
@@ -231,7 +231,7 @@ public class WebService  {
     public void setPass(String pass) {
         stub._setProperty(StoreManagement_Stub.PASSWORD_PROPERTY, pass);
         this.pass = pass;
-        Logger.logDebugEvent("WebService.setAddress: " + pass);
+        Logger.logDebugEvent("WebService.setPass: " + pass);
     }
 }
 
