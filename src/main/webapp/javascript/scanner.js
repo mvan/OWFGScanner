@@ -1,7 +1,4 @@
-var pages = [];
-var activePage = "undefined";
-
-$(document).ready(function() {
+$(function() {
     try {
         // TODO: For development purposes only, should be removed when complete.
         clearCache();
@@ -10,17 +7,15 @@ $(document).ready(function() {
     }
     
     try {
-        // Initialize navigation.
-        initNav();
+        // Initialize persistent configuration.
+        var config = $.fn.Config(function() {
+          $("#login-field-username").val(config.getVar("username", "bcit"));
+          $("#login-field-password").val(config.getVar("password", "beeC1t"));
+          $("#login-field-url").val(config.getVar("url", "https://simdv1.owfg.com:8443/caos/StoreManagement"));
+        });
+      
     } catch (e) {
-        alert("initNav(): Exception occured: " + e.name + "; " + e.message);
-    }
-    
-    try {
-        // Initialize database.
-        initDB();
-    } catch (e) {
-        alert("initDB(): Exception occured: " + e.name + "; " + e.message);
+        alert("Config(): Exception occured: " + e.name + "; " + e.message);
     }
     
     try {
@@ -47,99 +42,36 @@ function clearCache() {
 }
 
 /**
- * Initialize navigation between pages.
- * - Scans html document for page divs and indexes them.
- * - Makes the 1st page div visible.
- * - Finds all elements with class="nav" and a data-dest attributes and bind's
- *   their click events.
- */
-function initNav() {
-  // Identify all pages.
-  $("div.page").each(function(i, e) {
-    var element = $(e);
-    pages[i] = "#" + element.attr("id");
-
-    if (i == 0) {
-      activePage = pages[i];
-      element.show();
-    }
-  });
-
-  // Bind page change events
-  $(".nav").each(function(i, e) {
-      var element = $(e);
-      element.click(function() {
-          changePage(element.attr("data-dest"));
-          return false;
-      });
-  });
-}
-
-/**
- * Initialize the database for persistent storage.
- * - Loads database if one exists, otherwise:
- * - Creates a database if none exists.
- */
-function initDB() {
-  try {
-    var database = window.openDatabase("ofilesystem", "1.0", "Ovewaitea Scanner Settings", 1024);
-  } catch (e) {
-      alert("openDatabase: " + e.name + "; " + e.message);
-  }
-
-  // If unable to load the database, quite likely no SDCard is present.
-  // TODO: Application should probably terminate if this fails.
-  if (!database) {
-      alert('Unable to create database: Application requires SDCard for external storage.');
-  } 
-  else {
-    createTable(database);
-    readDatabase(database, "url", updateUrlField);
-    readDatabase(database, "password", validateUsernameAndPasswordExists);
-  }
-
-  $("#button-config-submit").click(function() {
-      updateRow(database, "url", $("#config-field-url").val());
-      readDatabase(database, "url", updateUrlField);
-  });
-  
-  $("#button-login-submit").click(function() {
-      updateRow(database, "username", $("#login-field-username").val());
-      updateRow(database, "password", $("#login-field-password").val());
-  });
-}
-
-/**
  * Initializes misc application stuff including:
  * - Binding click events to perform extra actions.
  */
 function init() {
-
+  $("#button-config-submit").click(function() {
+      var config = $.fn.Config();
+      config.setVar("url", $("#config-field-url").val());
+      $("#login-field-url").val(config.getVar("url", ""));
+  });
+  
   $("#button-login-submit").click(function() {
-      scanBarcode();
+      var config = $.fn.Config();
+      config.setVar("username", $("#login-field-username").val());
+      config.setVar("password", $("#login-field-password").val());
+      getStores();
   });
   
   $("#results-submit").click(function() {
-      getStores();
-      //getInfo();
+      getInfo();
   });
 
   $("#results").live("page-opened", function() {
-      
+      loadMenuItems("#results");
+      scanBarcode();
   });
-}
 
-/**
- * Navigation helper.
- * - Hides active page. 
- * - Shows and activates destination page
- */
-function changePage(id) {
-  $(activePage).hide();
-  $(id).show();
-  activePage = id;
-  $(activePage).trigger("page-opened");
-  loadMenuItems(activePage);
+  $("#config").live("page-opened", function() {
+      var config = $.fn.Config();
+      $("#config-field-url").val(config.getVar("url", "https://simdv1.owfg.com:8443/caos/StoreManagement"));
+  });
 }
 
 /**
@@ -184,8 +116,7 @@ function getStores() {
       storeList.options.length = 0;
   };
 
-  //address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
-  //address = "http://warrenv.dlinkddns.com:8080/StoreManagement-ws";
+  //address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
   address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
   user = 'bcit'; //tget from div#login-username
   password = 'beeC1t'; //get from div#login-password
@@ -315,85 +246,4 @@ function loadMenuItems(page) {
     catch (e) {
         alert("Exception: addMenuItem(); " + e.name + '; ' + e.message);
     }
-}
-
-function customMenuItemClick() {
-  alert("user just clicked me");
-}
-
-/*********************************************************************
- * Database stuff
- ********************************************************************/
-function createTable(db) {
-  try {
-    db.transaction(
-      function(transaction) {
-        transaction.executeSql('CREATE TABLE IF NOT EXISTS serverLoc(id VARCHAR(10) PRIMARY KEY, val VARCHAR(100))', []);       
-        transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["url", "https://simdv1:8443/caos/StoreManagement?wsdl"]);
-        transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["username", "null"]);
-        transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?, ?)', ["password", "null"]);
-      }
-    );
-  } catch (e) {
-    alert("creatTable: " + e.name + "; " + e.message);
-  }
-}
-
-function updateRow(db, key, newVal) {
-    try {
-        db.transaction(
-          function(transaction) {
-            transaction.executeSql('UPDATE serverLoc SET val=? WHERE id=?', [newVal, key]);
-          }
-        );
-    } catch (e) {
-        alert("updateRow: " + e.name + "; " + e.message);
-    }
-}
-
-function insertRow(db, key, newVal) {
-    try {
-        db.transaction(
-          function(transaction) {
-            transaction.executeSql('INSERT INTO serverLoc (id, val) VALUES (?,?)', [key, newVal]);
-          }
-        );
-    } catch (e) {
-        alert("insertRow: " + e.name + "; " + e.message);
-    }
-}
-
-/* Takes a database variable (db), an id value to search for in the database (key) 
- * and a callback function to call on success.
- */
-function readDatabase(db, key, successCallbackFunction) {
-  try {
-    db.transaction(
-      function(transaction) {
-        transaction.executeSql('SELECT * FROM serverLoc WHERE id=?', [key], function(tx, rs) {
-          var row = rs.rows.item(0);
-          successCallbackFunction(row);
-        });
-      }
-    );
-  } catch (e) {
-      alert("readDatabase: " + e.name + "; " + e.message);
-  }
-}
-
-function updateUrlField(row) {
-  try {
-    $("input#login-field-url").val(row.val);
-    $("input#config-field-url").val(row.val);
-  } catch (e) {
-      alert("updateUrlField: " + e.name + "; " + e.message);
-  }
-}
-
-function validateUsernameAndPasswordExists(row) {
-  if(row.id == "password") {
-    if(row.val != "null") {
-    changePage('#results');
-    }
-  }
 }
