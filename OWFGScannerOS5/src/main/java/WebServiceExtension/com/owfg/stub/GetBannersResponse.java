@@ -6,20 +6,20 @@ package com.owfg.stub;
 
 
 public class GetBannersResponse {
-    protected com.owfg.stub.Banner[] _return;
+    protected com.owfg.stub.Banner[] banners;
     
     public GetBannersResponse() {
     }
     
-    public GetBannersResponse(com.owfg.stub.Banner[] _return) {
-        this._return = _return;
+    public GetBannersResponse(com.owfg.stub.Banner[] banners) {
+        this.banners = banners;
     }
     
-    public com.owfg.stub.Banner[] get_return() {
-        return _return;
+    public com.owfg.stub.Banner[] getBanners() {
+        return banners;
     }
     
-    public void set_return(com.owfg.stub.Banner[] _return) {
-        this._return = _return;
+    public void setBanners(com.owfg.stub.Banner[] banners) {
+        this.banners = banners;
     }
 }

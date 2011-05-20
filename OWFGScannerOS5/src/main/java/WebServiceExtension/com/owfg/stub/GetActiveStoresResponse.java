@@ -6,20 +6,20 @@ package com.owfg.stub;
 
 
 public class GetActiveStoresResponse {
-    protected com.owfg.stub.Store[] _return;
+    protected com.owfg.stub.Store[] stores;
     
     public GetActiveStoresResponse() {
     }
     
-    public GetActiveStoresResponse(com.owfg.stub.Store[] _return) {
-        this._return = _return;
+    public GetActiveStoresResponse(com.owfg.stub.Store[] stores) {
+        this.stores = stores;
     }
     
-    public com.owfg.stub.Store[] get_return() {
-        return _return;
+    public com.owfg.stub.Store[] getStores() {
+        return stores;
     }
     
-    public void set_return(com.owfg.stub.Store[] _return) {
-        this._return = _return;
+    public void setStores(com.owfg.stub.Store[] stores) {
+        this.stores = stores;
     }
 }

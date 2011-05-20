@@ -4,10 +4,12 @@
 
 package com.owfg.stub;
 
-public interface StoreManagementImpl extends java.rmi.Remote {
+public interface StoreManagement extends java.rmi.Remote {
 	public com.owfg.stub.Store[] getActiveStores() throws java.rmi.RemoteException;
 
 	public com.owfg.stub.Banner[] getBanners() throws java.rmi.RemoteException;
+
+	public com.owfg.stub.ItemSalesHistoryInfo[] getItemSalesHistory(long storeId, java.lang.String upc) throws java.rmi.RemoteException;
 
 	public com.owfg.stub.StoreManagementInfo getStoreManagementInfo(long storeId, java.lang.String upc) throws java.rmi.RemoteException;
 

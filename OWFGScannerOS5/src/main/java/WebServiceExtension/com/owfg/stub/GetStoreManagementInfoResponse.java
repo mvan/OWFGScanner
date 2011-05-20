@@ -6,20 +6,20 @@ package com.owfg.stub;
 
 
 public class GetStoreManagementInfoResponse {
-    protected com.owfg.stub.StoreManagementInfo _return;
+    protected com.owfg.stub.StoreManagementInfo storeManagementInfo;
     
     public GetStoreManagementInfoResponse() {
     }
     
-    public GetStoreManagementInfoResponse(com.owfg.stub.StoreManagementInfo _return) {
-        this._return = _return;
+    public GetStoreManagementInfoResponse(com.owfg.stub.StoreManagementInfo storeManagementInfo) {
+        this.storeManagementInfo = storeManagementInfo;
     }
     
-    public com.owfg.stub.StoreManagementInfo get_return() {
-        return _return;
+    public com.owfg.stub.StoreManagementInfo getStoreManagementInfo() {
+        return storeManagementInfo;
     }
     
-    public void set_return(com.owfg.stub.StoreManagementInfo _return) {
-        this._return = _return;
+    public void setStoreManagementInfo(com.owfg.stub.StoreManagementInfo storeManagementInfo) {
+        this.storeManagementInfo = storeManagementInfo;
     }
 }

@@ -11,13 +11,13 @@ import javax.microedition.xml.rpc.Type;
 import javax.microedition.xml.rpc.ComplexType;
 import javax.microedition.xml.rpc.Element;
 
-public class StoreManagementImpl_Stub implements com.owfg.stub.StoreManagementImpl, javax.xml.rpc.Stub {
+public class StoreManagement_Stub implements com.owfg.stub.StoreManagement, javax.xml.rpc.Stub {
 	private String[] _propertyNames;
 	private Object[] _propertyValues;
 
-	public StoreManagementImpl_Stub() {
+	public StoreManagement_Stub() {
 		_propertyNames = new String[] {ENDPOINT_ADDRESS_PROPERTY};
-		_propertyValues = new Object[] {"https://warrenv.dlinkddns.com/StoreManagement-ws"};
+		_propertyValues = new Object[] {"https://simdv1.owfg.com:8443/caos/StoreManagement"};
 	}
 
 	public void _setProperty(String name, Object value) {
@@ -85,28 +85,28 @@ public class StoreManagementImpl_Stub implements com.owfg.stub.StoreManagementIm
 		com.owfg.stub.Store[] result;
 		// Convert the result into the right Java type.
 		// Unwrapped return value
-		Object[] _returnObj = (Object[]) ((Object[])resultObj)[0];
-		if (_returnObj == null) {
+		Object[] storesObj = (Object[]) ((Object[])resultObj)[0];
+		if (storesObj == null) {
 			result = null;
 		} else {
-			int storeArraySize = _returnObj.length;
+			int storeArraySize = storesObj.length;
 			result = new com.owfg.stub.Store[storeArraySize];
 			for (int storeArrayIndex = 0; 
 				storeArrayIndex < storeArraySize; ++storeArrayIndex) {
-				if (_returnObj[storeArrayIndex] == null) {
+				if (storesObj[storeArrayIndex] == null) {
 					result[storeArrayIndex] = null;
 				} else {
 					result[storeArrayIndex] = new com.owfg.stub.Store();
 					long a_long;
-					Object bannerIdObj = ((Object[])_returnObj[storeArrayIndex])[0];
+					Object bannerIdObj = ((Object[])storesObj[storeArrayIndex])[0];
 					a_long = ((java.lang.Long)bannerIdObj).longValue();
 					result[storeArrayIndex].setBannerId(a_long);
 					long a_long2;
-					Object storeIdObj = ((Object[])_returnObj[storeArrayIndex])[1];
+					Object storeIdObj = ((Object[])storesObj[storeArrayIndex])[1];
 					a_long2 = ((java.lang.Long)storeIdObj).longValue();
 					result[storeArrayIndex].setStoreId(a_long2);
 					java.lang.String string;
-					Object storeNameObj = ((Object[])_returnObj[storeArrayIndex])[2];
+					Object storeNameObj = ((Object[])storesObj[storeArrayIndex])[2];
 					string = (java.lang.String)storeNameObj;
 					result[storeArrayIndex].setStoreName(string);
 				}
@@ -135,26 +135,87 @@ public class StoreManagementImpl_Stub implements com.owfg.stub.StoreManagementIm
 		com.owfg.stub.Banner[] result;
 		// Convert the result into the right Java type.
 		// Unwrapped return value
-		Object[] _returnObj = (Object[]) ((Object[])resultObj)[0];
-		if (_returnObj == null) {
+		Object[] bannersObj = (Object[]) ((Object[])resultObj)[0];
+		if (bannersObj == null) {
 			result = null;
 		} else {
-			int bannerArraySize = _returnObj.length;
+			int bannerArraySize = bannersObj.length;
 			result = new com.owfg.stub.Banner[bannerArraySize];
 			for (int bannerArrayIndex = 0; 
 				bannerArrayIndex < bannerArraySize; ++bannerArrayIndex) {
-				if (_returnObj[bannerArrayIndex] == null) {
+				if (bannersObj[bannerArrayIndex] == null) {
 					result[bannerArrayIndex] = null;
 				} else {
 					result[bannerArrayIndex] = new com.owfg.stub.Banner();
 					long a_long;
-					Object bannerIdObj = ((Object[])_returnObj[bannerArrayIndex])[0];
+					Object bannerIdObj = ((Object[])bannersObj[bannerArrayIndex])[0];
 					a_long = ((java.lang.Long)bannerIdObj).longValue();
 					result[bannerArrayIndex].setBannerId(a_long);
 					java.lang.String string;
-					Object bannerNameObj = ((Object[])_returnObj[bannerArrayIndex])[1];
+					Object bannerNameObj = ((Object[])bannersObj[bannerArrayIndex])[1];
 					string = (java.lang.String)bannerNameObj;
 					result[bannerArrayIndex].setBannerName(string);
+				}
+			}
+		}
+		return result;
+	}
+
+	public com.owfg.stub.ItemSalesHistoryInfo[] getItemSalesHistory(long storeId, java.lang.String upc) throws java.rmi.RemoteException {
+		// Copy the incoming values into an Object array if needed.
+		Object[] inputObject = new Object[2];
+		inputObject[0] = new java.lang.Long(storeId);
+		inputObject[1] = upc;
+
+		Operation op = Operation.newInstance(_qname_getItemSalesHistory, _type_getItemSalesHistory, _type_getItemSalesHistoryResponse);
+		_prepOperation(op);
+		op.setProperty(Operation.SOAPACTION_URI_PROPERTY, "");
+		Object resultObj;
+		try {
+			resultObj = op.invoke(inputObject);
+		} catch (JAXRPCException e) {
+			Throwable cause = e.getLinkedCause();
+			if (cause instanceof java.rmi.RemoteException) {
+				throw (java.rmi.RemoteException) cause;
+			}
+			throw e;
+		}
+		com.owfg.stub.ItemSalesHistoryInfo[] result;
+		// Convert the result into the right Java type.
+		// Unwrapped return value
+		Object[] itemSalesHistoryInfoObj = (Object[]) ((Object[])resultObj)[0];
+		if (itemSalesHistoryInfoObj == null) {
+			result = null;
+		} else {
+			int itemSalesHistoryInfoArraySize = itemSalesHistoryInfoObj.length;
+			result = new com.owfg.stub.ItemSalesHistoryInfo[itemSalesHistoryInfoArraySize];
+			for (int itemSalesHistoryInfoArrayIndex = 0; 
+				itemSalesHistoryInfoArrayIndex < itemSalesHistoryInfoArraySize; 
+				++itemSalesHistoryInfoArrayIndex) {
+				if (itemSalesHistoryInfoObj[itemSalesHistoryInfoArrayIndex] == null) {
+					result[itemSalesHistoryInfoArrayIndex] = null;
+				} else {
+					result[itemSalesHistoryInfoArrayIndex] = new com.owfg.stub.ItemSalesHistoryInfo();
+					int a_int;
+					Object dayOfWeekObj = ((Object[])itemSalesHistoryInfoObj[itemSalesHistoryInfoArrayIndex])[0];
+					a_int = ((java.lang.Integer)dayOfWeekObj).intValue();
+					result[itemSalesHistoryInfoArrayIndex].setDayOfWeek(a_int);
+					java.lang.Double _double;
+					Object forecastObj = ((Object[])itemSalesHistoryInfoObj[itemSalesHistoryInfoArrayIndex])[1];
+					_double = (java.lang.Double)forecastObj;
+					result[itemSalesHistoryInfoArrayIndex].setForecast(_double);
+					java.lang.Boolean _boolean;
+					Object onPromoObj = ((Object[])itemSalesHistoryInfoObj[itemSalesHistoryInfoArrayIndex])[2];
+					_boolean = (java.lang.Boolean)onPromoObj;
+					result[itemSalesHistoryInfoArrayIndex].setOnPromo(_boolean);
+					java.lang.Double _double2;
+					Object promoSalesObj = ((Object[])itemSalesHistoryInfoObj[itemSalesHistoryInfoArrayIndex])[3];
+					_double2 = (java.lang.Double)promoSalesObj;
+					result[itemSalesHistoryInfoArrayIndex].setPromoSales(_double2);
+					java.lang.Double _double3;
+					Object regularSalesObj = ((Object[])itemSalesHistoryInfoObj[itemSalesHistoryInfoArrayIndex])[4];
+					_double3 = (java.lang.Double)regularSalesObj;
+					result[itemSalesHistoryInfoArrayIndex].setRegularSales(_double3);
 				}
 			}
 		}
@@ -183,57 +244,57 @@ public class StoreManagementImpl_Stub implements com.owfg.stub.StoreManagementIm
 		com.owfg.stub.StoreManagementInfo result;
 		// Convert the result into the right Java type.
 		// Unwrapped return value
-		Object[] _returnObj = (Object[]) ((Object[])resultObj)[0];
-		if (_returnObj == null) {
+		Object[] storeManagementInfoObj = (Object[]) ((Object[])resultObj)[0];
+		if (storeManagementInfoObj == null) {
 			result = null;
 		} else {
 			result = new com.owfg.stub.StoreManagementInfo();
 			java.lang.Double _double;
-			Object balanceOnHandObj = _returnObj[0];
+			Object balanceOnHandObj = storeManagementInfoObj[0];
 			_double = (java.lang.Double)balanceOnHandObj;
 			result.setBalanceOnHand(_double);
 			java.lang.Double _double2;
-			Object forecastObj = _returnObj[1];
+			Object forecastObj = storeManagementInfoObj[1];
 			_double2 = (java.lang.Double)forecastObj;
 			result.setForecast(_double2);
 			java.lang.Double _double3;
-			Object inTransitObj = _returnObj[2];
+			Object inTransitObj = storeManagementInfoObj[2];
 			_double3 = (java.lang.Double)inTransitObj;
 			result.setInTransit(_double3);
 			java.lang.String string;
-			Object itemDescriptionObj = _returnObj[3];
+			Object itemDescriptionObj = storeManagementInfoObj[3];
 			string = (java.lang.String)itemDescriptionObj;
 			result.setItemDescription(string);
 			java.lang.Long _long;
-			Object minimumObj = _returnObj[4];
+			Object minimumObj = storeManagementInfoObj[4];
 			_long = (java.lang.Long)minimumObj;
 			result.setMinimum(_long);
 			java.lang.Double _double4;
-			Object onOrderObj = _returnObj[5];
+			Object onOrderObj = storeManagementInfoObj[5];
 			_double4 = (java.lang.Double)onOrderObj;
 			result.setOnOrder(_double4);
 			java.lang.Integer integer;
-			Object packObj = _returnObj[6];
+			Object packObj = storeManagementInfoObj[6];
 			integer = (java.lang.Integer)packObj;
 			result.setPack(integer);
 			java.lang.String string2;
-			Object promotionObj = _returnObj[7];
+			Object promotionObj = storeManagementInfoObj[7];
 			string2 = (java.lang.String)promotionObj;
 			result.setPromotion(string2);
 			java.lang.Double _double5;
-			Object regularPriceObj = _returnObj[8];
+			Object regularPriceObj = storeManagementInfoObj[8];
 			_double5 = (java.lang.Double)regularPriceObj;
 			result.setRegularPrice(_double5);
 			java.lang.String string3;
-			Object sourceObj = _returnObj[9];
+			Object sourceObj = storeManagementInfoObj[9];
 			string3 = (java.lang.String)sourceObj;
 			result.setSource(string3);
 			long a_long;
-			Object storeIdObj = _returnObj[10];
+			Object storeIdObj = storeManagementInfoObj[10];
 			a_long = ((java.lang.Long)storeIdObj).longValue();
 			result.setStoreId(a_long);
 			java.lang.String string4;
-			Object upcObj = _returnObj[11];
+			Object upcObj = storeManagementInfoObj[11];
 			string4 = (java.lang.String)upcObj;
 			result.setUpc(string4);
 		}
@@ -246,29 +307,40 @@ public class StoreManagementImpl_Stub implements com.owfg.stub.StoreManagementIm
 	protected static final QName _qname_balanceOnHand = new QName("", "balanceOnHand");
 	protected static final QName _qname_bannerId = new QName("", "bannerId");
 	protected static final QName _qname_bannerName = new QName("", "bannerName");
+	protected static final QName _qname_banners = new QName("", "banners");
+	protected static final QName _qname_dayOfWeek = new QName("", "dayOfWeek");
 	protected static final QName _qname_forecast = new QName("", "forecast");
 	protected static final QName _qname_inTransit = new QName("", "inTransit");
 	protected static final QName _qname_itemDescription = new QName("", "itemDescription");
+	protected static final QName _qname_itemSalesHistoryInfo = new QName("", "itemSalesHistoryInfo");
 	protected static final QName _qname_minimum = new QName("", "minimum");
 	protected static final QName _qname_onOrder = new QName("", "onOrder");
+	protected static final QName _qname_onPromo = new QName("", "onPromo");
 	protected static final QName _qname_pack = new QName("", "pack");
+	protected static final QName _qname_promoSales = new QName("", "promoSales");
 	protected static final QName _qname_promotion = new QName("", "promotion");
 	protected static final QName _qname_regularPrice = new QName("", "regularPrice");
-	protected static final QName _qname_return = new QName("", "return");
+	protected static final QName _qname_regularSales = new QName("", "regularSales");
 	protected static final QName _qname_source = new QName("", "source");
 	protected static final QName _qname_storeId = new QName("", "storeId");
+	protected static final QName _qname_storeManagementInfo = new QName("", "storeManagementInfo");
 	protected static final QName _qname_storeName = new QName("", "storeName");
+	protected static final QName _qname_stores = new QName("", "stores");
 	protected static final QName _qname_upc = new QName("", "upc");
-	protected static final QName _qname_getActiveStores = new QName("http://StoreManagement.ws.facade.owfg.com/", "getActiveStores");
-	protected static final QName _qname_getActiveStoresResponse = new QName("http://StoreManagement.ws.facade.owfg.com/", "getActiveStoresResponse");
-	protected static final QName _qname_getBanners = new QName("http://StoreManagement.ws.facade.owfg.com/", "getBanners");
-	protected static final QName _qname_getBannersResponse = new QName("http://StoreManagement.ws.facade.owfg.com/", "getBannersResponse");
-	protected static final QName _qname_getStoreManagementInfo = new QName("http://StoreManagement.ws.facade.owfg.com/", "getStoreManagementInfo");
-	protected static final QName _qname_getStoreManagementInfoResponse = new QName("http://StoreManagement.ws.facade.owfg.com/", "getStoreManagementInfoResponse");
+	protected static final QName _qname_getActiveStores = new QName("http://ws.facade.owfg.com/", "getActiveStores");
+	protected static final QName _qname_getActiveStoresResponse = new QName("http://ws.facade.owfg.com/", "getActiveStoresResponse");
+	protected static final QName _qname_getBanners = new QName("http://ws.facade.owfg.com/", "getBanners");
+	protected static final QName _qname_getBannersResponse = new QName("http://ws.facade.owfg.com/", "getBannersResponse");
+	protected static final QName _qname_getItemSalesHistory = new QName("http://ws.facade.owfg.com/", "getItemSalesHistory");
+	protected static final QName _qname_getItemSalesHistoryResponse = new QName("http://ws.facade.owfg.com/", "getItemSalesHistoryResponse");
+	protected static final QName _qname_getStoreManagementInfo = new QName("http://ws.facade.owfg.com/", "getStoreManagementInfo");
+	protected static final QName _qname_getStoreManagementInfoResponse = new QName("http://ws.facade.owfg.com/", "getStoreManagementInfoResponse");
 	protected static final Element _type_getActiveStores;
 	protected static final Element _type_getActiveStoresResponse;
 	protected static final Element _type_getBanners;
 	protected static final Element _type_getBannersResponse;
+	protected static final Element _type_getItemSalesHistory;
+	protected static final Element _type_getItemSalesHistoryResponse;
 	protected static final Element _type_getStoreManagementInfo;
 	protected static final Element _type_getStoreManagementInfoResponse;
 	static {
@@ -289,12 +361,12 @@ public class StoreManagementImpl_Stub implements com.owfg.stub.StoreManagementIm
 		_complexType_store.elements[0] = _type_bannerId;
 		_complexType_store.elements[1] = _type_storeId;
 		_complexType_store.elements[2] = _type_storeName;
-		Element _type_return;
-		_type_return = new Element(_qname_return, _complexType_store, 0, -1, false);
+		Element _type_stores;
+		_type_stores = new Element(_qname_stores, _complexType_store, 0, -1, false);
 		ComplexType _complexType_getActiveStoresResponse;
 		_complexType_getActiveStoresResponse = new ComplexType();
 		_complexType_getActiveStoresResponse.elements = new Element[1];
-		_complexType_getActiveStoresResponse.elements[0] = _type_return;
+		_complexType_getActiveStoresResponse.elements[0] = _type_stores;
 		_type_getActiveStoresResponse = new Element(_qname_getActiveStoresResponse, _complexType_getActiveStoresResponse);
 		_type_getBanners = new Element(_qname_getBanners, _complexType_getActiveStores);
 		Element _type_bannerName;
@@ -304,25 +376,49 @@ public class StoreManagementImpl_Stub implements com.owfg.stub.StoreManagementIm
 		_complexType_banner.elements = new Element[2];
 		_complexType_banner.elements[0] = _type_bannerId;
 		_complexType_banner.elements[1] = _type_bannerName;
-		Element _type_return2;
-		_type_return2 = new Element(_qname_return, _complexType_banner, 0, -1, false);
+		Element _type_banners;
+		_type_banners = new Element(_qname_banners, _complexType_banner, 0, -1, false);
 		ComplexType _complexType_getBannersResponse;
 		_complexType_getBannersResponse = new ComplexType();
 		_complexType_getBannersResponse.elements = new Element[1];
-		_complexType_getBannersResponse.elements[0] = _type_return2;
+		_complexType_getBannersResponse.elements[0] = _type_banners;
 		_type_getBannersResponse = new Element(_qname_getBannersResponse, _complexType_getBannersResponse);
 		Element _type_upc;
 		_type_upc = new Element(_qname_upc, Type.STRING, 0, 1, false);
-		ComplexType _complexType_getStoreManagementInfo;
-		_complexType_getStoreManagementInfo = new ComplexType();
-		_complexType_getStoreManagementInfo.elements = new Element[2];
-		_complexType_getStoreManagementInfo.elements[0] = _type_storeId;
-		_complexType_getStoreManagementInfo.elements[1] = _type_upc;
-		_type_getStoreManagementInfo = new Element(_qname_getStoreManagementInfo, _complexType_getStoreManagementInfo);
-		Element _type_balanceOnHand;
-		_type_balanceOnHand = new Element(_qname_balanceOnHand, Type.DOUBLE, 0, 1, false);
+		ComplexType _complexType_getItemSalesHistory;
+		_complexType_getItemSalesHistory = new ComplexType();
+		_complexType_getItemSalesHistory.elements = new Element[2];
+		_complexType_getItemSalesHistory.elements[0] = _type_storeId;
+		_complexType_getItemSalesHistory.elements[1] = _type_upc;
+		_type_getItemSalesHistory = new Element(_qname_getItemSalesHistory, _complexType_getItemSalesHistory);
+		Element _type_dayOfWeek;
+		_type_dayOfWeek = new Element(_qname_dayOfWeek, Type.INT);
 		Element _type_forecast;
 		_type_forecast = new Element(_qname_forecast, Type.DOUBLE, 0, 1, false);
+		Element _type_onPromo;
+		_type_onPromo = new Element(_qname_onPromo, Type.BOOLEAN, 0, 1, false);
+		Element _type_promoSales;
+		_type_promoSales = new Element(_qname_promoSales, Type.DOUBLE, 0, 1, false);
+		Element _type_regularSales;
+		_type_regularSales = new Element(_qname_regularSales, Type.DOUBLE, 0, 1, false);
+		ComplexType _complexType_itemSalesHistoryInfo;
+		_complexType_itemSalesHistoryInfo = new ComplexType();
+		_complexType_itemSalesHistoryInfo.elements = new Element[5];
+		_complexType_itemSalesHistoryInfo.elements[0] = _type_dayOfWeek;
+		_complexType_itemSalesHistoryInfo.elements[1] = _type_forecast;
+		_complexType_itemSalesHistoryInfo.elements[2] = _type_onPromo;
+		_complexType_itemSalesHistoryInfo.elements[3] = _type_promoSales;
+		_complexType_itemSalesHistoryInfo.elements[4] = _type_regularSales;
+		Element _type_itemSalesHistoryInfo;
+		_type_itemSalesHistoryInfo = new Element(_qname_itemSalesHistoryInfo, _complexType_itemSalesHistoryInfo, 0, -1, false);
+		ComplexType _complexType_getItemSalesHistoryResponse;
+		_complexType_getItemSalesHistoryResponse = new ComplexType();
+		_complexType_getItemSalesHistoryResponse.elements = new Element[1];
+		_complexType_getItemSalesHistoryResponse.elements[0] = _type_itemSalesHistoryInfo;
+		_type_getItemSalesHistoryResponse = new Element(_qname_getItemSalesHistoryResponse, _complexType_getItemSalesHistoryResponse);
+		_type_getStoreManagementInfo = new Element(_qname_getStoreManagementInfo, _complexType_getItemSalesHistory);
+		Element _type_balanceOnHand;
+		_type_balanceOnHand = new Element(_qname_balanceOnHand, Type.DOUBLE, 0, 1, false);
 		Element _type_inTransit;
 		_type_inTransit = new Element(_qname_inTransit, Type.DOUBLE, 0, 1, false);
 		Element _type_itemDescription;
@@ -354,12 +450,12 @@ public class StoreManagementImpl_Stub implements com.owfg.stub.StoreManagementIm
 		_complexType_storeManagementInfo.elements[9] = _type_source;
 		_complexType_storeManagementInfo.elements[10] = _type_storeId;
 		_complexType_storeManagementInfo.elements[11] = _type_upc;
-		Element _type_return3;
-		_type_return3 = new Element(_qname_return, _complexType_storeManagementInfo, 0, 1, false);
+		Element _type_storeManagementInfo;
+		_type_storeManagementInfo = new Element(_qname_storeManagementInfo, _complexType_storeManagementInfo, 0, 1, false);
 		ComplexType _complexType_getStoreManagementInfoResponse;
 		_complexType_getStoreManagementInfoResponse = new ComplexType();
 		_complexType_getStoreManagementInfoResponse.elements = new Element[1];
-		_complexType_getStoreManagementInfoResponse.elements[0] = _type_return3;
+		_complexType_getStoreManagementInfoResponse.elements[0] = _type_storeManagementInfo;
 		_type_getStoreManagementInfoResponse = new Element(_qname_getStoreManagementInfoResponse, _complexType_getStoreManagementInfoResponse);
 	}
 
