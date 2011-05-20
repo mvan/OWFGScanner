@@ -117,7 +117,7 @@ function getStores() {
   };
 
   //address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
-  address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
+  address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
   user = 'bcit'; //tget from div#login-username
   password = 'beeC1t'; //get from div#login-password
   fnname = 'getStores';
