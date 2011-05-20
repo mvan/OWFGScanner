@@ -44,6 +44,8 @@ function init() {
       storeList.options[index] = option;
     });
 
+    scanBarcode();
+
     changePage("#results");
   };
 
@@ -70,6 +72,7 @@ function init() {
   $("#button-login-submit").click(function() {
       var username = $("#login-field-username").val();
       var password = $("#login-field-password").val();
+      changePage("#loading");
       getStores(username, password, authSuccess);
   });
 
@@ -79,8 +82,18 @@ function init() {
   });
   
   $("#results-submit").click(function() {
-      alert("Getting results...");
-      //getInfo();
+      var config = $.fn.Config();
+      var username = config.getVar("username", "");
+      var password = config.getVar("password", "");
+      var store = $("#store").val();
+      var upc = $("#upc").val();
+      
+      changePage("#loading");
+
+      setStore(username, password, store, function() {
+        changePage("#results");
+        getInfo(username, password, upc);
+      });
   });
 
   $("#results").live("page-opened", function() {
@@ -89,7 +102,10 @@ function init() {
       config.setVar("password", $("#login-field-password").val());
 
       loadMenuItems("#results");
-      scanBarcode();
+  });
+
+  $("#forecast").live("page-opened", function() {
+      loadMenuItems("#forecast");
   });
 
   $("#config").live("page-opened", function() {
@@ -138,10 +154,10 @@ function getStores(username, password, success) {
     return;
   }
 
-  //address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
-  var address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
-  //alert("Calling getStores()\nUsername: " + username + "\nPassword: " + password + "\nAddress: " + address);
+  var config = $.fn.Config();
+  var address = config.getVar("url", "https://simdv1.owfg.com:8443/caos/StoreManagement");
 
+  //address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
   webservice.client.query(success, error, address, username, password, "getStores", "");
 }
 
@@ -165,7 +181,7 @@ function getBanners() {
     webservice.client.query(success, error, address, user, password, fnname, extraargs);
 }
 
-function getInfo() {
+function getInfo(username, password, upc) {
     // Success callback.
     var success = function(boh,
                            forcast,
@@ -195,33 +211,26 @@ function getInfo() {
         alert('Error');
     };
 
-    address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
-    user = 'test'; //tget from div#login-username
-    password = 'test'; //get from div#login-password
-    fnname = 'getInfo';
-    extraargs = '';
+    var config = $.fn.Config();
+    var address = config.getVar("url", "https://simdv1.owfg.com:8443/caos/StoreManagement");
 
-    webservice.client.query(success, error, address, user, password, fnname, extraargs);
+    webservice.client.query(success, error, address, username, password, "getInfo", upc);
 }
 
-function setStore() {
-    // Success callback.
-    var success = function() {
-        alert('Success');
-    };
-
+function setStore(username, password, store, success) {
     // Error callback.
     var error = function() {
         alert('Error');
     };
 
-    address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
-    user = 'test'; //tget from div#login-username
-    password = 'test'; //get from div#login-password
-    fnname = 'setStore';
+    var pieces = store.split(" ")
+    var storeId = pieces[0];
+    var config = $.fn.Config();
+    var address = config.getVar("url", "https://simdv1.owfg.com:8443/caos/StoreManagement");
+
     extraargs = 1; //needs to be a long or something that'll cast to a long
 
-    webservice.client.query(success, error, address, user, password, fnname, extraargs);
+    webservice.client.query(success, error, address, username, password, "setStore", storeId);
 }
 
 /**

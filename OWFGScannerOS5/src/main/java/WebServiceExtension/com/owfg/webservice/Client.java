@@ -36,6 +36,7 @@ public final class Client extends ScriptableFunction {
         }
 
         try {
+            Logger.logErrorEvent("Client() function called: " + fnName);
             if (fnName.equals(GET_INFO)) {
                 Logger.logErrorEvent("Client.invoke(): get Info");
                 ws.getInfo(success, error, (String) args[6]);
@@ -49,8 +50,11 @@ public final class Client extends ScriptableFunction {
                 ws.getStores(success, error);
             }
             if (fnName.equals(SET_STORE)) {
-                Logger.logErrorEvent("Client.invoke(): get stores");
-                ws.setStore(success, error, (Long) args[6]);
+                Logger.logErrorEvent("Called setStore, about to cast this object: " + args[6]);
+                String storeIDstr = (String) args[6];
+                Long storeID = new Long(Long.parseLong(storeIDstr));
+                Logger.logErrorEvent("Client.invoke(): get stores. (StoreID: " + storeID + ")");
+                ws.setStore(success, error, storeID);
             }
         } catch (Exception e) {
             Logger.logErrorEvent("Exception: Client.Invoke(); (" + e + ") " + e.getMessage());
