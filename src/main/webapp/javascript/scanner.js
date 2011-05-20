@@ -6,17 +6,7 @@ $(function() {
         alert("clearCache(): Exception occured: " + e.name + "; " + e.message);
     }
     
-    try {
-        // Initialize persistent configuration.
-        var config = $.fn.Config(function() {
-          $("#login-field-username").val(config.getVar("username", "bcit"));
-          $("#login-field-password").val(config.getVar("password", "beeC1t"));
-          $("#login-field-url").val(config.getVar("url", "https://simdv1.owfg.com:8443/caos/StoreManagement"));
-        });
-      
-    } catch (e) {
-        alert("Config(): Exception occured: " + e.name + "; " + e.message);
-    }
+    $(".page").initPageManager();
     
     try {
         // Initialize application.
@@ -46,24 +36,58 @@ function clearCache() {
  * - Binding click events to perform extra actions.
  */
 function init() {
+  var authSuccess = function(stores) {
+    var storeList = document.getElementById('store');
+
+    $(stores).each(function(index, element) {
+      var option = new Option(element, element);
+      storeList.options[index] = option;
+    });
+
+    changePage("#results");
+  };
+
+  // Initialize persistent configuration.
+  var config = $.fn.Config(function() {
+    var username = config.getVar("username", null);
+    var password = config.getVar("password", null);
+
+    $("#login-field-username").val(username);
+    $("#login-field-password").val(password);
+
+    // Authentication information exists.
+    if (username && password) {
+      changePage("#loading");
+
+      getStores(username, password, authSuccess);
+    }
+    // No authentication information.
+    else {
+      changePage("#login");
+    }
+  });
+
+  $("#button-login-submit").click(function() {
+      var username = $("#login-field-username").val();
+      var password = $("#login-field-password").val();
+      getStores(username, password, authSuccess);
+  });
+
   $("#button-config-submit").click(function() {
       var config = $.fn.Config();
       config.setVar("url", $("#config-field-url").val());
-      $("#login-field-url").val(config.getVar("url", ""));
-  });
-  
-  $("#button-login-submit").click(function() {
-      var config = $.fn.Config();
-      config.setVar("username", $("#login-field-username").val());
-      config.setVar("password", $("#login-field-password").val());
-      getStores();
   });
   
   $("#results-submit").click(function() {
-      getInfo();
+      alert("Getting results...");
+      //getInfo();
   });
 
   $("#results").live("page-opened", function() {
+      var config = $.fn.Config();
+      config.setVar("username", $("#login-field-username").val());
+      config.setVar("password", $("#login-field-password").val());
+
       loadMenuItems("#results");
       scanBarcode();
   });
@@ -98,32 +122,20 @@ function scanBarcode() {
       });
 }
 
-function getStores() {
-  // Success callback.
-  var success = function(stores) {
-      var option;
-      var storeList = document.getElementById('store');
-      $(stores).each(function(index, element) {
-          option = new Option(element, element);
-          storeList.options[index] = option;
-      });
-  };
-
+function getStores(username, password, success) {
   // Error callback.
   var error = function(message) {
       var storeList = document.getElementById('store');
       alert('Error: ' + message);
       storeList.options.length = 0;
+      changePage("#login");
   };
 
-  //address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
-  address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
-  user = 'bcit'; //tget from div#login-username
-  password = 'beeC1t'; //get from div#login-password
   fnname = 'getStores';
   extraargs = '';
-
-  webservice.client.query(success, error, address, user, password, fnname, extraargs);
+  var address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
+  //alert("Calling getStores()\nUsername: " + username + "\nPassword: " + password + "\nAddress: " + address);
+  webservice.client.query(success, error, address, username, password, "getStores", "");
 }
 
 function getBanners() {
@@ -175,12 +187,12 @@ function getInfo() {
     var error = function() {
         alert('Error');
     };
-
-    address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
-    user = 'test'; //tget from div#login-username
-    password = 'test'; //get from div#login-password
-    fnname = 'getInfo';
-    extraargs = '';
+    var address = "https://simdv1.owfg.com:8443/caos/StoreManagement";
+    //address = 'https://warrenv.dlinkddns.com/StoreManagement-ws';
+    var user = 'test'; //tget from div#login-username
+    var password = 'test'; //get from div#login-password
+    var fnname = 'getInfo';
+    var extraargs = '';
 
     webservice.client.query(success, error, address, user, password, fnname, extraargs);
 }
