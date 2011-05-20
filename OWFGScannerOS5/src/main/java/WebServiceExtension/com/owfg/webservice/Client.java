@@ -42,6 +42,7 @@ class WorkerThread implements Runnable {
         ScriptableFunction error = (ScriptableFunction) args[1];
         //if (ws == null) {
         Logger.logErrorEvent("Client.invoke(): create WS");
+        Logger.logErrorEvent("args: " + (String) args[2] + " " + (String) args[3] + " " + (String) args[4] + " " + (String) args[5] + " " + (String) args[6]);
         ws = new WebService((String) args[2], (String) args[3], (String) args[4]);
 
         /*
@@ -55,7 +56,7 @@ class WorkerThread implements Runnable {
             ws.setPass((String) args[4]);
         }
         */
-        Logger.logErrorEvent("args: " + args[2] + " " + args[3] + " " + args[4] + " " + args[5] + " " + args[6]);
+
         try {
             if (fnName.equals(GET_INFO)) {
                 Logger.logErrorEvent("Client.invoke(): get Info");
