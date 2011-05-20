@@ -250,8 +250,16 @@ function loadMenuItems(page) {
     if (page === "#results") {
         try {
             items[0] = new blackberry.ui.menu.MenuItem(false, 1, "Scan", scanBarcode);
-            items[1] = new blackberry.ui.menu.MenuItem(false, 2, "Logout", changePage("#login"));
-            items[2] = new blackberry.ui.menu.MenuItem(false, 3, "Config", changePage("#config"));
+            items[1] = new blackberry.ui.menu.MenuItem(false, 2, "Logout", function() { changePage("#login"); });
+            items[2] = new blackberry.ui.menu.MenuItem(false, 3, "Config", function() { changePage("#config"); });
+        }
+        catch (e) {
+            alert("Exception: new MenuItem(); " + e.name + '; ' + e.message);
+        }
+    }
+    else if (page === "#forecast") {
+        try {
+            items[0] = new blackberry.ui.menu.MenuItem(false, 1, "Back", function() { changePage("#results"); });
         }
         catch (e) {
             alert("Exception: new MenuItem(); " + e.name + '; ' + e.message);
