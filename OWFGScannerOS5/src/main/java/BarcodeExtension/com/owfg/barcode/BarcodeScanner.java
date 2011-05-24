@@ -8,6 +8,8 @@ import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.system.Display;
 import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.container.MainScreen;
+import net.rim.device.api.notification.NotificationsManager;
+import net.rim.device.api.system.Alert;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
@@ -36,6 +38,21 @@ public class BarcodeScanner implements Runnable {
     MainScreen cameraScreen;
     ScriptableFunction successCallback;
     ScriptableFunction errorCallback;
+
+    private static final short[] TUNE = new short[] {
+        466, 125, 0, 10,
+        466, 125, 0, 10,
+        466, 125, 0, 10,
+        466, 125, 0, 10,
+        440, 125, 0, 10,
+        466, 125, 0, 10,
+        370, 125, 0, 10,
+        370, 125, 0, 10,
+        440, 125, 0, 10,
+        466, 125, 0, 10,
+        554, 125, 0, 10,
+        523, 125, 0, 10
+    };
 
     BarcodeScanner(MainScreen cScreen, ScriptableFunction success, ScriptableFunction error) {
         cameraScreen = cScreen;
@@ -73,9 +90,14 @@ public class BarcodeScanner implements Runnable {
             try {
                 result = reader.decode(bitmap1);
             } catch (ReaderException e) {
-                Logger.logSevereErrorEvent("Reader Error: " + e);
             }
             if (result != null) {
+                if (Alert.isAudioSupported()) {
+                    Alert.startAudio(TUNE, NotificationsManager.getMasterNotificationVolume());
+                }
+                if (Alert.isVibrateSupported() && NotificationsManager.isVibrateOnly()) {
+                    Alert.startVibrate(1000);
+                }
                 args[0] = result.getText();
                 try {
                     successCallback.invoke(successCallback, args);
