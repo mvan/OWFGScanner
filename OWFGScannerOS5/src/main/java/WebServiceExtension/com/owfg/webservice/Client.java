@@ -33,7 +33,7 @@ public final class Client extends ScriptableFunction {
     private void timeout() {
 		tm = new Timer();
 		tt = new TestTimerTask();
-	    tm.schedule(tt,1000);
+	    tm.schedule(tt,5000);
         Logger.logErrorEvent("Client.Timeout(): Started");
 	}
 
