@@ -43,17 +43,6 @@ class WorkerThread implements Runnable {
             Logger.logErrorEvent("Client.invoke(): create WS");
             ws = new WebService((String) args[2], (String) args[3], (String) args[4]);
         }
-        /*
-        if (ws.getAddress().equals((String) args[2]) == false) {
-            ws.setAddress((String) args[2]);
-        }
-        if (ws.getUser().equals((String) args[3]) == false) {
-            ws.setUser((String) args[3]);
-        }
-        if (ws.getPass().equals((String) args[4]) == false) {
-            ws.setPass((String) args[4]);
-        }
-        */
 
         try {
             Logger.logErrorEvent("Client() function called: " + fnName);

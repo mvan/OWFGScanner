@@ -35,7 +35,8 @@ public class WebService  {
                 //this.address = address;
                 //this.user = user;
                 //this.pass = password;
-				//TODO uncomment when server side is setup
+                stub._setProperty("sun.net.client.defaultConnectTimeout", "1000");
+
 				stub._setProperty(StoreManagement_Stub.USERNAME_PROPERTY, user);
 				stub._setProperty(StoreManagement_Stub.PASSWORD_PROPERTY, password);
 			}
