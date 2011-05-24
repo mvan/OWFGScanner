@@ -25,8 +25,12 @@ import net.rim.device.api.system.EventLogger;
 **/
 public final class Scan extends ScriptableFunction {
 
+    public static final long GUID = 0x2051fd67b72d12L;
+    public static final String APP_NAME = "BarcodeScanner Plugin";
+
     public Object invoke(Object obj, Object[] args) throws Exception {
         Player player;
+        EventLogger.register(GUID, APP_NAME, EventLogger.VIEWER_STRING);
         MainScreen cScreen = new MainScreen();
 
         try {
