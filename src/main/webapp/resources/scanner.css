@@ -1,8 +1,22 @@
 html,
-body {
+body,
+table,
+tr, td {
   font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
   margin: 0;
   padding: 0;
+}
+
+select,
+input {
+  width: 100%;
+}
+
+form label {
+  float: left;
+  padding-top: 4px;
+  width: 22%;
 }
 
 #logo {
@@ -13,31 +27,75 @@ body {
   display: none;
 }
 
-.content {
-  border-width: 0;
-  padding: 15px;
+.content-top {
+  background: #CCC;
+  display: block;
+  float: left;
+  width: 100%;
 }
 
-.button-wrapper {
-  margin: .5em 5px;
+.content-top,
+.content {
+  border-width: 0;
+  padding: 8px;
 }
-.button {
-  height: 3em;
+
+.content {
 }
 
 .header {
   background: #333;
-  padding: 1em 0;
+  padding: 0.5em 0;
   text-align: center;
 }
 
 .header h3 {
   color: #FFF;
   display: block;
-  font-size: 16px;
+  font-size: 1.2em;
   margin: 0 90px;
 }
 
+
+/** FORMS **/
+.form-element {
+  margin: 0.3em 0;
+}
+
+.button-wrapper {
+  margin: .5em 5px;
+}
+
+.button {
+  height: 3em;
+}
+
+
+/** PAGES **/
+
+/** #results **/
+#upc,
+#store {
+  width: 75%;
+}
+
+#results table {
+  width: 60%;
+}
+
+#results table input {
+  width: 40px;
+}
+
+#results table label {
+  width: 100%;
+}
+
+#results .col-label {
+  text-align: right;
+}
+
+/** #loading **/
 #loading-throbber {
   background: url("images/throbber.gif");
   height: 32px;
@@ -45,13 +103,20 @@ body {
   width: 32px;
 }
 
-.fixed-top {
-  background: #CCC;
-  position: relative;
-  top: 0px;
+/** UTILITY **/
+.column-75 {
+  width: 75%;
+  float: left;
 }
 
-select,
-input {
-  width: 100%;
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.clear {
+  clear: both;
 }
