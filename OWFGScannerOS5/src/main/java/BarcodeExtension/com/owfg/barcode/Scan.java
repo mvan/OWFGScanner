@@ -14,13 +14,20 @@ import net.rim.device.api.script.ScriptableFunction;
 import net.rim.device.api.system.EventInjector;
 import net.rim.device.api.system.EventLogger;
 
+/**
+* Class which creates the video stream and creates a BarcodeScanner and ScannerThread
+* <p>
+* Creates a video stream and adds it to the cScreen. Then creates a new 
+* BarcodeScanner Object and a new Scanner Thread and starts the Scanner Thread.
+*
+* @author Mohamed Sheriffdeen
+* @author Tom Nightingale
+**/
 public final class Scan extends ScriptableFunction {
 
     public Object invoke(Object obj, Object[] args) throws Exception {
         Player player;
         MainScreen cScreen = new MainScreen();
-
-        //EventLogger.register(MyApp.GUID, MyApp.APP_NAME, EventLogger.VIEWER_STRING);
 
         try {
             player = Manager.createPlayer("capture://video");
@@ -31,9 +38,8 @@ public final class Scan extends ScriptableFunction {
 
             try {
                 cScreen.add(viewFinder);
-            } catch (IllegalStateException ise) {
-                // TODO: Handle this somehow...
-                //Logger.logErrorEvent("MyApp() IllegalStateException: " + ise);
+            } catch (Exception e) {
+                Logger.logSevereErrorEvent("cScreen.add error: " + e);
             }
 
             synchronized(UiApplication.getEventLock()) {
@@ -47,12 +53,8 @@ public final class Scan extends ScriptableFunction {
             Thread scannerThread = new Thread(scanner);
             scannerThread.start();
 
-        } catch (IOException ioe) {
-            // TODO: Handle this somehow...
-            //Logger.logErrorEvent("MyApp() IO Exception: " + ioe);
-        } catch (MediaException mee) {
-            // TODO: Handle this somehow...
-            //Logger.logErrorEvent("MyApp() Media Exception: " + mee);
+        } catch (Exception e) {
+            Logger.logSevereErrorEvent("Error: " + e);
         }
 
         return UNDEFINED;

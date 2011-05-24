@@ -19,6 +19,19 @@ import com.google.zxing.Result;
 import com.google.zxing.common.GlobalHistogramBinarizer;
 import com.google.zxing.oned.MultiFormatOneDReader;
 
+
+/**
+* Class which scans and decodes a barcode.
+* <p>
+* A barcode reader is generated with the desired scanning parameters.
+* The reader then parses an image created by taking a screenshot. 
+* If a barcode is found, the reader calls the callback function
+* with the data, else it loops until a barcode is decoded or it 
+* times out.
+*
+* @author Mohamed Sheriffdeen
+* @author Tom Nightingale
+**/
 public class BarcodeScanner implements Runnable {
     MainScreen cameraScreen;
     ScriptableFunction successCallback;
@@ -60,15 +73,14 @@ public class BarcodeScanner implements Runnable {
             try {
                 result = reader.decode(bitmap1);
             } catch (ReaderException e) {
-                //Logger.logDebugEvent("ScreenshotThread.run(): " + e);
-                //return;
+                Logger.logSevereErrorEvent("Reader Error: " + e);
             }
             if (result != null) {
                 args[0] = result.getText();
                 try {
                     successCallback.invoke(successCallback, args);
                 } catch(Exception e) {
-                    // TODO: Handle this somehow...
+                    Logger.logSevereErrorEvent("successCallback.invoke Error: " + e);
                 }
                 break;
             } else {
@@ -77,7 +89,7 @@ public class BarcodeScanner implements Runnable {
                     try {
                         errorCallback.invoke(errorCallback, args);
                     } catch(Exception e) {
-                        // TODO: Handle this somehow...
+                        Logger.logSevereErrorEvent("errorCallback.invoke Error: " + e);
                     }
                     break;
                 }

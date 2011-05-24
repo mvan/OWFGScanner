@@ -4,20 +4,38 @@ import java.io.IOException;
 import net.rim.device.api.script.ScriptableFunction;
 import net.rim.device.api.system.EventInjector;
 import net.rim.device.api.system.EventLogger;
+import java.lang.Runnable;
 
 public final class Client extends ScriptableFunction {
-    public static final String GET_INFO = "getInfo";
-    public static final String GET_BANNERS = "getBanners";
-    public static final String GET_STORES = "getStores";
-    public static final String SET_STORE = "setStore";
+
     public static final long GUID = 0x2051fd67b72d11L;
     public static final String APP_NAME = "WebService Plugin";
-    public static WebService ws = null;
+
 
     public Object invoke(Object obj, Object[] args) throws Exception {
         EventLogger.register(GUID, APP_NAME, EventLogger.VIEWER_STRING);
         Logger.logErrorEvent("Client.invoke(): invoke");
+        Runnable runnable = new WorkerThread(obj, args);
+        Thread thread = new Thread(runnable);
+        thread.start();
+        return UNDEFINED;
+    }
 
+}
+
+class WorkerThread implements Runnable {
+    public static final String GET_INFO = "getInfo";
+    public static final String GET_BANNERS = "getBanners";
+    public static final String GET_STORES = "getStores";
+    public static final String SET_STORE = "setStore";
+    private WebService ws = null;
+    private Object obj;
+    private Object[] args;
+    public WorkerThread(Object obj, Object[] args) {
+        this.obj = obj;
+        this.args = args;
+    }
+    public void run(){
         String fnName = (String) args[5];
         ScriptableFunction success = (ScriptableFunction) args[0];
         ScriptableFunction error = (ScriptableFunction) args[1];
@@ -25,6 +43,7 @@ public final class Client extends ScriptableFunction {
             Logger.logErrorEvent("Client.invoke(): create WS");
             ws = new WebService((String) args[2], (String) args[3], (String) args[4]);
         }
+        /*
         if (ws.getAddress().equals((String) args[2]) == false) {
             ws.setAddress((String) args[2]);
         }
@@ -34,6 +53,7 @@ public final class Client extends ScriptableFunction {
         if (ws.getPass().equals((String) args[4]) == false) {
             ws.setPass((String) args[4]);
         }
+        */
 
         try {
             Logger.logErrorEvent("Client() function called: " + fnName);
@@ -59,6 +79,5 @@ public final class Client extends ScriptableFunction {
         } catch (Exception e) {
             Logger.logErrorEvent("Exception: Client.Invoke(); (" + e + ") " + e.getMessage());
         }
-        return UNDEFINED;
     }
 }
