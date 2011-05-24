@@ -6,7 +6,7 @@ import com.owfg.stub.StoreManagement_Stub;
 import com.owfg.stub.StoreManagementInfo;
 
 import net.rim.device.api.script.ScriptableFunction;
-
+import net.rim.device.api.ui.UiApplication;
 
 
 /**
@@ -31,14 +31,6 @@ public class WebService  {
                 setAddress(address);
                 setUser(user);
                 setPass(password);
-				//stub._setProperty(StoreManagementImpl_Stub.ENDPOINT_ADDRESS_PROPERTY, address);
-                //this.address = address;
-                //this.user = user;
-                //this.pass = password;
-                stub._setProperty("sun.net.client.defaultConnectTimeout", "1000");
-
-				stub._setProperty(StoreManagement_Stub.USERNAME_PROPERTY, user);
-				stub._setProperty(StoreManagement_Stub.PASSWORD_PROPERTY, password);
 			}
 		} catch (Exception ex) {
 			Logger.logSevereErrorEvent("WebService(): " + ex);
@@ -56,36 +48,24 @@ public class WebService  {
 	* @return a list of stores containing name, id and bannerId
 	* @author Warren Voelkl
 	**/
-	public void getStores(ScriptableFunction success, ScriptableFunction error) throws Exception {
-
+	public Result getStores(ScriptableFunction success, ScriptableFunction error) throws Exception {
 		Store[] storesResponse = null;
 		String[] str = null;
 		if (stub == null) {
 			str = new String[1];
 			str[0] = new String("Stub is null");
-            try {
-			    error.invoke(error, str);
-            } catch (Exception e) {
-                //TODO: Handle this somehow
-            }
-			throw new Exception("Null Pointer Exception");
-		}		
+            return new Result(error, str);
+        }
 		try {
             Logger.logDebugEvent("WebService() stub.GetActiveStores()");
 			storesResponse = stub.getActiveStores();
-
 		} catch (Exception e) {
-			//TODO
 			Logger.logSevereErrorEvent("WebService.getStores(): " + e);
 			str = new String[1];
 			str[0] = new String("Unable to retrive Stores from: " + address);
-            try {
-			    error.invoke(error, str);
-            } catch (Exception er) {
-                Logger.logSevereErrorEvent("WebService.getStores.Invoke error: " + e);
-            }
+            return new Result(error, str);
 		}
-        
+
 		str = new String[storesResponse.length];
 		for (int i = 0; i != storesResponse.length; i++) {
 			str[i] = new String(storesResponse[i].getStoreId() + " " 
@@ -94,11 +74,7 @@ public class WebService  {
 		}
         String[][] arrayOfStrings = new String[1][storesResponse.length];
         arrayOfStrings[0] = str;
-        try {
-		    success.invoke(success, arrayOfStrings);
-        } catch (Exception e) {
-            Logger.logSevereErrorEvent("WebService.getStores.Invoke success: " + e);
-        }
+        return new Result(success, arrayOfStrings);
 	}
 	
 	/**
@@ -111,18 +87,13 @@ public class WebService  {
 	* @return a list of store banners;
 	* @author Warren Voelkl
 	**/
-	public void getBanners(ScriptableFunction success, ScriptableFunction error) throws Exception {
-		Banner[] banners = null;
+	public Result getBanners(ScriptableFunction success, ScriptableFunction error) throws Exception {
+        Banner[] banners = null;
 		String[] str = null;
 		if (stub == null) {
 			str = new String[1];
 			str[0] = new String("Stub is null");
-            try {
-			    error.invoke(error, str);
-            } catch (Exception e) {
-                Logger.logSevereErrorEvent("WebService.getBanners.Invoke error: " + e);
-            }
-			throw new Exception("Null Pointer Exception");
+            return new Result(error, str);
 		}
 		try {
             Logger.logDebugEvent("WebService.getBanners stub.getBanners(): ");
@@ -131,12 +102,7 @@ public class WebService  {
 			Logger.logSevereErrorEvent("WebService.getBanners(): " + e);
 			str = new String[1];
 			str[0] = new String("Unable to retrieve Banners");
-            try {
-			    error.invoke(error, str);
-            } catch (Exception er) {
-                Logger.logSevereErrorEvent("WebService.getBanners.Invoke error: " + e);
-            }
-			throw e;
+            return new Result(error, str);
 		}
 		str = new String[banners.length];
 		for (int i = 0; i != banners.length; i++) {
@@ -146,15 +112,11 @@ public class WebService  {
 		}
         String[][] arrayOfStrings = new String[1][banners.length];
         arrayOfStrings[0] = str;
-        try {
-		    success.invoke(success, arrayOfStrings);
-        } catch (Exception e) {
-            Logger.logSevereErrorEvent("WebService.getBanners.Invoke error: " + e);
-        }
+        return new Result(success, arrayOfStrings);
 	}
 	
 	/**
-	* Gets a list of the Banners from server
+	* Gets a store info object from server
 	* <p>
 	* Currently this function uses the stub to contact a server
 	* on a failure it will throw an exception currently this exception
@@ -163,42 +125,27 @@ public class WebService  {
 	* @return the info object containing all information of an object
 	* @author Warren Voelkl
 	**/	
-	public void getInfo(ScriptableFunction success, ScriptableFunction error, String string) throws Exception {
-		Logger.logDebugEvent("Info");
+	public Result getInfo(ScriptableFunction success, ScriptableFunction error, String string) throws Exception {
+        Logger.logDebugEvent("Info");
 		StoreManagementInfo pi = null;
 		String[] str = null;
 		ProductInfo info = null;
 		if (stub == null) {
 			str = new String[1];
 			str[0] = new String("Stub is null");
-            try {
-			    error.invoke(error, str);
-            } catch (Exception e) {
-                //TODO: Handle this somehow
-            }
-			throw new Exception("Null Pointer Exception");
+            return new Result(error, str);
 		}
 		try {
             Logger.logDebugEvent("getInfo() stub.getStoreManagementInfo()");
 			pi = stub.getStoreManagementInfo(storeId, string);
 		} catch (Exception e) {
-			//TODO
-			//Logger.logSevereErrorEvent("WebService.getStores(): " + e);
+			Logger.logSevereErrorEvent("WebService.getInfo(): " + e);
 			str = new String[1];
 			str[0] = new String("Unable to retrive product info");
-			try {
-                error.invoke(error, str);
-            } catch (Exception er) {
-                Logger.logSevereErrorEvent("WebService.getInfo.Invoke error: " + e);
-            }
-			throw e;
+            return new Result(error, str);
 		}
-          info = new ProductInfo(pi);
-        try {
-		    success.invoke(success, info.toArray());
-        } catch (Exception e) {
-            Logger.logSevereErrorEvent("WebService.getInfo.Invoke success: " + e);
-        }
+        info = new ProductInfo(pi);
+        return new Result(success, info.toArray());
 	}
 
     public void setStore (ScriptableFunction success, ScriptableFunction error, Long id) throws Exception {
