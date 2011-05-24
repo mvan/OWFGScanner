@@ -24,7 +24,7 @@ function clearCache() {
     //alert("Clearing cache...");
 
     // Block for desktop browser testing.
-    if (typeof blackberry === 'undefined') {
+    if (typeof blackberry == 'undefined' || typeof blackberry.widgetcache === 'undefined') {
         return;
     }
 
