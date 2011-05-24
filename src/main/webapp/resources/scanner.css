@@ -38,6 +38,12 @@ body {
   margin: 0 90px;
 }
 
+#loading-throbber {
+    background: url("resources/throbber.gif");
+    width: 32px;
+    height: 32px;
+}
+
 select,
 input {
   width: 100%;
