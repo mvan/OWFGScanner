@@ -97,18 +97,25 @@ function init() {
   });
 
   $("#results").live("page-opened", function() {
+      loadMenuItems("#results");
+
       var config = $.fn.Config();
       config.setVar("username", $("#login-field-username").val());
       config.setVar("password", $("#login-field-password").val());
 
-      loadMenuItems("#results");
   });
 
   $("#forecast").live("page-opened", function() {
       loadMenuItems("#forecast");
   });
 
+  $("#loading").live("page-opened", function() {
+      loadMenuItems("#loading");
+  });
+
   $("#config").live("page-opened", function() {
+      loadMenuItems("#config");
+
       var config = $.fn.Config();
       $("#config-field-url").val(config.getVar("url", "https://simdv1.owfg.com:8443/caos/StoreManagement"));
   });
@@ -244,15 +251,7 @@ function loadMenuItems(page) {
         return;
     }
 
-    // Clear any existing menu items.
-    try {
-        if (blackberry.ui.menu.getMenuItems().length > 0) {
-            blackberry.ui.menu.clearMenuItems();
-        }
-    }
-    catch (e) {
-        alert("Exception: clearMenuItems(); " + e.name + '; ' + e.message);
-    }
+    clearMenuItems();
 
     // Menus for results page.
     var items = [];
@@ -285,3 +284,16 @@ function loadMenuItems(page) {
         alert("Exception: addMenuItem(); " + e.name + '; ' + e.message);
     }
 }
+
+function clearMenuItems() {
+    // Clear any existing menu items.
+    try {
+        if (blackberry.ui.menu.getMenuItems().length > 0) {
+            blackberry.ui.menu.clearMenuItems();
+        }
+    }
+    catch (e) {
+        alert("Exception: clearMenuItems(); " + e.name + '; ' + e.message);
+    }
+}
+
