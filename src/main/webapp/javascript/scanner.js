@@ -32,8 +32,7 @@ function clearCache() {
 }
 
 /**
- * Initializes misc application stuff including:
- * - Binding click events to perform extra actions.
+ * Initializes application event handling:
  */
 function init() {
   var authSuccess = function(stores) {
@@ -49,6 +48,11 @@ function init() {
     changePage("#results");
   };
 
+  var authError = function(message) {
+      alert('authError: ' + message);
+      changePage("#login");
+  };
+
   // Initialize persistent configuration.
   var config = $.fn.Config(function() {
     var username = config.getVar("username", null);
@@ -61,7 +65,7 @@ function init() {
     if (username && password) {
       changePage("#loading");
 
-      getStores(username, password, authSuccess);
+      getStores(username, password, authSuccess, authError);
     }
     // No authentication information.
     else {
@@ -70,10 +74,11 @@ function init() {
   });
 
   $("#button-login-submit").click(function() {
+      changePage("#loading");
       var username = $("#login-field-username").val();
       var password = $("#login-field-password").val();
-      changePage("#loading");
-      getStores(username, password, authSuccess);
+
+      getStores(username, password, authSuccess, authError);
   });
 
   $("#button-config-submit").click(function() {
@@ -90,10 +95,17 @@ function init() {
       
       changePage("#loading");
 
-      setStore(username, password, store, function() {
-        changePage("#results");
-        getInfo(username, password, upc);
-      });
+      setStore(username, password, store,
+        // Success.
+        function() {
+          changePage("#results");
+          getInfo(username, password, upc);
+        },
+        // Error.
+        function() {
+          alert("Error: could not set the store.");
+        }
+      );
   });
 
   $("#results").live("page-opened", function() {
