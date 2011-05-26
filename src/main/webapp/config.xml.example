@@ -2,7 +2,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets"   
         xmlns:rim="http://www.blackberry.com/ns/widgets" 
         version="1.0.0.0">
-  <name>The Over-Scanner</name>
+  <name>The Over Scanner</name>
   <description>Overwaitea Food Group Barcode Scanner</description>
   <author rim:copyright="2011" 
           email="tom@tnightingale.com">BCIT CST DataComm 2011</author>
