@@ -24,12 +24,14 @@
         // Get databse; if doesn't exist, create it.
         try {
           var database = window.openDatabase(DB_NAME, DB_VERSION, DB_DISPLAY, DB_SIZE);
+          // No SD error handling for OS 5 (gears).
           if (typeof database === 'undefined') {
             errorCallback();
           }
         }
         catch (e) {
-          exception(e, "Could not get database instance.");
+          // No SD error handling for OS 6 (webSQL).
+          errorCallback();
         }
       
         // Create config table to store key -> value pairs.

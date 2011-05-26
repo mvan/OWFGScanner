@@ -7,8 +7,8 @@ function queryWebservice(query, args, username, password, success, error) {
     return;
   }
 
-  success();
-  return;
+  //success();
+  //return;
 
   var config = $.fn.Config();
   var address = config.getVar("url", "https://simdv1.owfg.com:8443/caos/StoreManagement");
