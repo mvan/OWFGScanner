@@ -29,7 +29,7 @@
             </div>
             <div class="content-top context-selector">
               <form id="form-results" method="post" action="#results">
-                <div class="column-75">
+                <div class="column-75 column">
                   <div id="upc-wrapper" class="form-element">
                     <label>UPC:</label>
                     <input id="upc" type="text" size="20" name="username" />
@@ -44,7 +44,7 @@
                     </select>
                   </div>
                 </div>
-                <div id="results-submit-wrapper" class="button-wrapper form-element left"><input class="button" id="results-submit" type="button" name="results" value="Submit" /></div>
+                <div id="results-submit-wrapper" class="column button-wrapper form-element left"><input class="button" id="results-submit" type="button" name="results" value="Submit" /></div>
               </form>
             </div>
             <div class="content clear">
@@ -135,7 +135,9 @@
             <div class="header"><h3>Overwaitea Food Group - Configuration</h3></div>
             <div class="content" >
                 <form id="form-config" method="post" action="#">
-                    <div id="config-url"><label>New URL:</label><input id="config-field-url" type="text" size="20" name="url" /></div>
+                    <div id="config-url"><label>Web service host address:</label><input id="config-field-url" type="text" size="20" name="url" /></div>
+                    <div id="config-develop"><label>Developer mode:</label><input id="config-field-develop" type="checkbox" name="develop" /></div>
+                    <div class="button-wrapper" id="config-reset"><input class="button" id="button-config-reset" type="button" name="reset" value="Reset defaults" /></div>
                     <div class="button-wrapper" id="config-submit"><input class="nav button" data-dest="#login" id="button-config-submit" type="button" name="config" value="Save" /></div>
                 </form>
             </div>

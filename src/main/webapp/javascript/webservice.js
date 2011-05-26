@@ -7,11 +7,15 @@ function queryWebservice(query, args, username, password, success, error) {
     return;
   }
 
-  //success();
-  //return;
-
   var config = $.fn.Config();
   var address = config.getVar("url", "https://simdv1.owfg.com:8443/caos/StoreManagement");
+
+  var develop = config.getVar("develop", false);
+  // Disabling webservices for devleopment purposes.
+  if (develop) {
+    success();
+    return;
+  }
 
   webservice.client.query(success, error, address, username, password, query, args);
 }

@@ -37,7 +37,6 @@ form label {
 .content-top,
 .content {
   border-width: 0;
-  padding: 8px;
 }
 
 .content {
@@ -107,6 +106,10 @@ form label {
 .column-75 {
   width: 75%;
   float: left;
+}
+
+.column {
+  padding: 8px;
 }
 
 .left {
