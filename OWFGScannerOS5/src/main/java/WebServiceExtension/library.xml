@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <library>
     <extension>
-        <entryClass>com.owfg.webservice.WebServiceExtension</entryClass>
+        <entryClass>WebServiceExtension.com.owfg.webservice.WebServiceExtension</entryClass>
     </extension>
     <features>
         <feature id="webservice.client" version="1.0.0">
