@@ -5,7 +5,12 @@
   }
 
   /**
-   * TODO: Document the hell out of this.
+   * Configuration storage class (singleton). 
+   * Provides a Key -> Value persistant storage.
+   * Can be invoked anywhere by calling the constructor found in the jQuery 
+   * object: var config = $.fn.Config();
+   *
+   * Author: Tom Nightingale.
    */
   $.fn.Config = function(initCallback, errorCallback) {
     var instance = (function() {

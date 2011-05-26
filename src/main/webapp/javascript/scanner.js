@@ -40,6 +40,9 @@ function init() {
       var option = new Option(element, element);
       storeList.options[index] = option;
     });
+    
+    var store = $.fn.Config().getVar("store", "");
+    $("#store").val(store);
 
     scanBarcode();
 
@@ -115,6 +118,8 @@ function init() {
       var upc = $("#upc").val();
       
       changePage("#loading", true);
+
+      config.setVar("store", store);
 
       setStore(username, password, store,
         // Success.
@@ -244,6 +249,7 @@ function clearMenuItems() {
 
 function exit() {
     try {
+        clearMenuItems();
         blackberry.app.exit();
     }
     catch (e) {
