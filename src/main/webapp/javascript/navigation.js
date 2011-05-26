@@ -1,4 +1,5 @@
 var activePage = "";
+var pageHistory = [];
 
 (function($) {
   /**
@@ -26,7 +27,8 @@ var activePage = "";
       $(".nav", this).each(function(i, e) {
           var element = $(e);
           element.click(function() {
-              changePage(element.attr("data-dest"));
+              var dest = element.attr("data-dest");
+              changePage(dest);
               return false;
           });
       });
@@ -35,9 +37,30 @@ var activePage = "";
 
 })(jQuery);
 
-function changePage(id) {
+function changePage(id, record) {
+  var ignore = record || false;
   $(activePage).hide();
   activePage = id;
+
+  if (!ignore && pageHistory[pageHistory.length - 1] !== id) {
+    pageHistory.push(id);
+  }
+
   $(activePage).trigger("page-opened");
   $(activePage).show();
+}
+
+function backPage() {
+  if (pageHistory.length == 1) {
+    return false;
+  }
+
+  // Pop current page off.
+  pageHistory.pop();
+
+  // Ok to pop last page off as changePage() will push it back on.
+  var last = pageHistory.pop();
+  changePage(last);
+
+  return true;
 }

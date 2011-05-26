@@ -2,7 +2,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets"   
         xmlns:rim="http://www.blackberry.com/ns/widgets" 
         version="1.0.0.0">
-  <name>OWFG Scanner</name>
+  <name>The Over Scanner</name>
   <description>Overwaitea Food Group Barcode Scanner</description>
   <author rim:copyright="2011" 
           email="tom@tnightingale.com">BCIT CST DataComm 2011</author>
@@ -17,6 +17,8 @@
     <feature id="barcode.scanner" required="true" version="1.0.0" />
     <feature id="blackberry.app" required="true" version="1.0.0.0" />
     <feature id="blackberry.ui.menu" version="1.0.0" />
+    <feature id="blackberry.ui.dialog" version="1.0.0" />
+    <feature id="blackberry.system.event" version="1.0.0" />
     <feature id="blackberry.widgetcache" /> 
   </access>
 
@@ -28,6 +30,8 @@
   <feature id="barcode.scanner" required="true" version="1.0.0" />
   <feature id="blackberry.app" required="true" version="1.0.0.0" />
   <feature id="blackberry.ui.menu" version="1.0.0" />
+  <feature id="blackberry.ui.dialog" version="1.0.0" />
+  <feature id="blackberry.system.event" version="1.0.0" />
   <feature id="blackberry.widgetcache" /> 
 -->
 

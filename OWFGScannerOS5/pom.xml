@@ -106,7 +106,7 @@
                                         </fileset>
                                     </zip>
                                     <exec executable="${env.RIM_BBW_HOME}\bbwp.exe">
-                                        <arg line="${basedir}/target/maven-archiver/OWFGScannerOS5.zip /o ${basedir}/../target/app-binary"/>
+                                        <arg line="${basedir}/target/maven-archiver/OWFGScannerOS5.zip /g rootbeer /o ${basedir}/../target/app-binary"/>
                                     </exec>
 
                                 </tasks>

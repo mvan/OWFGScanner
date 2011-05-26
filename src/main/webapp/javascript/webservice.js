@@ -7,21 +7,16 @@ function queryWebservice(query, args, username, password, success, error) {
     return;
   }
 
+  //success();
+  //return;
+
   var config = $.fn.Config();
   var address = config.getVar("url", "https://simdv1.owfg.com:8443/caos/StoreManagement");
 
   webservice.client.query(success, error, address, username, password, query, args);
 }
 
-function getStores(username, password, success) {
-  // Error callback.
-  var error = function(message) {
-      var storeList = document.getElementById('store');
-      alert('Error: ' + message);
-      storeList.options.length = 0;
-      changePage("#login");
-  };
-
+function getStores(username, password, success, error) {
   queryWebservice("getStores", "", username, password, success, error);
 }
 
@@ -38,20 +33,11 @@ function getHistory(username, password, upc) {
         //dayOfWeek, forecast, onPromo(true false), promoSales, regularSales;
     }
 
-  webservice.client.query(success, error, address, username, password, "getHistory", upc);
+  queryWebservice("getHistory", upc, username, password, success, error);
 }
 
-function getBanners(username, password, success) {
-    // Success callback.
-    var success = function() {
-        alert('Success');
-    };
 
-    // Error callback.
-    var error = function() {
-        alert('Error');
-    };
-
+function getBanners(username, password, success, error) {
     queryWebservice("getBanners", "", username, password, success, error);
 }
 
@@ -85,24 +71,12 @@ function getInfo(username, password, upc) {
         alert('Error');
     };
 
-    var config = $.fn.Config();
-    var address = config.getVar("url", "https://simdv1.owfg.com:8443/caos/StoreManagement");
-
-    webservice.client.query(success, error, address, username, password, "getInfo", upc);
+    queryWebservice("getInfo", upc, username, password, success, error);
 }
 
-function setStore(username, password, store, success) {
-    // Error callback.
-    var error = function() {
-        alert('Error');
-    };
-
+function setStore(username, password, store, success, error) {
     var pieces = store.split(" ")
     var storeId = pieces[0];
-    var config = $.fn.Config();
-    var address = config.getVar("url", "https://simdv1.owfg.com:8443/caos/StoreManagement");
 
-    extraargs = 1;
-
-    webservice.client.query(success, error, address, username, password, "setStore", storeId);
+    queryWebservice("setStore", storeId, username, password, success, error);
 }

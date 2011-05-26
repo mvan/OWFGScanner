@@ -22,6 +22,55 @@
             </div>
         </div>
 
+        <!-- Results page --------------------------------------------------->
+        <div class="page" id="results">
+            <div class="header">
+                <h3>Scan Results</h3>
+            </div>
+            <div class="content-top context-selector">
+              <form id="form-results" method="post" action="#results">
+                <div class="column-75">
+                  <div id="upc-wrapper" class="form-element">
+                    <label>UPC:</label>
+                    <input id="upc" type="text" size="20" name="username" />
+                  </div>
+                  <div id="store-wrapper" class="form-element">
+                    <label>Store #:</label>
+                    <select id="store">
+                        <option>Example store</option>
+                        <option>A store</option>
+                        <option>Third store</option>
+                        <option>4th store</option>
+                    </select>
+                  </div>
+                </div>
+                <div id="results-submit-wrapper" class="button-wrapper form-element left"><input class="button" id="results-submit" type="button" name="results" value="Submit" /></div>
+              </form>
+            </div>
+            <div class="content clear">
+              <!--<h3 id="product-name"></h3>-->
+              <table>
+                <tr>
+                    <td class="col-label"><label>BOH:</label></td><td><input type="text" name="boh" id="boh" /></td>
+                    <td class="col-label"><label>On order:</label></td><td><input type="text" name="onorder" id="onorder" /></td>
+                </tr>
+                <tr>
+                    <td class="col-label"><label>Min:</label></td><td><input type="text" name="minimum" id="minimum" /></td>
+                    <td class="col-label"><label>In Transit:</label></td><td><input type="text" name="intransit" id="intransit" /></td>
+                </tr>
+                <tr>
+                    <td class="col-label"><label>Fcst:</label></td><td><input type="text"  name="forecast" id="field-forecast" /></td>
+                    <td class="col-label"><label>Pack:</label></td><td><input type="text" name="pack" id="pack" /></td>
+                </tr>
+                <tr>
+                    <td class="col-label"><label>Reg:</label></td><td><input type="text" name="regprice" id="regprice" /></td>
+                    <td class="col-label"><label>Source:</label></td><td><input type="text" name="source" id="source" /></td>
+                </tr>
+              </table>
+              <div class="button-wrapper" id="results-forecast"><form><input class="nav button" data-dest="#forecast" id="button-forecast" type="button" name="forecast" value="forecast" /></form></div>
+            </div>
+        </div>
+
         <!-- Login page ------------------------------------------------------>
         <div class="page" id="login">
             <div class="header"><h3>Overwaitea Food Group - Login</h3></div>
@@ -36,48 +85,6 @@
             </div>
         </div>
 
-        <!-- Results page --------------------------------------------------->
-        <div class="page" id="results">
-            <div class="header">
-                <h3>Scan Results</h3>
-            </div>
-            <div class="content" >
-                <form id="form-results" method="post" action="#results">
-                    <div>
-                        <label>UPC:</label>
-                        <input id="upc" type="text" size="20" name="username" />
-                    </div>
-                    <div>
-                        <label>Store #:</label>
-                        <select id="store">
-                            <option>Store 1</option>
-                            <option>Store 2</option>
-                            <option>Store 3</option>
-                        </select>
-                    </div>
-                    <div class="button-wrapper"><input class="button" id="results-submit" type="button" name="results" value="Submit" /></div>
-                </form>
-                <h3 id="product-name"></h3>
-                <form><table><tr>
-                            <td><label>BOH:</label></td><td><input type="text" size="10" name="boh" id="boh" /></td>
-                            <td><label>On order:</label></td><td><input type="text" size="10" name="onorder" id="onorder" /></td>
-                        </tr>
-                        <tr>
-                            <td><label>Min:</label></td><td><input type="text" size="10" name="minimum" id="minimum" /></td>
-                            <td><label>In Transit:</label></td><td><input type="text" size="10" name="intransit" id="intransit" /></td>
-                        </tr>
-                        <tr>
-                            <td><div class="button-wrapper" id="results-fcst"><input class="nav button" data-dest="#forecast" id="button-fcst" type="button" name="fcst" value="Fcst:" /></div></td>
-                            <td><input type="text" size="10" name="forecast" id="field-forecast" /></td>
-                            <td><label>Pack:</label></td><td><input type="text" size="10" name="pack" id="pack" /></td>
-                        </tr>
-                        <tr>
-                            <td><label>Reg:</label></td><td><input type="text" size="10" name="regprice" id="regprice" /></td>
-                            <td><label>Source:</label></td><td><input type="text" size="10" name="source" id="source" /></td>
-                </tr></table></form>
-            </div>
-        </div>
-
         <!-- Forecast page --------------------------------------------------->
         <div class="page" id="forecast">
             <div class="header"><h3>Forecast</h3></div>
@@ -87,38 +94,38 @@
                         </tr>
                         <tr>
                             <td>Sun</td>
-                            <td><input type="text" size="10" name="sunReg" id="sunReg" maxlength="10" /></td>
-                            <td><input type="text" size="10" name="sunSale" id="sunSale" maxlength="10" /></td>
+                            <td><input type="text" name="sunReg" id="sunReg" maxlength="10" /></td>
+                            <td><input type="text" name="sunSale" id="sunSale" maxlength="10" /></td>
                         </tr>
                         <tr>
                             <td>Mon</td>
-                            <td><input type="text" size="10" name="monReg" id="monReg" maxlength="10" /></td>
-                            <td><input type="text" size="10" name="monSale" id="monSale" maxlength="10" /></td>
+                            <td><input type="text" name="monReg" id="monReg" maxlength="10" /></td>
+                            <td><input type="text" name="monSale" id="monSale" maxlength="10" /></td>
                         </tr>
                         <tr>
                             <td>Tue</td>
-                            <td><input type="text" size="10" name="tueReg" id="tueReg" maxlength="10" /></td>
-                            <td><input type="text" size="10" name="tueSale" id="tueSale" maxlength="10" /></td>
+                            <td><input type="text" name="tueReg" id="tueReg" maxlength="10" /></td>
+                            <td><input type="text" name="tueSale" id="tueSale" maxlength="10" /></td>
                         </tr>
                         <tr>
                             <td>Wed</td>
-                            <td><input type="text" size="10" name="wedReg" id="wedReg" maxlength="10" /></td>
-                            <td><input type="text" size="10" name="wedSale" id="wedSale" maxlength="10" /></td>
+                            <td><input type="text" name="wedReg" id="wedReg" maxlength="10" /></td>
+                            <td><input type="text" name="wedSale" id="wedSale" maxlength="10" /></td>
                         </tr>
                         <tr>
                             <td>Thur</td>
-                            <td><input type="text" size="10" name="thursReg" id="thursReg" maxlength="10" /></td>
-                            <td><input type="text" size="10" name="thursSale" id="thursSale" maxlength="10" /></td>
+                            <td><input type="text" name="thursReg" id="thursReg" maxlength="10" /></td>
+                            <td><input type="text" name="thursSale" id="thursSale" maxlength="10" /></td>
                         </tr>
                         <tr>
                             <td>Fri</td>
-                            <td><input type="text" size="10" name="friReg" id="friReg" maxlength="10" /></td>
-                            <td><input type="text" size="10" name="friSale" id="friSale" maxlength="10" /></td>
+                            <td><input type="text" name="friReg" id="friReg" maxlength="10" /></td>
+                            <td><input type="text" name="friSale" id="friSale" maxlength="10" /></td>
                         </tr>
                         <tr>
                             <td>Sat</td>
-                            <td><input type="text" size="10" name="satReg" id="satReg" maxlength="10" /></td>
-                            <td><input type="text" size="10" name="satSale" id="satSale" maxlength="10" /></td>
+                            <td><input type="text" name="satReg" id="satReg" maxlength="10" /></td>
+                            <td><input type="text" name="satSale" id="satSale" maxlength="10" /></td>
                 </tr></table></form>
             </div>
         </div>
