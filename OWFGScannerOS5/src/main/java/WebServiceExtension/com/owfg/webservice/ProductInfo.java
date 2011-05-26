@@ -2,7 +2,14 @@ package com.owfg.webservice;
 
 import com.owfg.stub.StoreManagementInfo;
 
-
+/**
+ * ProductInfo converts a storemanangment object to an array of strings
+ * for returning data easily used to javascript.
+ *
+ * In addition it checks for null values and and replaces them with empty Strings
+ * this was done here to reduce complication on javascript.
+ * @author Warren Voelkl
+ */
 public class ProductInfo {
 	public String boh;
 	public String forcast;

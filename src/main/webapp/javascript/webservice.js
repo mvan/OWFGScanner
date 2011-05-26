@@ -26,8 +26,6 @@ function getHistory(username, password, upc) {
         alert('Error');
     };
     var success = function(message) {
-        alert('Success');
-        alert('0,3' + message[0][3]);
         $("input#SunReg").val(message[0][3]);
         $("input#SunSale").val(message[0][4]);
         $("input#monReg").val(message[1][3]);
@@ -42,10 +40,6 @@ function getHistory(username, password, upc) {
         $("input#friSale").val(message[5][4]);
         $("input#satReg").val(message[6][3]);
         $("input#satSale").val(message[6][4]);
-        //JAVA side String[][][] arrayOfStrings = new String[1][history.length][FIELDS];
-        //I don't know how many history objects there will be
-        //each history object contains Strings in the following order
-        //dayOfWeek, forecast, onPromo(true false), promoSales, regularSales;
     };
 
   queryWebservice("getHistory", upc, username, password, success, error);

@@ -181,7 +181,13 @@ public class WebService  {
         return new Result(success, hInfo.toArray());
 	}
 
-    public void setStore (ScriptableFunction success, ScriptableFunction error, Long id) throws Exception {
+    /**
+     * sets the store id in this class which is then reused by webservice calls.
+     * @param success callback used upon success
+     * @param error callback used upon failure
+     * @param id StoreId used by server.
+     */
+    public void setStore (ScriptableFunction success, ScriptableFunction error, Long id) {
         storeId = id.longValue();
         try {
         success.invoke(success, null);
@@ -190,38 +196,54 @@ public class WebService  {
         }
     }
 
+    /**
+     * @return The current address the webservice is pointing to
+     */
     public String getAddress() {
         return address;
     }
+
+    /**
+     * Sets the endpoint property in the stub.
+     * @param address the new endpoint location
+     */
     public void setAddress(String address) {
         stub._setProperty(StoreManagement_Stub.ENDPOINT_ADDRESS_PROPERTY, address);
         this.address = address;
         Logger.logDebugEvent("WebService.setAddress: " + address);
     }
+
+    /**
+     * @return the current user the webservice is pointing to.
+     */
     public String getUser() {
         return user;
     }
+
+    /**
+     * Sets the user property in the stub
+     * @param user the new user value.
+     */
     public void setUser(String user) {
         stub._setProperty(StoreManagement_Stub.USERNAME_PROPERTY, user);
         this.user = user;
         Logger.logDebugEvent("WebService.setAddress: " + user);
     }
+
+    /**
+     * @return the value of the current webservice password
+     */
     public String getPass() {
         return pass;
     }
+
+    /**
+     * Sets the password property in the stub
+     * @param pass the new password value used to authenticate the connection
+     */
     public void setPass(String pass) {
         stub._setProperty(StoreManagement_Stub.PASSWORD_PROPERTY, pass);
         this.pass = pass;
-        Logger.logDebugEvent("WebService.setAddress: " + pass);
     }
-
-
-
-
-     protected int dayOfWeek;
-    protected Double forecast;
-    protected Boolean onPromo;
-    protected Double promoSales;
-    protected Double regularSales;
 }
 

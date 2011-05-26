@@ -29,12 +29,11 @@ public final class Client extends ScriptableFunction {
 
     /**
      * The constructor creates a worker thread.
-     * @param obj number of objects recieved from javascript
-     * @param args
-     * @return
-     * @throws Exception
+     * @param obj length of args
+     * @param args objects recieved from javascript
+     * @return used by webworks
      */
-    public Object invoke(Object obj, Object[] args) throws Exception {
+    public Object invoke(Object obj, Object[] args) {
         error = (ScriptableFunction) args[1];
         EventLogger.register(GUID, APP_NAME, EventLogger.VIEWER_STRING);
         Logger.logErrorEvent("Client.invoke(): invoke");
@@ -45,10 +44,12 @@ public final class Client extends ScriptableFunction {
         return UNDEFINED;
     }
 
-
-
-
-
+    /**
+     * The class where the web service is called
+     * In addition this class parses the javascript call and sets a
+     * timeout which terminates this thread and calls a callback
+     * @author Warren Voelkl
+     */
     class WorkerThread implements Runnable {
         public Timer tm;
         TestTimerTask tt;
@@ -64,6 +65,10 @@ public final class Client extends ScriptableFunction {
             this.obj = obj;
             this.args = args;
         }
+
+        /**
+         * runs this thread.
+         */
         public void run(){
             String fnName = (String) args[5];
             ScriptableFunction success = (ScriptableFunction) args[0];
@@ -113,30 +118,39 @@ public final class Client extends ScriptableFunction {
                 }
             }
         }
-    private void timeout() {
-		tm = new Timer();
-		tt = new TestTimerTask();
-	    tm.schedule(tt,TIMEOUT);
-        Logger.logErrorEvent("Client.Timeout(): Started");
-	}
 
-    private class TestTimerTask extends TimerTask
-	{
-	    public final void run()
-	    {
-            synchronized(UiApplication.getEventLock()) {
-                thread.interrupt();
+        /**
+         * Sets up time timeout
+         */
+        private void timeout() {
+            tm = new Timer();
+            tt = new TestTimerTask();
+            tm.schedule(tt,TIMEOUT);
+            Logger.logErrorEvent("Client.Timeout(): Started");
+        }
+
+        /**
+         * the object called when/if timeout expires.
+         * calls the error callback if this class is activated by timer.
+         * @author Warren Voelkl
+         */
+        private class TestTimerTask extends TimerTask
+        {
+            public final void run()
+            {
+                synchronized(UiApplication.getEventLock()) {
+                    thread.interrupt();
+                }
+                Logger.logErrorEvent("TestTimerTask.run(): timeout hit");
+                try {
+                    String[] str = new String[1];
+                    str[0] = "timeout";
+                    error.invoke(error, str);
+                } catch (Exception e) {
+                    Logger.logErrorEvent("TestTimerTask.run(): invoke");
+                }
             }
-            Logger.logErrorEvent("TestTimerTask.run(): timeout hit");
-            try {
-                String[] str = new String[1];
-                str[0] = "timeout";
-                error.invoke(error, str);
-            } catch (Exception e) {
-                Logger.logErrorEvent("TestTimerTask.run(): invoke");
-            }
-	    }
-	}
+        }
     }
 }
 
