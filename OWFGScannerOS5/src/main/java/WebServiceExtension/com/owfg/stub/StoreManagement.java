@@ -2,15 +2,15 @@
 // Contents subject to change without notice.
 // @generated
 
-package WebServiceExtension.com.owfg.stub;
+package com.owfg.stub;
 
 public interface StoreManagement extends java.rmi.Remote {
-	public WebServiceExtension.com.owfg.stub.Store[] getActiveStores() throws java.rmi.RemoteException;
+	public com.owfg.stub.Store[] getActiveStores() throws java.rmi.RemoteException;
 
-	public WebServiceExtension.com.owfg.stub.Banner[] getBanners() throws java.rmi.RemoteException;
+	public com.owfg.stub.Banner[] getBanners() throws java.rmi.RemoteException;
 
-	public WebServiceExtension.com.owfg.stub.ItemSalesHistoryInfo[] getItemSalesHistory(long storeId, java.lang.String upc) throws java.rmi.RemoteException;
+	public com.owfg.stub.ItemSalesHistoryInfo[] getItemSalesHistory(long storeId, java.lang.String upc) throws java.rmi.RemoteException;
 
-	public WebServiceExtension.com.owfg.stub.StoreManagementInfo getStoreManagementInfo(long storeId, java.lang.String upc) throws java.rmi.RemoteException;
+	public com.owfg.stub.StoreManagementInfo getStoreManagementInfo(long storeId, java.lang.String upc) throws java.rmi.RemoteException;
 
 }

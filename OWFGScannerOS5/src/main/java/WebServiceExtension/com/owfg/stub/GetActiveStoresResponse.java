@@ -2,24 +2,24 @@
 // Contents subject to change without notice.
 // JSR-172 Reference Implementation wscompile 1.0, using: JAX-RPC Standard Implementation (1.1, build R59)
 
-package WebServiceExtension.com.owfg.stub;
+package com.owfg.stub;
 
 
 public class GetActiveStoresResponse {
-    protected WebServiceExtension.com.owfg.stub.Store[] stores;
+    protected com.owfg.stub.Store[] stores;
     
     public GetActiveStoresResponse() {
     }
     
-    public GetActiveStoresResponse(WebServiceExtension.com.owfg.stub.Store[] stores) {
+    public GetActiveStoresResponse(com.owfg.stub.Store[] stores) {
         this.stores = stores;
     }
     
-    public WebServiceExtension.com.owfg.stub.Store[] getStores() {
+    public com.owfg.stub.Store[] getStores() {
         return stores;
     }
     
-    public void setStores(WebServiceExtension.com.owfg.stub.Store[] stores) {
+    public void setStores(com.owfg.stub.Store[] stores) {
         this.stores = stores;
     }
 }

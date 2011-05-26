@@ -2,24 +2,24 @@
 // Contents subject to change without notice.
 // JSR-172 Reference Implementation wscompile 1.0, using: JAX-RPC Standard Implementation (1.1, build R59)
 
-package WebServiceExtension.com.owfg.stub;
+package com.owfg.stub;
 
 
 public class GetItemSalesHistoryResponse {
-    protected WebServiceExtension.com.owfg.stub.ItemSalesHistoryInfo[] itemSalesHistoryInfo;
+    protected com.owfg.stub.ItemSalesHistoryInfo[] itemSalesHistoryInfo;
     
     public GetItemSalesHistoryResponse() {
     }
     
-    public GetItemSalesHistoryResponse(WebServiceExtension.com.owfg.stub.ItemSalesHistoryInfo[] itemSalesHistoryInfo) {
+    public GetItemSalesHistoryResponse(com.owfg.stub.ItemSalesHistoryInfo[] itemSalesHistoryInfo) {
         this.itemSalesHistoryInfo = itemSalesHistoryInfo;
     }
     
-    public WebServiceExtension.com.owfg.stub.ItemSalesHistoryInfo[] getItemSalesHistoryInfo() {
+    public com.owfg.stub.ItemSalesHistoryInfo[] getItemSalesHistoryInfo() {
         return itemSalesHistoryInfo;
     }
     
-    public void setItemSalesHistoryInfo(WebServiceExtension.com.owfg.stub.ItemSalesHistoryInfo[] itemSalesHistoryInfo) {
+    public void setItemSalesHistoryInfo(com.owfg.stub.ItemSalesHistoryInfo[] itemSalesHistoryInfo) {
         this.itemSalesHistoryInfo = itemSalesHistoryInfo;
     }
 }

@@ -1,10 +1,10 @@
-package WebServiceExtension.com.owfg.webservice;
+package com.owfg.webservice;
 
-import WebServiceExtension.com.owfg.stub.Banner;
-import WebServiceExtension.com.owfg.stub.Store;
-import WebServiceExtension.com.owfg.stub.StoreManagementInfo;
-import WebServiceExtension.com.owfg.stub.ItemSalesHistoryInfo;
-import WebServiceExtension.com.owfg.stub.StoreManagement_Stub;
+import com.owfg.stub.Banner;
+import com.owfg.stub.Store;
+import com.owfg.stub.StoreManagementInfo;
+import com.owfg.stub.ItemSalesHistoryInfo;
+import com.owfg.stub.StoreManagement_Stub;
 
 
 import net.rim.device.api.script.ScriptableFunction;

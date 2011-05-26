@@ -1,4 +1,4 @@
-package WebServiceExtension.com.owfg.webservice;
+package com.owfg.webservice;
 
 import net.rim.device.api.browser.field2.BrowserField;
 import net.rim.device.api.script.ScriptEngine;

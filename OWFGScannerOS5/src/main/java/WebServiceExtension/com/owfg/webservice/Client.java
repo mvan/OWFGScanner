@@ -1,4 +1,4 @@
-package WebServiceExtension.com.owfg.webservice;
+package com.owfg.webservice;
 
 import java.io.IOException;
 import net.rim.device.api.script.ScriptableFunction;

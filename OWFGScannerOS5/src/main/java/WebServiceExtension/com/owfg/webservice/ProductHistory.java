@@ -1,6 +1,6 @@
-package WebServiceExtension.com.owfg.webservice;
+package com.owfg.webservice;
 
-import WebServiceExtension.com.owfg.stub.ItemSalesHistoryInfo;
+import com.owfg.stub.ItemSalesHistoryInfo;
 
 /**
  * Created by IntelliJ IDEA.

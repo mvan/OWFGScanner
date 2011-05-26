@@ -2,7 +2,7 @@
 // Contents subject to change without notice.
 // @generated
 
-package WebServiceExtension.com.owfg.stub;
+package com.owfg.stub;
 
 import javax.xml.rpc.JAXRPCException;
 import javax.xml.namespace.QName;
@@ -11,7 +11,7 @@ import javax.microedition.xml.rpc.Type;
 import javax.microedition.xml.rpc.ComplexType;
 import javax.microedition.xml.rpc.Element;
 
-public class StoreManagement_Stub implements WebServiceExtension.com.owfg.stub.StoreManagement, javax.xml.rpc.Stub {
+public class StoreManagement_Stub implements com.owfg.stub.StoreManagement, javax.xml.rpc.Stub {
 	private String[] _propertyNames;
 	private Object[] _propertyValues;
 
@@ -65,7 +65,7 @@ public class StoreManagement_Stub implements WebServiceExtension.com.owfg.stub.S
 	//  Begin user methods
 	// 
 
-	public WebServiceExtension.com.owfg.stub.Store[] getActiveStores() throws java.rmi.RemoteException {
+	public com.owfg.stub.Store[] getActiveStores() throws java.rmi.RemoteException {
 		// Copy the incoming values into an Object array if needed.
 		Object[] inputObject = new Object[0];
 
@@ -82,7 +82,7 @@ public class StoreManagement_Stub implements WebServiceExtension.com.owfg.stub.S
 			}
 			throw e;
 		}
-		WebServiceExtension.com.owfg.stub.Store[] result;
+		com.owfg.stub.Store[] result;
 		// Convert the result into the right Java type.
 		// Unwrapped return value
 		Object[] storesObj = (Object[]) ((Object[])resultObj)[0];
@@ -90,13 +90,13 @@ public class StoreManagement_Stub implements WebServiceExtension.com.owfg.stub.S
 			result = null;
 		} else {
 			int storeArraySize = storesObj.length;
-			result = new WebServiceExtension.com.owfg.stub.Store[storeArraySize];
+			result = new com.owfg.stub.Store[storeArraySize];
 			for (int storeArrayIndex = 0; 
 				storeArrayIndex < storeArraySize; ++storeArrayIndex) {
 				if (storesObj[storeArrayIndex] == null) {
 					result[storeArrayIndex] = null;
 				} else {
-					result[storeArrayIndex] = new WebServiceExtension.com.owfg.stub.Store();
+					result[storeArrayIndex] = new com.owfg.stub.Store();
 					long a_long;
 					Object bannerIdObj = ((Object[])storesObj[storeArrayIndex])[0];
 					a_long = ((java.lang.Long)bannerIdObj).longValue();
@@ -115,7 +115,7 @@ public class StoreManagement_Stub implements WebServiceExtension.com.owfg.stub.S
 		return result;
 	}
 
-	public WebServiceExtension.com.owfg.stub.Banner[] getBanners() throws java.rmi.RemoteException {
+	public com.owfg.stub.Banner[] getBanners() throws java.rmi.RemoteException {
 		// Copy the incoming values into an Object array if needed.
 		Object[] inputObject = new Object[0];
 
@@ -132,7 +132,7 @@ public class StoreManagement_Stub implements WebServiceExtension.com.owfg.stub.S
 			}
 			throw e;
 		}
-		WebServiceExtension.com.owfg.stub.Banner[] result;
+		com.owfg.stub.Banner[] result;
 		// Convert the result into the right Java type.
 		// Unwrapped return value
 		Object[] bannersObj = (Object[]) ((Object[])resultObj)[0];
@@ -140,13 +140,13 @@ public class StoreManagement_Stub implements WebServiceExtension.com.owfg.stub.S
 			result = null;
 		} else {
 			int bannerArraySize = bannersObj.length;
-			result = new WebServiceExtension.com.owfg.stub.Banner[bannerArraySize];
+			result = new com.owfg.stub.Banner[bannerArraySize];
 			for (int bannerArrayIndex = 0; 
 				bannerArrayIndex < bannerArraySize; ++bannerArrayIndex) {
 				if (bannersObj[bannerArrayIndex] == null) {
 					result[bannerArrayIndex] = null;
 				} else {
-					result[bannerArrayIndex] = new WebServiceExtension.com.owfg.stub.Banner();
+					result[bannerArrayIndex] = new com.owfg.stub.Banner();
 					long a_long;
 					Object bannerIdObj = ((Object[])bannersObj[bannerArrayIndex])[0];
 					a_long = ((java.lang.Long)bannerIdObj).longValue();
@@ -161,7 +161,7 @@ public class StoreManagement_Stub implements WebServiceExtension.com.owfg.stub.S
 		return result;
 	}
 
-	public WebServiceExtension.com.owfg.stub.ItemSalesHistoryInfo[] getItemSalesHistory(long storeId, java.lang.String upc) throws java.rmi.RemoteException {
+	public com.owfg.stub.ItemSalesHistoryInfo[] getItemSalesHistory(long storeId, java.lang.String upc) throws java.rmi.RemoteException {
 		// Copy the incoming values into an Object array if needed.
 		Object[] inputObject = new Object[2];
 		inputObject[0] = new java.lang.Long(storeId);
@@ -180,7 +180,7 @@ public class StoreManagement_Stub implements WebServiceExtension.com.owfg.stub.S
 			}
 			throw e;
 		}
-		WebServiceExtension.com.owfg.stub.ItemSalesHistoryInfo[] result;
+		com.owfg.stub.ItemSalesHistoryInfo[] result;
 		// Convert the result into the right Java type.
 		// Unwrapped return value
 		Object[] itemSalesHistoryInfoObj = (Object[]) ((Object[])resultObj)[0];
@@ -188,14 +188,14 @@ public class StoreManagement_Stub implements WebServiceExtension.com.owfg.stub.S
 			result = null;
 		} else {
 			int itemSalesHistoryInfoArraySize = itemSalesHistoryInfoObj.length;
-			result = new WebServiceExtension.com.owfg.stub.ItemSalesHistoryInfo[itemSalesHistoryInfoArraySize];
+			result = new com.owfg.stub.ItemSalesHistoryInfo[itemSalesHistoryInfoArraySize];
 			for (int itemSalesHistoryInfoArrayIndex = 0; 
 				itemSalesHistoryInfoArrayIndex < itemSalesHistoryInfoArraySize; 
 				++itemSalesHistoryInfoArrayIndex) {
 				if (itemSalesHistoryInfoObj[itemSalesHistoryInfoArrayIndex] == null) {
 					result[itemSalesHistoryInfoArrayIndex] = null;
 				} else {
-					result[itemSalesHistoryInfoArrayIndex] = new WebServiceExtension.com.owfg.stub.ItemSalesHistoryInfo();
+					result[itemSalesHistoryInfoArrayIndex] = new com.owfg.stub.ItemSalesHistoryInfo();
 					int a_int;
 					Object dayOfWeekObj = ((Object[])itemSalesHistoryInfoObj[itemSalesHistoryInfoArrayIndex])[0];
 					a_int = ((java.lang.Integer)dayOfWeekObj).intValue();
@@ -222,7 +222,7 @@ public class StoreManagement_Stub implements WebServiceExtension.com.owfg.stub.S
 		return result;
 	}
 
-	public WebServiceExtension.com.owfg.stub.StoreManagementInfo getStoreManagementInfo(long storeId, java.lang.String upc) throws java.rmi.RemoteException {
+	public com.owfg.stub.StoreManagementInfo getStoreManagementInfo(long storeId, java.lang.String upc) throws java.rmi.RemoteException {
 		// Copy the incoming values into an Object array if needed.
 		Object[] inputObject = new Object[2];
 		inputObject[0] = new java.lang.Long(storeId);
@@ -241,14 +241,14 @@ public class StoreManagement_Stub implements WebServiceExtension.com.owfg.stub.S
 			}
 			throw e;
 		}
-		WebServiceExtension.com.owfg.stub.StoreManagementInfo result;
+		com.owfg.stub.StoreManagementInfo result;
 		// Convert the result into the right Java type.
 		// Unwrapped return value
 		Object[] storeManagementInfoObj = (Object[]) ((Object[])resultObj)[0];
 		if (storeManagementInfoObj == null) {
 			result = null;
 		} else {
-			result = new WebServiceExtension.com.owfg.stub.StoreManagementInfo();
+			result = new com.owfg.stub.StoreManagementInfo();
 			java.lang.Double _double;
 			Object balanceOnHandObj = storeManagementInfoObj[0];
 			_double = (java.lang.Double)balanceOnHandObj;

@@ -1,7 +1,7 @@
-package WebServiceExtension.com.owfg.webservice;
+package com.owfg.webservice;
 
-import WebServiceExtension.com.owfg.stub.StoreManagementInfo;
-import WebServiceExtension.com.owfg.stub.StoreManagementInfo;
+import com.owfg.stub.StoreManagementInfo;
+
 
 public class ProductInfo {
 	public String boh;

@@ -2,24 +2,24 @@
 // Contents subject to change without notice.
 // JSR-172 Reference Implementation wscompile 1.0, using: JAX-RPC Standard Implementation (1.1, build R59)
 
-package WebServiceExtension.com.owfg.stub;
+package com.owfg.stub;
 
 
 public class GetStoreManagementInfoResponse {
-    protected WebServiceExtension.com.owfg.stub.StoreManagementInfo storeManagementInfo;
+    protected com.owfg.stub.StoreManagementInfo storeManagementInfo;
     
     public GetStoreManagementInfoResponse() {
     }
     
-    public GetStoreManagementInfoResponse(WebServiceExtension.com.owfg.stub.StoreManagementInfo storeManagementInfo) {
+    public GetStoreManagementInfoResponse(com.owfg.stub.StoreManagementInfo storeManagementInfo) {
         this.storeManagementInfo = storeManagementInfo;
     }
     
-    public WebServiceExtension.com.owfg.stub.StoreManagementInfo getStoreManagementInfo() {
+    public com.owfg.stub.StoreManagementInfo getStoreManagementInfo() {
         return storeManagementInfo;
     }
     
-    public void setStoreManagementInfo(WebServiceExtension.com.owfg.stub.StoreManagementInfo storeManagementInfo) {
+    public void setStoreManagementInfo(com.owfg.stub.StoreManagementInfo storeManagementInfo) {
         this.storeManagementInfo = storeManagementInfo;
     }
 }
