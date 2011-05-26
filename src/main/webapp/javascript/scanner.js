@@ -21,8 +21,6 @@ $(function() {
  * Protected for safe usage in desktop browser.
  */
 function clearCache() {
-    //alert("Clearing cache...");
-
     // Block for desktop browser testing.
     if (typeof blackberry == 'undefined' || typeof blackberry.widgetcache === 'undefined') {
         return;
@@ -214,3 +212,11 @@ function clearMenuItems() {
     }
 }
 
+function exit() {
+    try {
+        blackberry.app.exit();
+    }
+    catch (e) {
+        alert("exit(): Exception occured: " + e.name + "; " + e.message);
+    }
+}

@@ -7,7 +7,7 @@
   /**
    * TODO: Document the hell out of this.
    */
-  $.fn.Config = function(initCallback) {
+  $.fn.Config = function(initCallback, errorCallback) {
     var instance = (function() {
       /************************************************************************
       * Private members
@@ -24,6 +24,9 @@
         // Get databse; if doesn't exist, create it.
         try {
           var database = window.openDatabase(DB_NAME, DB_VERSION, DB_DISPLAY, DB_SIZE);
+          if (typeof database === 'undefined') {
+            errorCallback();
+          }
         }
         catch (e) {
           exception(e, "Could not get database instance.");

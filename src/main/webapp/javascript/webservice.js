@@ -17,7 +17,6 @@ function queryWebservice(query, args, username, password, success, error) {
 }
 
 function getStores(username, password, success, error) {
-  alert("getStores called");
   queryWebservice("getStores", "", username, password, success, error);
 }
 

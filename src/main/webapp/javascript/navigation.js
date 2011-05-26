@@ -26,7 +26,8 @@ var activePage = "";
       $(".nav", this).each(function(i, e) {
           var element = $(e);
           element.click(function() {
-              changePage(element.attr("data-dest"));
+              var dest = element.attr("data-dest");
+              changePage(dest);
               return false;
           });
       });
