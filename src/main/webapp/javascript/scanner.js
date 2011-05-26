@@ -51,28 +51,51 @@ function init() {
       changePage("#login");
   };
 
-  // Initialize persistent configuration.
-  var config = $.fn.Config(function() {
-    var username = config.getVar("username", null);
-    var password = config.getVar("password", null);
+  // Bind hardware events suchas the "back" button.
+  bindBackEvent(function() {
+      if (!backPage()) {
+          var message = "Exit application?";
+          try {
+              var ret = blackberry.ui.dialog.standardAsk(blackberry.ui.dialog.D_YES_NO, message, blackberry.ui.dialog.C_NO, false);
+          }
+          catch (e) {
+              alert("standardAsk(): (dialog) Exception occured: " + e.name + "; " + e.message);
+          }
 
-    $("#login-field-username").val(username);
-    $("#login-field-password").val(password);
-
-    // Authentication information exists.
-    if (username && password) {
-      changePage("#loading");
-
-      getStores(username, password, authSuccess, authError);
-    }
-    // No authentication information.
-    else {
-      changePage("#login");
-    }
+          if (ret == blackberry.ui.dialog.C_YES) {
+              exit();
+          }
+      }
   });
 
+  // Initialize persistent configuration.
+  var config = $.fn.Config(
+      function() {
+          var username = config.getVar("username", null);
+          var password = config.getVar("password", null);
+
+          $("#login-field-username").val(username);
+          $("#login-field-password").val(password);
+
+          // Authentication information exists.
+          if (username && password) {
+              changePage("#loading", true);
+              getStores(username, password, authSuccess, authError);
+          }
+          // No authentication information.
+          else {
+            changePage("#login");
+          }
+      }, 
+      // Error setting up config.
+      function() {
+          alert("No external storage detected.\nPlease insert SD card and try again.");
+          exit();
+      }
+  );
+
   $("#button-login-submit").click(function() {
-      changePage("#loading");
+      changePage("#loading", true);
       var username = $("#login-field-username").val();
       var password = $("#login-field-password").val();
 
@@ -91,7 +114,7 @@ function init() {
       var store = $("#store").val();
       var upc = $("#upc").val();
       
-      changePage("#loading");
+      changePage("#loading", true);
 
       setStore(username, password, store,
         // Success.
@@ -129,6 +152,19 @@ function init() {
       var config = $.fn.Config();
       $("#config-field-url").val(config.getVar("url", "https://simdv1.owfg.com:8443/caos/StoreManagement"));
   });
+}
+
+function bindBackEvent(action) {
+    // Block for desktop browser testing.
+    if (typeof blackberry === 'undefined') {
+        return;
+    }
+
+    try {
+        blackberry.system.event.onHardwareKey(blackberry.system.event.KEY_BACK, action);
+    } catch (e) {
+        alert("onHardwareKey(): Exception occured: " + e.name + "; " + e.message);
+    }
 }
 
 /**
@@ -170,19 +206,13 @@ function loadMenuItems(page) {
 
     // Menus for results page.
     var items = [];
+    items[0] = new blackberry.ui.menu.MenuItem(false, 1, "Back", function() { backPage(); });
+
     if (page === "#results") {
         try {
-            items[0] = new blackberry.ui.menu.MenuItem(false, 1, "Scan", scanBarcode);
-            items[1] = new blackberry.ui.menu.MenuItem(false, 2, "Logout", function() { changePage("#login"); });
-            items[2] = new blackberry.ui.menu.MenuItem(false, 3, "Config", function() { changePage("#config"); });
-        }
-        catch (e) {
-            alert("Exception: new MenuItem(); " + e.name + '; ' + e.message);
-        }
-    }
-    else if (page === "#forecast") {
-        try {
-            items[0] = new blackberry.ui.menu.MenuItem(false, 1, "Back", function() { changePage("#results"); });
+            items[1] = new blackberry.ui.menu.MenuItem(false, 2, "Scan", scanBarcode);
+            items[2] = new blackberry.ui.menu.MenuItem(false, 3, "Logout", function() { changePage("#login"); });
+            items[3] = new blackberry.ui.menu.MenuItem(false, 4, "Config", function() { changePage("#config"); });
         }
         catch (e) {
             alert("Exception: new MenuItem(); " + e.name + '; ' + e.message);
