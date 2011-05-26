@@ -27,6 +27,21 @@ function getHistory(username, password, upc) {
     };
     var success = function(message) {
         alert('Success');
+        alert('0,3' + message[0][3]);
+        $("input#SunReg").val(message[0][3]);
+        $("input#SunSale").val(message[0][4]);
+        $("input#monReg").val(message[1][3]);
+        $("input#monSale").val(message[1][4]);
+        $("input#tueReg").val(message[2][3]);
+        $("input#tueSale").val(message[2][4]);
+        $("input#wedReg").val(message[3][3]);
+        $("input#wedSale").val(message[3][4]);
+        $("input#thursReg").val(message[4][3]);
+        $("input#thursSale").val(message[4][4]);
+        $("input#friReg").val(message[5][3]);
+        $("input#friSale").val(message[5][4]);
+        $("input#satReg").val(message[6][3]);
+        $("input#satSale").val(message[6][4]);
         //JAVA side String[][][] arrayOfStrings = new String[1][history.length][FIELDS];
         //I don't know how many history objects there will be
         //each history object contains Strings in the following order

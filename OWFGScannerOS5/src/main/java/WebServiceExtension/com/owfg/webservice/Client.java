@@ -9,53 +9,49 @@ import java.lang.Runnable;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Recieves function calls from javascript side and calls appropriate java function
+ *
+ * This class does two things it reads from the javascript function call.  In addition
+ * It creates a worker thread for the network access and handles its own timeout.
+ * Then it invokes the appropriate call back depending on success or timeout of the network
+ * call.
+ * @author Warren Voelkl
+ **/
 public final class Client extends ScriptableFunction {
 
     public static final long GUID = 0x2051fd67b72d11L;
     public static final String APP_NAME = "WebService Plugin";
-
+    protected final int TIMEOUT = 7500;
     Thread thread;
-    public Timer tm;
-    TestTimerTask tt;
+
     ScriptableFunction error;
 
+    /**
+     * The constructor creates a worker thread.
+     * @param obj number of objects recieved from javascript
+     * @param args
+     * @return
+     * @throws Exception
+     */
     public Object invoke(Object obj, Object[] args) throws Exception {
         error = (ScriptableFunction) args[1];
         EventLogger.register(GUID, APP_NAME, EventLogger.VIEWER_STRING);
         Logger.logErrorEvent("Client.invoke(): invoke");
         Runnable runnable = new WorkerThread(obj, args);
         thread = new Thread(runnable);
-        timeout();
+
         thread.start();
         return UNDEFINED;
     }
 
-    private void timeout() {
-		tm = new Timer();
-		tt = new TestTimerTask();
-	    tm.schedule(tt,5000);
-        Logger.logErrorEvent("Client.Timeout(): Started");
-	}
 
-	private class TestTimerTask extends TimerTask
-	{
-	    public final void run()
-	    {
-            synchronized(UiApplication.getEventLock()) {
-                thread.interrupt();
-            }
-            Logger.logErrorEvent("TestTimerTask.run(): timeout hit");
-            try {
-                String[] str = new String[1];
-                str[0] = "timeout";
-                error.invoke(error, str);
-            } catch (Exception e) {
-                Logger.logErrorEvent("TestTimerTask.run(): invoke");
-            }
-	    }
-	}
+
+
 
     class WorkerThread implements Runnable {
+        public Timer tm;
+        TestTimerTask tt;
         public static final String GET_INFO = "getInfo";
         public static final String GET_BANNERS = "getBanners";
         public static final String GET_STORES = "getStores";
@@ -73,6 +69,7 @@ public final class Client extends ScriptableFunction {
             ScriptableFunction success = (ScriptableFunction) args[0];
             ScriptableFunction error = (ScriptableFunction) args[1];
             Result result = null;
+            timeout();
             if (ws == null) {
                 Logger.logErrorEvent("Client.invoke(): create WS");
                 ws = new WebService((String) args[2], (String) args[3], (String) args[4]);
@@ -116,6 +113,30 @@ public final class Client extends ScriptableFunction {
                 }
             }
         }
+    private void timeout() {
+		tm = new Timer();
+		tt = new TestTimerTask();
+	    tm.schedule(tt,TIMEOUT);
+        Logger.logErrorEvent("Client.Timeout(): Started");
+	}
+
+    private class TestTimerTask extends TimerTask
+	{
+	    public final void run()
+	    {
+            synchronized(UiApplication.getEventLock()) {
+                thread.interrupt();
+            }
+            Logger.logErrorEvent("TestTimerTask.run(): timeout hit");
+            try {
+                String[] str = new String[1];
+                str[0] = "timeout";
+                error.invoke(error, str);
+            } catch (Exception e) {
+                Logger.logErrorEvent("TestTimerTask.run(): invoke");
+            }
+	    }
+	}
     }
 }
 

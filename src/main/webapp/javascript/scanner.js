@@ -144,7 +144,13 @@ function init() {
   });
 
   $("#forecast").live("page-opened", function() {
+      var upc = $("#upc").val();
+      var username = config.getVar("username", "");
+      var password = config.getVar("password", "");
       loadMenuItems("#forecast");
+      getHistory(username, password, upc);
+
+
   });
 
   $("#loading").live("page-opened", function() {

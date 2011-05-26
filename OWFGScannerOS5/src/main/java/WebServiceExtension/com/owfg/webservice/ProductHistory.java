@@ -22,9 +22,10 @@ public class ProductHistory {
         Boolean onPromo;
         Double promoSales;
         Double regularSales;
-        String[] fields = new String[FIELDS];
+        String[] fields = null;
         String[][][] arrayOfStrings = new String[1][history.length][FIELDS];
         for (int i = 0; i != history.length; i++) {
+            fields = new String[FIELDS];
             dayOfWeek = history[i].getDayOfWeek();
             forecast = history[i].getForecast();
             onPromo = history[i].getOnPromo();
@@ -36,6 +37,7 @@ public class ProductHistory {
             fields[3] = (promoSales == null) ? "" : promoSales.toString();
             fields[4] = (regularSales == null) ? "" : regularSales.toString();
             arrayOfStrings[0][i] = fields;
+            Logger.logErrorEvent("Regular price " + i + " double value: " + regularSales.doubleValue() + " tostring: " + regularSales.toString());
 		}
         return arrayOfStrings;
     }
