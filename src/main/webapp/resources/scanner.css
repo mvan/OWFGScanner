@@ -104,10 +104,11 @@ form label {
 
 /** UTILITY **/
 .column-75 {
-  width: 75%;
+  width: 65%;
   float: left;
 }
 
+.content,
 .column {
   padding: 8px;
 }
