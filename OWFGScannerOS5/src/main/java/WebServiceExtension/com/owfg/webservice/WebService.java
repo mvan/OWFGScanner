@@ -1,12 +1,13 @@
-package com.owfg.webservice;
+package WebServiceExtension.com.owfg.webservice;
 
-import com.owfg.stub.Banner;
-import com.owfg.stub.Store;
-import com.owfg.stub.StoreManagement_Stub;
-import com.owfg.stub.StoreManagementInfo;
+import WebServiceExtension.com.owfg.stub.Banner;
+import WebServiceExtension.com.owfg.stub.Store;
+import WebServiceExtension.com.owfg.stub.StoreManagementInfo;
+import WebServiceExtension.com.owfg.stub.ItemSalesHistoryInfo;
+import WebServiceExtension.com.owfg.stub.StoreManagement_Stub;
+
 
 import net.rim.device.api.script.ScriptableFunction;
-import net.rim.device.api.ui.UiApplication;
 
 
 /**
@@ -34,7 +35,6 @@ public class WebService  {
 			}
 		} catch (Exception ex) {
 			Logger.logSevereErrorEvent("WebService(): " + ex);
-			return;
 		}
 	}
 	
@@ -45,8 +45,8 @@ public class WebService  {
 	* on a failure it will throw an exception currently this is
 	* disabled for testing purposes.
 	*
+    * @author Warren Voelkl
 	* @return a list of stores containing name, id and bannerId
-	* @author Warren Voelkl
 	**/
 	public Result getStores(ScriptableFunction success, ScriptableFunction error) throws Exception {
 		Store[] storesResponse = null;
@@ -148,6 +148,39 @@ public class WebService  {
         return new Result(success, info.toArray());
 	}
 
+    /**
+	* Gets a store info object from server
+	* <p>
+	* Currently this function uses the stub to contact a server
+	* on a failure it will throw an exception currently this exception
+	* returns bogus data for testing purposes.
+	*
+	* @return the info object containing all information of an object
+	* @author Warren Voelkl
+	**/
+	public Result getHistory(ScriptableFunction success, ScriptableFunction error, String string) throws Exception {
+        Logger.logDebugEvent("history");
+		ItemSalesHistoryInfo[] history = null;
+		String[] str = null;
+		ProductHistory hInfo = null;
+		if (stub == null) {
+			str = new String[1];
+			str[0] = new String("Stub is null");
+            return new Result(error, str);
+		}
+		try {
+            Logger.logDebugEvent("getHistory() stub.getItemSalesHistoryInfo()");
+			history = stub.getItemSalesHistory(storeId, string);
+		} catch (Exception e) {
+			Logger.logSevereErrorEvent("WebService.getHistory(): " + e);
+			str = new String[1];
+			str[0] = new String("Unable to retrive product info");
+            return new Result(error, str);
+		}
+        hInfo = new ProductHistory(history);
+        return new Result(success, hInfo.toArray());
+	}
+
     public void setStore (ScriptableFunction success, ScriptableFunction error, Long id) throws Exception {
         storeId = id.longValue();
         try {
@@ -181,5 +214,14 @@ public class WebService  {
         this.pass = pass;
         Logger.logDebugEvent("WebService.setAddress: " + pass);
     }
+
+
+
+
+     protected int dayOfWeek;
+    protected Double forecast;
+    protected Boolean onPromo;
+    protected Double promoSales;
+    protected Double regularSales;
 }
 

@@ -1,4 +1,4 @@
-package com.owfg.webservice;
+package WebServiceExtension.com.owfg.webservice;
 
 import java.io.IOException;
 import net.rim.device.api.script.ScriptableFunction;
@@ -47,7 +47,7 @@ public final class Client extends ScriptableFunction {
             Logger.logErrorEvent("TestTimerTask.run(): timeout hit");
             try {
                 String[] str = new String[1];
-                str[0] = new String("timeout");
+                str[0] = "timeout";
                 error.invoke(error, str);
             } catch (Exception e) {
                 Logger.logErrorEvent("TestTimerTask.run(): invoke");
@@ -60,6 +60,7 @@ public final class Client extends ScriptableFunction {
         public static final String GET_BANNERS = "getBanners";
         public static final String GET_STORES = "getStores";
         public static final String SET_STORE = "setStore";
+        public static final String GET_HISTORY = "getHistory";
         private WebService ws = null;
         private Object obj;
         private Object[] args;
@@ -82,6 +83,10 @@ public final class Client extends ScriptableFunction {
                 if (fnName.equals(GET_INFO)) {
                     Logger.logErrorEvent("Client.invoke(): get Info");
                     result = ws.getInfo(success, error, (String) args[6]);
+                }
+                if (fnName.equals(GET_HISTORY)) {
+                    Logger.logErrorEvent("Client.invoke(): get history");
+                    result = ws.getHistory(success, error, (String) args[6]);
                 }
                 if (fnName.equals(GET_BANNERS)) {
                     Logger.logErrorEvent("Client.invoke(): get banners");

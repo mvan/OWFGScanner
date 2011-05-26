@@ -1,4 +1,4 @@
-package com.owfg.webservice;
+package WebServiceExtension.com.owfg.webservice;
 
 import net.rim.device.api.script.Scriptable;
 

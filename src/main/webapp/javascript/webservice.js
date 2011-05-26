@@ -25,6 +25,22 @@ function getStores(username, password, success) {
   queryWebservice("getStores", "", username, password, success, error);
 }
 
+function getHistory(username, password, upc) {
+    // Error callback.
+    var error = function() {
+        alert('Error');
+    };
+    var success = function(message) {
+        alert('Success');
+        //JAVA side String[][][] arrayOfStrings = new String[1][history.length][FIELDS];
+        //I don't know how many history objects there will be
+        //each history object contains Strings in the following order
+        //dayOfWeek, forecast, onPromo(true false), promoSales, regularSales;
+    }
+
+  webservice.client.query(success, error, address, username, password, "getHistory", upc);
+}
+
 function getBanners(username, password, success) {
     // Success callback.
     var success = function() {

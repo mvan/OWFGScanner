@@ -1,4 +1,4 @@
-package com.owfg.webservice;
+package WebServiceExtension.com.owfg.webservice;
 
 import net.rim.device.api.browser.field2.BrowserField;
 import net.rim.device.api.script.ScriptEngine;
@@ -12,7 +12,7 @@ public final class WebServiceExtension implements WidgetExtension {
     BrowserField _browserField;
 
     /**
-     * The application calls the getFeatureList() when the JavaScript® extension is created. Define the
+     * The application calls the getFeatureList() when the JavaScriptï¿½ extension is created. Define the
      * getFeatureList() method to provide a full list of feature IDs that the BlackBerry WebWorks application
      * can provide extensions for. This method is called when the BlackBerry WebWorks Packager parses the
      * config.xml file that requires the feature

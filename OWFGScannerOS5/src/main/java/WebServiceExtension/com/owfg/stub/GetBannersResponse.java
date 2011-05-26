@@ -2,24 +2,24 @@
 // Contents subject to change without notice.
 // JSR-172 Reference Implementation wscompile 1.0, using: JAX-RPC Standard Implementation (1.1, build R59)
 
-package com.owfg.stub;
+package WebServiceExtension.com.owfg.stub;
 
 
 public class GetBannersResponse {
-    protected com.owfg.stub.Banner[] banners;
+    protected WebServiceExtension.com.owfg.stub.Banner[] banners;
     
     public GetBannersResponse() {
     }
     
-    public GetBannersResponse(com.owfg.stub.Banner[] banners) {
+    public GetBannersResponse(WebServiceExtension.com.owfg.stub.Banner[] banners) {
         this.banners = banners;
     }
     
-    public com.owfg.stub.Banner[] getBanners() {
+    public WebServiceExtension.com.owfg.stub.Banner[] getBanners() {
         return banners;
     }
     
-    public void setBanners(com.owfg.stub.Banner[] banners) {
+    public void setBanners(WebServiceExtension.com.owfg.stub.Banner[] banners) {
         this.banners = banners;
     }
 }
