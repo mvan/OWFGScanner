@@ -3,11 +3,8 @@ package com.owfg.webservice;
 import net.rim.device.api.script.ScriptableFunction;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Waz
- * Date: 5/24/11
- * Time: 2:25 PM
- * To change this template use File | Settings | File Templates.
+ * Used to return a callback and the objects used in callback to javascript
+ * @author Warren Voelkl
  */
 public class Result {
     ScriptableFunction fn;

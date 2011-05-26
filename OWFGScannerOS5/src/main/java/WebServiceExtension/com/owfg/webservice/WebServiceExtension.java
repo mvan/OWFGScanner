@@ -7,6 +7,9 @@ import net.rim.device.api.web.WidgetConfig;
 import net.rim.device.api.web.WidgetExtension;
 import org.w3c.dom.Document;
 
+/**
+ * WebWorks boilerplate file used in conversion of javascript to java code.
+ */
 public final class WebServiceExtension implements WidgetExtension {
     String _widgetName;
     BrowserField _browserField;

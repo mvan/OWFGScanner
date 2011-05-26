@@ -2,6 +2,9 @@ package com.owfg.webservice;
 
 import net.rim.device.api.script.Scriptable;
 
+/**
+ * Webworks required file used to call the Client class from javascript
+ */
 public final class WebServiceTools extends Scriptable {
     public static final String FIELD_QUERY = "query";
     private Client _callQuery;
