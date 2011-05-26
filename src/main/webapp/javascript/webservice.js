@@ -31,7 +31,7 @@ function getHistory(username, password, upc) {
         //I don't know how many history objects there will be
         //each history object contains Strings in the following order
         //dayOfWeek, forecast, onPromo(true false), promoSales, regularSales;
-    }
+    };
 
   queryWebservice("getHistory", upc, username, password, success, error);
 }
