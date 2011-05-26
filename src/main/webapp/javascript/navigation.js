@@ -64,3 +64,8 @@ function backPage() {
 
   return true;
 }
+
+function clearHistory() {
+  pageHistory = [];
+  pageHistory.push(activePage);
+}

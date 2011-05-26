@@ -6,9 +6,15 @@
 
   /**
    * Configuration storage class (singleton). 
+   *
    * Provides a Key -> Value persistant storage.
    * Can be invoked anywhere by calling the constructor found in the jQuery 
    * object: var config = $.fn.Config();
+   *
+   * Data is actively managed in the config object which is populated during
+   * instantiation from the database. 
+   * Whenever the object is updated the equivalent rows in the db are also 
+   * updated.
    *
    * Author: Tom Nightingale.
    */
@@ -40,24 +46,16 @@
         }
       
         // Create config table to store key -> value pairs.
-        try {
-          database.transaction(function(transaction) {
-            var query = 'CREATE TABLE IF NOT EXISTS config_map (key VARCHAR(10) PRIMARY KEY, val VARCHAR(100))';
-            var args = [];
-            transaction.executeSql(query, args);
-          });
-        }
-        catch (e) {
-          exception(e, "Could not create table.");
-        }
-        
+        createTable(database);
+
         return database;
       })();
 
+      // Populate the config object with values from the database.
       updateCache(initCallback);
 
       /**
-       *
+       * Updates a value for a key in the db.
        */
       function update(key, newVal) {
         try {
@@ -73,7 +71,7 @@
       }
 
       /**
-       *
+       * Inserts a new key-value into the db.
        */
       function insert(key, newVal) {
         try {
@@ -89,7 +87,7 @@
       }
 
       /**
-       *
+       * Retrieves all stored config variables and popultates the config object.
        */
       function updateCache(callback) {
         try {
@@ -109,13 +107,47 @@
           exception(e, "Could not update config cache.");
         }
       }
+
+      /**
+       *
+       */
+      function dropTable() {
+        try {
+          db.transaction(function(transaction) {
+            var query = 'DROP TABLE config_map';
+            var args = [];
+            transaction.executeSql(query, args);
+          });
+        }
+        catch (e) {
+          exception(e, "Could not update config cache.");
+        }
+      }
+
+      /**
+       *
+       */
+      function createTable(database) {
+        db = database || db;
+        // Create config table to store key -> value pairs.
+        try {
+          db.transaction(function(transaction) {
+            var query = 'CREATE TABLE IF NOT EXISTS config_map (key VARCHAR(10) PRIMARY KEY, val VARCHAR(100))';
+            var args = [];
+            transaction.executeSql(query, args);
+          });
+        }
+        catch (e) {
+          exception(e, "Could not create table.");
+        }
+      }
       
       /************************************************************************
       * Public members
       ************************************************************************/
       var publicInterface = { 
         /**
-         *
+         * Sets a variable with a value.
          */
         setVar : function(key, val) {
           if (config[key]) {
@@ -128,10 +160,22 @@
         },
         
         /**
+         * Retrieves a value of a variable.
          *
+         * @param String key    - The variable name.
+         * @param Object defVal - A default value if no matching key
+         *                        exists.
          */
         getVar : function(key, defVal) {
           return (config[key]) ? config[key] : defVal;
+        },
+        
+        /**
+         * Drops the config table and creates a new one.
+         */
+        reset : function() {
+          dropTable();
+          createTable();
         }
       };
     

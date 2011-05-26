@@ -33,6 +33,7 @@ function clearCache() {
  * Initializes application event handling:
  */
 function init() {
+  // Action to take when login authorization is successful.
   var authSuccess = function(stores) {
     var storeList = document.getElementById('store');
 
@@ -49,16 +50,19 @@ function init() {
     changePage("#results");
   };
 
+  // Action to take when login authorization fails.
   var authError = function(message) {
       alert('authError: ' + message);
       changePage("#login");
   };
 
-  // Bind hardware events suchas the "back" button.
+  // Bind action to take when the back button is pressed.
   bindBackEvent(function() {
+      // If there are no pages in the nav history, prompt user about exiting
+      // application.
       if (!backPage()) {
-          var message = "Exit application?";
           try {
+              var message = "Exit application?";
               var ret = blackberry.ui.dialog.standardAsk(blackberry.ui.dialog.D_YES_NO, message, blackberry.ui.dialog.C_NO, false);
           }
           catch (e) {
@@ -108,6 +112,13 @@ function init() {
   $("#button-config-submit").click(function() {
       var config = $.fn.Config();
       config.setVar("url", $("#config-field-url").val());
+      config.setVar("develop", $("#config-field-develop").is(":checked"));
+  });
+
+  $("#button-config-reset").click(function() {
+      var config = $.fn.Config();
+      config.reset();
+      exit();
   });
   
   $("#results-submit").click(function() {
@@ -136,11 +147,16 @@ function init() {
 
   $("#results").live("page-opened", function() {
       loadMenuItems("#results");
+      clearHistory();
 
       var config = $.fn.Config();
       config.setVar("username", $("#login-field-username").val());
       config.setVar("password", $("#login-field-password").val());
+  });
 
+  $("#login").live("page-opened", function() {
+      loadMenuItems("#login");
+      clearHistory();
   });
 
   $("#forecast").live("page-opened", function() {
@@ -156,6 +172,13 @@ function init() {
 
       var config = $.fn.Config();
       $("#config-field-url").val(config.getVar("url", "https://simdv1.owfg.com:8443/caos/StoreManagement"));
+      var checked = (config.getVar("develop", false) === "false") ? false : true;
+      if (checked) {
+        $("#config-field-develop").attr("checked", "checked");
+      }
+      else {
+        $("#config-field-develop").removeAttr("checked");
+      }
   });
 }
 
@@ -248,6 +271,9 @@ function clearMenuItems() {
 }
 
 function exit() {
+    if (typeof blackberry === "undefined") {
+        return;
+    }
     try {
         clearMenuItems();
         blackberry.app.exit();
